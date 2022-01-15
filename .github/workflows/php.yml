@@ -10,12 +10,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      NOVA_USERNAME: ${{ secrets.NOVA_USERNAME }}
+      NOVA_PASSWORD: ${{ secrets.NOVA_PASSWORD }}
     steps:
     - uses: actions/checkout@v2
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
+
+    - name: Auth to Nova
+      run: composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
 
     - name: Cache Composer packages
       id: composer-cache
