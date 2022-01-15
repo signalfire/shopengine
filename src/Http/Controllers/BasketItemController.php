@@ -2,23 +2,20 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use Signalfire\Shopengine\Http\Requests\DeleteBasketItemRequest;
+use Signalfire\Shopengine\Http\Requests\StoreBasketItemRequest;
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
-use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
-use Signalfire\Shopengine\Http\Requests\StoreBasketItemRequest;
-use Signalfire\Shopengine\Http\Requests\DeleteBasketItemRequest;
 
 class BasketItemController extends Controller
 {
-
     /**
-     * Adds / Updates item in basket
+     * Adds / Updates item in basket.
      *
      * @param StoreBasketItemRequest $request
-     * @param string $basket_id
+     * @param string                 $basket_id
+     *
      * @return string JSON
      */
     public function store(StoreBasketItemRequest $request, $basket_id)
@@ -31,7 +28,7 @@ class BasketItemController extends Controller
 
         $validated = $request->validated();
         $variant_id = $validated['product_variant_id'];
-        $quantity = (int)$validated['quantity'];
+        $quantity = (int) $validated['quantity'];
 
         $variant = ProductVariant::where('id', $variant_id)
             ->availableHasStock($quantity)
@@ -64,10 +61,11 @@ class BasketItemController extends Controller
     }
 
     /**
-     * Removes item from basket
+     * Removes item from basket.
      *
      * @param DeleteBasketItemRequest $request
-     * @param string $basket_id
+     * @param string                  $basket_id
+     *
      * @return string JSON
      */
     public function destroy(DeleteBasketItemRequest $request, $basket_id)
@@ -84,7 +82,7 @@ class BasketItemController extends Controller
         $item = $basket->items()->where('product_variant_id', $variant_id)->first();
 
         $item->delete();
-        
+
         $basket->refresh();
 
         return response()->json(['basket' => $basket], 202);

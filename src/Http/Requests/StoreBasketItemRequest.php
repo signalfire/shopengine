@@ -25,7 +25,7 @@ class StoreBasketItemRequest extends FormRequest
     {
         return [
             'product_variant_id' => 'required|uuid',
-            'quantity' => 'required|integer'
+            'quantity'           => 'required|integer',
         ];
     }
 }

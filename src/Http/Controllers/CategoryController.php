@@ -2,27 +2,29 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Http\Requests\StoreCategoryRequest;
 use Signalfire\Shopengine\Http\Requests\UpdateCategoryRequest;
+use Signalfire\Shopengine\Models\Category;
 
 class CategoryController extends Controller
 {
     /**
-     * Gets all categories
+     * Gets all categories.
      *
      * @return string JSON
      */
     public function index()
     {
         $categories = Category::available()->get();
+
         return response()->json(['categories' => $categories]);
     }
 
     /**
-     * Creates a new category
+     * Creates a new category.
      *
      * @param StoreCategoryRequest $request
+     *
      * @return string JSON
      */
     public function store(StoreCategoryRequest $request)
@@ -35,9 +37,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Updates existing category
+     * Updates existing category.
      *
      * @param UpdateCategoryRequest $request
+     *
      * @return string JSON
      */
     public function update(UpdateCategoryRequest $request, $category_id)

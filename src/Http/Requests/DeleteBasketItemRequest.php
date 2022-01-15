@@ -24,7 +24,7 @@ class DeleteBasketItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_variant_id' => 'required|uuid'
+            'product_variant_id' => 'required|uuid',
         ];
     }
 }

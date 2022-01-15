@@ -11,7 +11,7 @@ trait Uuid
         parent::boot();
 
         self::creating(function ($model) {
-            $model->{$model->getKeyName()} = (string)Str::uuid();
+            $model->{$model->getKeyName()} = (string) Str::uuid();
         });
     }
 

@@ -3,10 +3,7 @@
 namespace Signalfire\Shopengine;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route;
 use Laravel\Nova\Nova;
-
-use Signalfire\Shopengine\ShopEngine;
 use Signalfire\Shopengine\Nova\Category;
 use Signalfire\Shopengine\Nova\Resource;
 
@@ -15,7 +12,7 @@ class ShopEngineServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load views etc
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'shopengine');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'shopengine');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
@@ -23,18 +20,18 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         // Publish views and config
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/shopengine')
+            __DIR__.'/../resources/views' => resource_path('views/vendor/shopengine'),
         ], 'shopengine-views');
 
         $this->publishes([
-            __DIR__ . '/../config/shopengine.php' => base_path('config/shopengine.php')
+            __DIR__.'/../config/shopengine.php' => base_path('config/shopengine.php'),
         ], 'shopengine-config');
 
         // publish models
 
         Nova::resources([
             Resource::class,
-            Category::class
+            Category::class,
         ]);
     }
 
@@ -43,7 +40,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/shopengine.php', 'shopengine');
 
         $this->app->bind('shopengine', function () {
-            return new ShopEngine;
+            return new ShopEngine();
         });
     }
 }

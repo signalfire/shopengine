@@ -2,10 +2,7 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
-use Signalfire\Shopengine\Tests\TestCase;
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
@@ -19,7 +16,7 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/' . $basket->id . '/items', [])
+            ->json('POST', '/api/basket/'.$basket->id.'/items', [])
             ->assertJsonValidationErrorFor('product_variant_id', 'errors')
             ->assertJsonValidationErrorFor('quantity', 'errors')
             ->assertStatus(422);
@@ -31,7 +28,7 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/' . $basket->id . '/items', ['quantity' => 1])
+            ->json('POST', '/api/basket/'.$basket->id.'/items', ['quantity' => 1])
             ->assertJsonValidationErrorFor('product_variant_id', 'errors')
             ->assertStatus(422);
     }
@@ -42,7 +39,7 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/' . $basket->id . '/items', ['product_variant_id' => (string)Str::uuid()])
+            ->json('POST', '/api/basket/'.$basket->id.'/items', ['product_variant_id' => (string) Str::uuid()])
             ->assertJsonValidationErrorFor('quantity', 'errors')
             ->assertStatus(422);
     }
@@ -55,16 +52,16 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
-                    'product_variant_id' => (string)Str::uuid(),
-                    'quantity' => 'A'
+                    'product_variant_id' => (string) Str::uuid(),
+                    'quantity'           => 'A',
                 ]
             )
             ->assertJsonValidationErrorFor('quantity', 'errors')
             ->assertStatus(422);
     }
-    
+
     /** @test */
     public function itFailsAddingToBasketProductVariantNotUuid()
     {
@@ -73,10 +70,10 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => 12,
-                    'quantity' => 1
+                    'quantity'           => 1,
                 ]
             )
             ->assertJsonValidationErrorFor('product_variant_id', 'errors')
@@ -89,10 +86,10 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/' . (string)Str::uuid() . '/items',
+                '/api/basket/'.(string) Str::uuid().'/items',
                 [
-                    'product_variant_id' => (string)Str::uuid(),
-                    'quantity' => 1
+                    'product_variant_id' => (string) Str::uuid(),
+                    'quantity'           => 1,
                 ]
             )
             ->assertJson(['error' => __('Unable to find basket')])
@@ -107,10 +104,10 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
-                    'product_variant_id' => (string)Str::uuid(),
-                    'quantity' => 1
+                    'product_variant_id' => (string) Str::uuid(),
+                    'quantity'           => 1,
                 ]
             )
             ->assertJson(['error' => __('Variant not available or insufficient stock')])
@@ -126,22 +123,22 @@ class BasketItemControllerTest extends TestCase
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 0
+            'stock'      => 0,
         ])->create();
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 1
+                    'quantity'           => 1,
                 ]
             )
             ->assertJson(['error' => __('Variant not available or insufficient stock')])
             ->assertStatus(404);
     }
-    
+
     /** @test */
     public function itFailsAddingToBasketQuantityHigherVariantStock()
     {
@@ -151,22 +148,22 @@ class BasketItemControllerTest extends TestCase
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 1
+            'stock'      => 1,
         ])->create();
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 2
+                    'quantity'           => 2,
                 ]
             )
             ->assertJson(['error' => __('Variant not available or insufficient stock')])
             ->assertStatus(404);
     }
-    
+
     /** @test */
     public function itFailsAddingToBasketVariantStatusNotAvailable()
     {
@@ -176,17 +173,17 @@ class BasketItemControllerTest extends TestCase
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 10,
-            'status' => (int)config('shopengine.variant.status.UNAVAILABLE')
+            'stock'      => 10,
+            'status'     => (int) config('shopengine.variant.status.UNAVAILABLE'),
         ])->create();
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 1
+                    'quantity'           => 1,
                 ]
             )
             ->assertJson(['error' => __('Variant not available or insufficient stock')])
@@ -197,28 +194,28 @@ class BasketItemControllerTest extends TestCase
     public function itAddsNewItemToBasket()
     {
         $basket = Basket::factory()->create();
-        
+
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 10,
-            'status' => (int)config('shopengine.variant.status.AVAILABLE')
+            'stock'      => 10,
+            'status'     => (int) config('shopengine.variant.status.AVAILABLE'),
         ])->create();
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 1
+                    'quantity'           => 1,
                 ]
             )
             ->assertJsonStructure([
                 'basket' => [
-                    'id', 'created_at', 'updated_at', 'items'
-                ]
+                    'id', 'created_at', 'updated_at', 'items',
+                ],
             ])
             ->assertJsonCount(1, 'basket.items')
             ->assertStatus(201);
@@ -230,40 +227,40 @@ class BasketItemControllerTest extends TestCase
     public function itUpdatesItemInBasket()
     {
         $basket = Basket::factory()->create();
-        
+
         $product = Product::factory()->create();
-        
+
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 10,
-            'status' => (int)config('shopengine.variant.status.AVAILABLE')
+            'stock'      => 10,
+            'status'     => (int) config('shopengine.variant.status.AVAILABLE'),
         ])->create();
 
         $basket_item = BasketItem::factory()->state([
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ])->create();
 
         $this->assertDatabaseHas('basket_items', [
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ]);
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 2
+                    'quantity'           => 2,
                 ]
             )
             ->assertJsonStructure([
                 'basket' => [
-                    'id', 'created_at', 'updated_at', 'items'
-                ]
+                    'id', 'created_at', 'updated_at', 'items',
+                ],
             ])
             ->assertJsonCount(1, 'basket.items')
             ->assertStatus(201);
@@ -271,9 +268,9 @@ class BasketItemControllerTest extends TestCase
         $this->assertDatabaseCount('basket_items', 1);
 
         $this->assertDatabaseHas('basket_items', [
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 2
+            'quantity'           => 2,
         ]);
     }
 
@@ -286,35 +283,35 @@ class BasketItemControllerTest extends TestCase
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 10,
-            'status' => (int)config('shopengine.variant.status.AVAILABLE')
+            'stock'      => 10,
+            'status'     => (int) config('shopengine.variant.status.AVAILABLE'),
         ])->create();
 
         $basket_item = BasketItem::factory()->state([
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ])->create();
 
         $this->assertDatabaseHas('basket_items', [
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ]);
 
         $this
             ->json(
                 'POST',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
-                    'quantity' => 0
+                    'quantity'           => 0,
                 ]
             )
             ->assertJsonStructure([
                 'basket' => [
-                    'id', 'created_at', 'updated_at', 'items'
-                ]
+                    'id', 'created_at', 'updated_at', 'items',
+                ],
             ])
             ->assertJsonCount(0, 'basket.items')
             ->assertStatus(201);
@@ -328,53 +325,51 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'DELETE',
-                '/api/basket/' . (string)Str::uuid() . '/items',
+                '/api/basket/'.(string) Str::uuid().'/items',
                 [
-                    'product_variant_id' => (string)Str::uuid()
+                    'product_variant_id' => (string) Str::uuid(),
                 ]
             )
             ->assertStatus(404);
     }
 
-
     /** @test */
     public function itDeletesItemFromBasket()
     {
-
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
-            'stock' => 10,
-            'status' => (int)config('shopengine.variant.status.AVAILABLE')
+            'stock'      => 10,
+            'status'     => (int) config('shopengine.variant.status.AVAILABLE'),
         ])->create();
 
         $basket_item = BasketItem::factory()->state([
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ])->create();
 
         $this->assertDatabaseHas('basket_items', [
-            'basket_id' => $basket->id,
+            'basket_id'          => $basket->id,
             'product_variant_id' => $variant->id,
-            'quantity' => 1
+            'quantity'           => 1,
         ]);
 
         $this
             ->json(
                 'DELETE',
-                '/api/basket/' . $basket->id . '/items',
+                '/api/basket/'.$basket->id.'/items',
                 [
                     'product_variant_id' => $variant->id,
                 ]
             )
             ->assertJsonStructure([
                 'basket' => [
-                    'id', 'created_at', 'updated_at', 'items'
-                ]
+                    'id', 'created_at', 'updated_at', 'items',
+                ],
             ])
             ->assertJsonCount(0, 'basket.items')
             ->assertStatus(202);
