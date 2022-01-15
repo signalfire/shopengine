@@ -7,7 +7,7 @@ use Signalfire\Shopengine\Models\Basket;
 class BasketController extends Controller
 {
     /**
-     * Creates a new basket
+     * Creates a new basket.
      *
      * @return string JSON
      */
@@ -16,14 +16,15 @@ class BasketController extends Controller
         $basket = new Basket();
 
         $basket->save();
-        
+
         return response()->json(['basket' => $basket], 201);
     }
 
     /**
-     * Gets a basket by UUID
+     * Gets a basket by UUID.
      *
      * @param string $basket_id
+     *
      * @return string JSON
      */
     public function show($basket_id)
@@ -38,9 +39,10 @@ class BasketController extends Controller
     }
 
     /**
-     * Destroys a basket by UUID
+     * Destroys a basket by UUID.
      *
      * @param string $basket_id
+     *
      * @return string JSON
      */
     public function destroy($basket_id)
@@ -53,7 +55,7 @@ class BasketController extends Controller
 
         $basket->items()->delete();
         $basket->delete();
-        
+
         return response()->json(['basket' => $basket], 202);
     }
 }

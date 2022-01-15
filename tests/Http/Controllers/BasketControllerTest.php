@@ -2,10 +2,7 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
-use Signalfire\Shopengine\Tests\TestCase;
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
@@ -33,9 +30,9 @@ class BasketControllerTest extends TestCase
     /** @test */
     public function itFailsToRetrieveBasketNonExisting()
     {
-        $uuid = (string)Str::uuid();
+        $uuid = (string) Str::uuid();
         $this
-            ->get('/api/basket/' . $uuid)
+            ->get('/api/basket/'.$uuid)
             ->assertStatus(404);
     }
 
@@ -44,15 +41,15 @@ class BasketControllerTest extends TestCase
     {
         $basket = Basket::factory()->create();
         $this
-            ->get('/api/basket/' . $basket->id)
+            ->get('/api/basket/'.$basket->id)
             ->assertJson([
                 'basket' => [
                     'id' => $basket->id,
-                ]
+                ],
             ])
             ->assertStatus(200);
     }
-    
+
     /** @test */
     public function itRetrievesExistingBasketWithItems()
     {
@@ -60,24 +57,24 @@ class BasketControllerTest extends TestCase
         $products = Product::factory()->count(3)->create();
         foreach ($products as $product) {
             $variant = ProductVariant::factory()->state([
-                'product_id' => $product->id
+                'product_id' => $product->id,
             ])->create();
             BasketItem::factory()
                 ->state([
-                    'basket_id' => $basket->id,
-                    'product_variant_id' => $variant->id
+                    'basket_id'          => $basket->id,
+                    'product_variant_id' => $variant->id,
                 ])
                 ->create();
         }
         $this
-            ->get('/api/basket/' . $basket->id)
+            ->get('/api/basket/'.$basket->id)
             ->assertJsonStructure([
                 'basket' => [
                     'id',
                     'created_at',
                     'updated_at',
-                    'items'
-                ]
+                    'items',
+                ],
             ])
             ->assertJsonCount(3, 'basket.items')
             ->assertStatus(200);
@@ -87,7 +84,7 @@ class BasketControllerTest extends TestCase
     public function itFailsToDestroyBasketNonExisting()
     {
         $this
-            ->delete('/api/basket/' . (string)Str::uuid())
+            ->delete('/api/basket/'.(string) Str::uuid())
             ->assertStatus(404);
     }
 
@@ -104,16 +101,16 @@ class BasketControllerTest extends TestCase
     {
         $basket = Basket::factory()->create();
         $this
-            ->delete('/api/basket/' . $basket->id)
+            ->delete('/api/basket/'.$basket->id)
             ->assertJsonStructure([
                 'basket' => [
                     'id',
                     'created_at',
                     'updated_at',
-                ]
+                ],
             ])
             ->assertStatus(202);
-        
+
         $this->assertDeleted($basket);
     }
 }

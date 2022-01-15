@@ -16,8 +16,8 @@ class CreateProductVariantsTable extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('product_id');
-            $table->string('name',200);
-            $table->string('slug',200)->unique();
+            $table->string('name', 200);
+            $table->string('slug', 200)->unique();
             $table->integer('stock');
             $table->tinyInteger('status');
             $table->timestamps();

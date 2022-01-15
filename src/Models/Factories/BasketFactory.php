@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Models\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 use Signalfire\Shopengine\Models\Basket;
 
 class BasketFactory extends Factory

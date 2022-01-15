@@ -2,15 +2,14 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Signalfire\Shopengine\ShopEngine;
-
 use PHPUnit\Framework\TestCase;
+use Signalfire\Shopengine\ShopEngine;
 
 class ShopEngineTest extends TestCase
 {
     protected function setUp(): void
     {
-        $this->shopengine = new ShopEngine;
+        $this->shopengine = new ShopEngine();
     }
 
     /** @test */

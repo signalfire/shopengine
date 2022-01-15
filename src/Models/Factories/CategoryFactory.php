@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Models\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryFactory extends Factory
@@ -13,10 +12,10 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->uuid(),
-            'name' => $this->faker->word(),
-            'slug' => $this->faker->slug(),
-            'status' => 1
+            'id'     => $this->faker->uuid(),
+            'name'   => $this->faker->word(),
+            'slug'   => $this->faker->slug(),
+            'status' => 1,
         ];
     }
 }
