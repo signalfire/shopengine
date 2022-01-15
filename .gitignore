@@ -1,0 +1,6 @@
+build/html
+build/logs
+build/coverage.txt
+vendor
+nova
+.phpunit.result.cache

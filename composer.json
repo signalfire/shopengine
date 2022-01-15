@@ -1,0 +1,54 @@
+{
+    "name": "signalfire/shopengine",
+    "description": "Shopengine Core files and models",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Signalfire\\Shopengine\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Signalfire\\Shopengine\\Tests\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Robert Coster",
+            "email": "rob@signalfire.co.uk"
+        }
+    ],
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
+        "test": "./vendor/bin/phpunit",
+        "coverage:html": "./vendor/bin/phpunit --coverage-html build/html",
+        "phpcs": "./vendor/bin/phpcs",
+        "phpcs:fix": "./vendor/bin/phpcbf"
+    },    
+    "require-dev": {
+        "orchestra/testbench": "^6.23",
+        "laravel/nova": "*",
+        "phpunit/phpunit": "^9.5",
+        "laravel/sanctum": "^2.13",
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./nova"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Signalfire\\Shopengine\\ShopEngineServiceProvider"
+            ],
+            "aliases": {
+                "Shopengine": "Signalfire\\Shopengine\\Facades\\ShopEngineFacade"
+            }    
+        }
+    }
+}
