@@ -3,8 +3,6 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryProductController extends Controller
@@ -25,6 +23,7 @@ class CategoryProductController extends Controller
             ->products()
             ->available()
             ->count();
+
         return response()->json([
             'products' => $products,
             'total'    => $total,

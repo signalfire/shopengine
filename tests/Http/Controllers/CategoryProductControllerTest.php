@@ -2,8 +2,6 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Illuminate\Support\Facades\DB;
-
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 
@@ -19,7 +17,7 @@ class CategoryProductControllerTest extends TestCase
         }
 
         $this
-            ->json('GET', '/api/category/'. $category->id .'/products')
+            ->json('GET', '/api/category/'.$category->id.'/products')
             ->assertJsonCount(5, 'products')
             ->assertJsonPath('total', 5)
             ->assertJsonPath('pages', 1)
@@ -36,7 +34,7 @@ class CategoryProductControllerTest extends TestCase
         }
 
         $this
-            ->json('GET', '/api/category/'. $category->id .'/products')
+            ->json('GET', '/api/category/'.$category->id.'/products')
             ->assertJsonCount(10, 'products')
             ->assertJsonPath('products.0.id', $products[0]->id)
             ->assertJsonPath('products.9.id', $products[9]->id)
@@ -55,7 +53,7 @@ class CategoryProductControllerTest extends TestCase
         }
 
         $this
-            ->json('GET', '/api/category/'. $category->id .'/products?page=2')
+            ->json('GET', '/api/category/'.$category->id.'/products?page=2')
             ->assertJsonCount(10, 'products')
             ->assertJsonPath('products.0.id', $products[10]->id)
             ->assertJsonPath('products.9.id', $products[19]->id)
