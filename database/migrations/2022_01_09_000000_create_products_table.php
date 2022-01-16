@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 200);
             $table->string('slug', 200)->unique();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->index();
             $table->timestamps();
         });
     }

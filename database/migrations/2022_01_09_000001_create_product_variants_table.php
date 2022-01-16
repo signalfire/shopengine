@@ -19,7 +19,7 @@ class CreateProductVariantsTable extends Migration
             $table->string('name', 200);
             $table->string('slug', 200)->unique();
             $table->integer('stock');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->index();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
