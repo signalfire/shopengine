@@ -5,7 +5,6 @@ namespace Signalfire\Shopengine\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
-
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 

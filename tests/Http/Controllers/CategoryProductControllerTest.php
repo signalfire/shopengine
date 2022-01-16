@@ -85,7 +85,7 @@ class CategoryProductControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', '/api/category/'. $category->id .'/products')
+            ->json('GET', '/api/category/'.$category->id.'/products')
             ->assertJsonCount(0, 'products')
             ->assertJsonPath('total', 0)
             ->assertJsonPath('pages', 0)
