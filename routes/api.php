@@ -51,7 +51,7 @@ Route::middleware('api')
                 ->name('category.update');
         });
         Route::prefix('products')->group(function () {
-            Route::get('/', [ProductController::Class, 'index'])
+            Route::get('/', [ProductController::class, 'index'])
                 ->name('products.index');
         });
     });
