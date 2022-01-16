@@ -55,4 +55,14 @@ class ProductControllerTest extends TestCase
             ->assertJsonPath('pages', 2)
             ->assertStatus(200);
     }
+
+    public function testGetProductsPaginatedNoResults()
+    {
+        $this
+            ->json('GET', '/api/products')
+            ->assertJsonCount(0, 'products')
+            ->assertJsonPath('total', 0)
+            ->assertJsonPath('pages', 0)
+            ->assertStatus(200);
+    }
 }

@@ -79,4 +79,16 @@ class CategoryProductControllerTest extends TestCase
             ->assertJsonPath('pages', 2)
             ->assertStatus(200);
     }
+
+    public function testGetCategoryProductsPaginatedNoResults()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'. $category->id .'/products')
+            ->assertJsonCount(0, 'products')
+            ->assertJsonPath('total', 0)
+            ->assertJsonPath('pages', 0)
+            ->assertStatus(200);
+    }
 }
