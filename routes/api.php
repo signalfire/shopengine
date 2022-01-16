@@ -50,6 +50,14 @@ Route::middleware('api')
                     '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
                 )
                 ->name('category.update');
+            Route::get('/{category_id}', [CategoryController::class, 'showById'])
+                ->where(
+                    'category_id',
+                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
+                )
+                ->name('category.show.id');
+            Route::get('/{slug}', [CategoryController::class, 'showBySlug'])
+                ->name('category.show.slug');
             Route::get('/{category_id}/products', [CategoryProductController::class, 'index'])
                 ->where(
                     'category_id',

@@ -2,6 +2,8 @@
 
 namespace Signalfire\Shopengine\Tests;
 
+use Illuminate\Support\Str;
+
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryControllerTest extends TestCase
@@ -138,5 +140,32 @@ class CategoryControllerTest extends TestCase
             'slug'   => $slug,
             'status' => $status,
         ]);
+    }
+
+    // Needs extended
+    public function testGetCategoryById()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'.$category->id)
+            ->assertStatus(200);
+    }
+
+    public function testFailsGetByIdMissing()
+    {
+        $this
+            ->json('GET', '/api/category/'.(string)Str::uuid())
+            ->assertStatus(200);
+    }
+
+    // Needs extended
+    public function testGetCategoryBySlug()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'.$category->slug)
+            ->assertStatus(200);
     }
 }

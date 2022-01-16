@@ -21,6 +21,40 @@ class CategoryController extends Controller
     }
 
     /**
+     * Gets category by id
+     *
+     * @param string $category_id
+     * @return string JSON
+     */
+    public function showById($category_id)
+    {
+        $category = Category::available()->where('id', $category_id)->first();
+
+        if (!$category) {
+            return response()->json(['error' => __('Category not found')]);
+        }
+
+        return response()->json(['category' => $category]);
+    }
+
+    /**
+     * Gets category by slug
+     *
+     * @param string $slug
+     * @return string JSON
+     */
+    public function showBySlug($slug)
+    {
+        $category = Category::available()->where('slug', $slug)->first();
+
+        if (!$category) {
+            return response()->json(['error' => __('Category not found')]);
+        }
+
+        return response()->json(['category' => $category]);
+    }
+
+    /**
      * Creates a new category.
      *
      * @param StoreCategoryRequest $request
