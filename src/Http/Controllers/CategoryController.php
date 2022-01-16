@@ -21,9 +21,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Gets category by id
+     * Gets category by id.
      *
      * @param string $category_id
+     *
      * @return string JSON
      */
     public function showById($category_id)
@@ -38,9 +39,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Gets category by slug
+     * Gets category by slug.
      *
      * @param string $slug
+     *
      * @return string JSON
      */
     public function showBySlug($slug)
