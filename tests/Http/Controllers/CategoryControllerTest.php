@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
-
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryControllerTest extends TestCase
@@ -155,7 +154,7 @@ class CategoryControllerTest extends TestCase
     public function testFailsGetByIdMissing()
     {
         $this
-            ->json('GET', '/api/category/'.(string)Str::uuid())
+            ->json('GET', '/api/category/'.(string) Str::uuid())
             ->assertStatus(200);
     }
 
