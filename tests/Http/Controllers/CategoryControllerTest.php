@@ -6,8 +6,7 @@ use Signalfire\Shopengine\Models\Category;
 
 class CategoryControllerTest extends TestCase
 {
-    /** @test */
-    public function itGetsCategories()
+    public function testGetsCategories()
     {
         $categories = Category::factory()->count(3)->create();
         $this->json('GET', '/api/categories')
@@ -15,8 +14,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
-    public function itFailsToAddCategory()
+    public function testFailsToAddCategory()
     {
         $this
             ->json('POST', '/api/category', [])
@@ -26,8 +24,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsToAddCategoryNameMissing()
+    public function testFailsToAddCategoryNameMissing()
     {
         $this
             ->json('POST', '/api/category', ['slug' => 'test', 'status' => 1])
@@ -35,8 +32,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsToAddCategorySlugMissing()
+    public function testFailsToAddCategorySlugMissing()
     {
         $this
             ->json('POST', '/api/category', ['name' => 'test', 'status' => 1])
@@ -44,8 +40,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsToAddCategoryStatusMissing()
+    public function testFailsToAddCategoryStatusMissing()
     {
         $this
             ->json('POST', '/api/category', ['name' => 'test', 'slug' => 'test'])
@@ -53,8 +48,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsToAddCategoryNameSlugTooLong()
+    public function testFailsToAddCategoryNameSlugTooLong()
     {
         $this
             ->json('POST', '/api/category', [
@@ -67,8 +61,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsToAddCategoryStatusNotInteger()
+    public function testFailsToAddCategoryStatusNotInteger()
     {
         $this
             ->json('POST', '/api/category', [
@@ -80,8 +73,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddCategorySlugExists()
+    public function testFailsAddCategorySlugExists()
     {
         $category = Category::factory()->create();
         $this
@@ -94,8 +86,7 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itAddsCategory()
+    public function testAddsCategory()
     {
         $name = 'this is a test';
         $slug = 'this-is-a-test';
@@ -125,8 +116,7 @@ class CategoryControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function itUpdatesCategory()
+    public function testUpdatesCategory()
     {
         $name = 'this is a test';
         $slug = 'this-is-a-test';

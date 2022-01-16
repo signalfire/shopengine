@@ -3,6 +3,7 @@
 use Signalfire\Shopengine\Http\Controllers\BasketController;
 use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
+use Signalfire\Shopengine\Http\Controllers\ProductController;
 
 Route::middleware('api')
     ->prefix('api')
@@ -37,7 +38,7 @@ Route::middleware('api')
         });
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])
-                ->name('category.index');
+                ->name('categories.index');
         });
         Route::prefix('category')->group(function () {
             Route::post('/', [CategoryController::class, 'store'])
@@ -48,5 +49,9 @@ Route::middleware('api')
                     '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
                 )
                 ->name('category.update');
+        });
+        Route::prefix('products')->group(function () {
+            Route::get('/', [ProductController::Class, 'index'])
+                ->name('products.index');
         });
     });

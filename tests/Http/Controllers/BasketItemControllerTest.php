@@ -10,8 +10,7 @@ use Signalfire\Shopengine\Models\ProductVariant;
 
 class BasketItemControllerTest extends TestCase
 {
-    /** @test */
-    public function itFailsAddingToBasket()
+    public function testFailsAddingToBasket()
     {
         $basket = Basket::factory()->create();
 
@@ -22,8 +21,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketVariantIdMissing()
+    public function testFailsAddingToBasketVariantIdMissing()
     {
         $basket = Basket::factory()->create();
 
@@ -33,8 +31,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketQuantityMissing()
+    public function testFailsAddingToBasketQuantityMissing()
     {
         $basket = Basket::factory()->create();
 
@@ -44,8 +41,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketQuantityNotInteger()
+    public function testFailsAddingToBasketQuantityNotInteger()
     {
         $basket = Basket::factory()->create();
 
@@ -62,8 +58,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketProductVariantNotUuid()
+    public function testFailsAddingToBasketProductVariantNotUuid()
     {
         $basket = Basket::factory()->create();
 
@@ -80,8 +75,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketNoBasket()
+    public function testFailsAddingToBasketNoBasket()
     {
         $this
             ->json(
@@ -96,8 +90,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketProductVariantNotFound()
+    public function testFailsAddingToBasketProductVariantNotFound()
     {
         $basket = Basket::factory()->create();
 
@@ -114,8 +107,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketProductVariantNoStock()
+    public function testFailsAddingToBasketProductVariantNoStock()
     {
         $basket = Basket::factory()->create();
 
@@ -139,8 +131,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketQuantityHigherVariantStock()
+    public function testFailsAddingToBasketQuantityHigherVariantStock()
     {
         $basket = Basket::factory()->create();
 
@@ -164,8 +155,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsAddingToBasketVariantStatusNotAvailable()
+    public function testFailsAddingToBasketVariantStatusNotAvailable()
     {
         $basket = Basket::factory()->create();
 
@@ -190,8 +180,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itAddsNewItemToBasket()
+    public function testAddsNewItemToBasket()
     {
         $basket = Basket::factory()->create();
 
@@ -223,8 +212,7 @@ class BasketItemControllerTest extends TestCase
         $this->assertDatabaseCount('basket_items', 1);
     }
 
-    /** @test */
-    public function itUpdatesItemInBasket()
+    public function testUpdatesItemInBasket()
     {
         $basket = Basket::factory()->create();
 
@@ -274,8 +262,7 @@ class BasketItemControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function itRemovesItemWithZeroQuantityFromBasket()
+    public function testRemovesItemWithZeroQuantityFromBasket()
     {
         $basket = Basket::factory()->create();
 
@@ -319,8 +306,7 @@ class BasketItemControllerTest extends TestCase
         $this->assertDatabaseCount('basket_items', 0);
     }
 
-    /** @test */
-    public function itFailsToDeleteItemFromNonExistantBasket()
+    public function testFailsToDeleteItemFromNonExistantBasket()
     {
         $this
             ->json(
@@ -333,8 +319,7 @@ class BasketItemControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itDeletesItemFromBasket()
+    public function testDeletesItemFromBasket()
     {
         $basket = Basket::factory()->create();
 

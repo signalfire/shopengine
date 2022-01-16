@@ -12,8 +12,7 @@ class ShopEngineTest extends TestCase
         $this->shopengine = new ShopEngine();
     }
 
-    /** @test */
-    public function itReturnsVersion()
+    public function testReturnsVersion()
     {
         $this->assertEquals($this->shopengine->version(), '0.1');
     }

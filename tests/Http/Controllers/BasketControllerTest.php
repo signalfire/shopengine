@@ -10,8 +10,7 @@ use Signalfire\Shopengine\Models\ProductVariant;
 
 class BasketControllerTest extends TestCase
 {
-    /** @test */
-    public function itCreatesAndReturnsBasket()
+    public function testCreatesAndReturnsBasket()
     {
         $this
             ->post('/api/basket')
@@ -19,16 +18,14 @@ class BasketControllerTest extends TestCase
         $this->assertDatabaseCount('baskets', 1);
     }
 
-    /** @test */
-    public function itFailsToRetrieveBasketNonUuid()
+    public function testFailsToRetrieveBasketNonUuid()
     {
         $this
             ->get('/api/basket/12')
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsToRetrieveBasketNonExisting()
+    public function testFailsToRetrieveBasketNonExisting()
     {
         $uuid = (string) Str::uuid();
         $this
@@ -36,8 +33,7 @@ class BasketControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itRetrievesExistingBasket()
+    public function testRetrievesExistingBasket()
     {
         $basket = Basket::factory()->create();
         $this
@@ -50,8 +46,7 @@ class BasketControllerTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
-    public function itRetrievesExistingBasketWithItems()
+    public function testRetrievesExistingBasketWithItems()
     {
         $basket = Basket::factory()->create();
         $products = Product::factory()->count(3)->create();
@@ -80,24 +75,21 @@ class BasketControllerTest extends TestCase
             ->assertStatus(200);
     }
 
-    /** @test */
-    public function itFailsToDestroyBasketNonExisting()
+    public function testFailsToDestroyBasketNonExisting()
     {
         $this
             ->delete('/api/basket/'.(string) Str::uuid())
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itFailsToDestroyBasketNonUuid()
+    public function testFailsToDestroyBasketNonUuid()
     {
         $this
             ->delete('/api/basket/12')
             ->assertStatus(404);
     }
 
-    /** @test */
-    public function itDestroysBasket()
+    public function testDestroysBasket()
     {
         $basket = Basket::factory()->create();
         $this
