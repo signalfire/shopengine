@@ -6,35 +6,23 @@ use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 
-Route::middleware('api')
+Route::middleware(['api'])
     ->prefix('api')
     ->group(function () {
         Route::prefix('basket')->group(function () {
             Route::post('/', [BasketController::class, 'store'])
                 ->name('basket.store');
             Route::get('/{basket_id}', [BasketController::class, 'show'])
-                ->where(
-                    'basket_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('basket_id')
                 ->name('basket.show');
             Route::delete('/{basket_id}', [BasketController::class, 'destroy'])
-                ->where(
-                    'basket_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('basket_id')
                 ->name('basket.destroy');
             Route::post('/{basket_id}/items', [BasketItemController::class, 'store'])
-                ->where(
-                    'basket_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('basket_id')
                 ->name('basket.item.store');
             Route::delete('/{basket_id}/items', [BasketItemController::class, 'destroy'])
-                ->where(
-                    'basket_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('basket_id')
                 ->name('basket.item.destroy');
         });
         Route::prefix('categories')->group(function () {
@@ -45,24 +33,15 @@ Route::middleware('api')
             Route::post('/', [CategoryController::class, 'store'])
                 ->name('category.store');
             Route::put('/{category_id}', [CategoryController::class, 'update'])
-                ->where(
-                    'category_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('category_id')
                 ->name('category.update');
             Route::get('/{category_id}', [CategoryController::class, 'showById'])
-                ->where(
-                    'category_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('category_id')
                 ->name('category.show.id');
             Route::get('/{slug}', [CategoryController::class, 'showBySlug'])
                 ->name('category.show.slug');
             Route::get('/{category_id}/products', [CategoryProductController::class, 'index'])
-                ->where(
-                    'category_id',
-                    '[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}'
-                )
+                ->whereUuid('category_id')
                 ->name('category.products.index');
         });
         Route::prefix('products')->group(function () {
