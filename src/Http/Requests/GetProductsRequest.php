@@ -4,7 +4,7 @@ namespace Signalfire\Shopengine\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetProductInCategoryRequest extends FormRequest
+class GetProductsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class GetProductInCategoryRequest extends FormRequest
     {
         return [
             'page' => 'nullable|integer',
-            'size' => 'nullable|integer|size:50',
+            'size' => 'nullable|integer|max:50',
         ];
     }
 

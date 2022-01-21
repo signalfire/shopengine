@@ -71,7 +71,7 @@ class CategoryProductControllerTest extends TestCase
             $product->categories()->attach($category->id);
         }
         $this
-            ->json('GET', '/api/products?size=10')
+            ->json('GET', '/api/category/'.$category->id.'/products?size=10')
             ->assertJsonCount(10, 'products')
             ->assertJsonPath('products.0.id', $products[0]->id)
             ->assertJsonPath('products.4.id', $products[4]->id)
@@ -114,7 +114,6 @@ class CategoryProductControllerTest extends TestCase
 
     public function testGetCategoryProductsPaginatedSizeQueryNumberAtMax()
     {
-        $category = Category::factory()->create();
         $category = Category::factory()->create();
         $products = Product::factory()->count(20)->create();
         foreach ($products as $product) {

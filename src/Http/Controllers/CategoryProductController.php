@@ -2,8 +2,7 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Signalfire\Shopengine\Http\Requests\GetProductInCategoryRequest;
+use Signalfire\Shopengine\Http\Requests\GetCategoryProductsRequest;
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryProductController extends Controller
@@ -11,12 +10,12 @@ class CategoryProductController extends Controller
     /**
      * Gets paginated products in a category.
      *
-     * @param Illuminate\Http\Request $request,
+     * @param Signalfire\Shopengine\Http\Requests\GetCategoryProductsRequest $request,
      * @param string                  $category_id
      *
      * @return string JSON
      */
-    public function index(GetProductInCategoryRequest $request, $category_id)
+    public function index(GetCategoryProductsRequest $request, $category_id)
     {
         $size = (int) $request->query('size', 10);
         $page = (int) $request->query('page', 1);
@@ -32,7 +31,6 @@ class CategoryProductController extends Controller
             ->products()
             ->available()
             ->count();
-
         return response()->json([
             'products' => $products,
             'total'    => $total,

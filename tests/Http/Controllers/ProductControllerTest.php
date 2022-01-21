@@ -65,4 +65,41 @@ class ProductControllerTest extends TestCase
             ->assertJsonPath('pages', 0)
             ->assertStatus(200);
     }
+
+    public function testGetProductsPaginatedInvalidPageQueryNotNumber()
+    {
+        $this
+            ->json('GET', '/api/products?page=A')
+            ->assertJsonValidationErrorFor('page', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testGetProductsPaginatedInvalidSizeQueryNotNumber()
+    {
+        $this
+            ->json('GET', '/api/products?size=A')
+            ->assertJsonValidationErrorFor('size', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testGetProductsPaginatedSizeQueryNumberAtMax()
+    {
+        $products = Product::factory()->count(20)->create();
+        $this
+            ->json('GET', '/api/products?size=50')
+            ->assertJsonCount(20, 'products')
+            ->assertJsonPath('total', 20)
+            ->assertJsonPath('pages', 1)
+            ->assertStatus(200);
+    }
+
+    public function testGetProductsPaginatedInvalidSizeQueryNumberGreaterThanMax()
+    {
+        $products = Product::factory()->count(20)->create();
+
+        $this
+            ->json('GET', '/api/products?size=51')
+            ->assertJsonValidationErrorFor('size', 'errors')
+            ->assertStatus(422);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Signalfire\Shopengine\Http\Requests\GetProductsRequest;
 use Signalfire\Shopengine\Models\Product;
 
 class ProductController extends Controller
@@ -10,11 +10,11 @@ class ProductController extends Controller
     /**
      * Gets paginated products.
      *
-     * @param Illuminate\Http\Request $request
+     * @param Signalfire\Shopengine\Http\Requests\GetProductsRequest $request
      *
      * @return string JSON
      */
-    public function index(Request $request)
+    public function index(GetProductsRequest $request)
     {
         $size = (int) $request->query('size', 10);
         $page = (int) $request->query('page', 1);
