@@ -4,14 +4,12 @@ namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Category;
-use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Role;
+use Signalfire\Shopengine\Models\User;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Spatie\Permission\PermissionRegistrar;
 
 class CategoryControllerTest extends TestCase
 {
-
     public function testGetsCategories()
     {
         $categories = Category::factory()->count(3)->create();
@@ -110,7 +108,7 @@ class CategoryControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $role = Role::factory()->state([
-            'name' => 'admin'
+            'name' => 'admin',
         ])->create();
         $user->roles()->attach($role);
         $name = 'this is a test';
@@ -151,12 +149,11 @@ class CategoryControllerTest extends TestCase
             ]);
     }
 
-
     public function testUpdatesCategory()
     {
         $user = User::factory()->create();
         $role = Role::factory()->state([
-            'name' => 'admin'
+            'name' => 'admin',
         ])->create();
         $user->roles()->attach($role);
         $name = 'this is a test';
@@ -199,7 +196,6 @@ class CategoryControllerTest extends TestCase
                 'status' => 1,
             ]);
     }
-
 
     // Needs extended
     public function testGetCategoryById()
