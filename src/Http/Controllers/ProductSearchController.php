@@ -21,6 +21,7 @@ class ProductSearchController extends Controller
         $size = (int) $request->query('size', 10);
         $page = (int) $request->query('page', 1);
         $skip = $page === 1 ? 0 : ($page - 1) * $size;
+
         try {
             $products = Product::available()
                 ->search(['name'], $keywords)

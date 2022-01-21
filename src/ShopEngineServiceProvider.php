@@ -2,12 +2,12 @@
 
 namespace Signalfire\Shopengine;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
-use Illuminate\Support\Arr;
 use Signalfire\Shopengine\Nova\Category;
 use Signalfire\Shopengine\Nova\Resource;
-use Illuminate\Database\Eloquent\Builder;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -40,6 +40,7 @@ class ShopEngineServiceProvider extends ServiceProvider
                     });
                 }
             });
+
             return $this;
         });
 
