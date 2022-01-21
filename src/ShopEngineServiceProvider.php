@@ -4,8 +4,10 @@ namespace Signalfire\Shopengine;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Illuminate\Support\Arr;
 use Signalfire\Shopengine\Nova\Category;
 use Signalfire\Shopengine\Nova\Resource;
+use Illuminate\Database\Eloquent\Builder;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -27,8 +29,21 @@ class ShopEngineServiceProvider extends ServiceProvider
             __DIR__.'/../config/shopengine.php' => base_path('config/shopengine.php'),
         ], 'shopengine-config');
 
-        // publish models
+        //Like search macro
+        Builder::macro('search', function ($attributes, string $keywords) {
+            $this->where(function (Builder $query) use ($attributes, $keywords) {
+                foreach (Arr::wrap($attributes) as $attribute) {
+                    $query->orWhere(function ($query) use ($attribute, $keywords) {
+                        foreach (explode(' ', $keywords) as $keyword) {
+                            $query->where($attribute, 'LIKE', "%{$keyword}%");
+                        }
+                    });
+                }
+            });
+            return $this;
+        });
 
+        // publish models
         Nova::resources([
             Resource::class,
             Category::class,

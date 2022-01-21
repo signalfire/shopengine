@@ -5,6 +5,7 @@ use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
+use Signalfire\Shopengine\Http\Controllers\ProductSearchController;
 
 Route::middleware(['api'])
     ->prefix('api')
@@ -47,6 +48,8 @@ Route::middleware(['api'])
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductController::class, 'index'])
                 ->name('products.index');
+            Route::get('/search', [ProductSearchController::class, 'index'])
+                ->name('product.search.index');
         });
         Route::fallback(function () {
             return response()->json([
