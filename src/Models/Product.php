@@ -4,7 +4,6 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
@@ -12,7 +11,6 @@ class Product extends Model
 {
     use Uuid;
     use HasFactory;
-    use Searchable;
 
     public function items()
     {
@@ -37,14 +35,5 @@ class Product extends Model
     protected static function newFactory()
     {
         return ProductFactory::new();
-    }
-
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        // Set fields to use
-
-        return $array;
     }
 }

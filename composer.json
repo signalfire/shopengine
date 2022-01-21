@@ -50,8 +50,5 @@
                 "Shopengine": "Signalfire\\Shopengine\\Facades\\ShopEngineFacade"
             }    
         }
-    },
-    "require": {
-        "laravel/scout": "^9.4"
     }
 }
