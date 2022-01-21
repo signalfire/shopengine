@@ -37,8 +37,8 @@ class CategoryProductController extends Controller
             ->additional([
                 'meta' => [
                     'total' => $total,
-                    'pages' => ceil($total / $size)
-                ]
+                    'pages' => ceil($total / $size),
+                ],
             ]);
     }
 }
