@@ -2,7 +2,11 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Signalfire\Shopengine\Models\Basket;
+use Signalfire\Shopengine\Http\Resources\BasketResource;
+use Signalfire\Shopengine\Http\Resources\ErrorResource;
 
 class BasketController extends Controller
 {
@@ -17,7 +21,9 @@ class BasketController extends Controller
 
         $basket->save();
 
-        return response()->json(['basket' => $basket], 201);
+        return (new BasketResource($basket))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -32,10 +38,12 @@ class BasketController extends Controller
         $basket = Basket::where('id', $basket_id)->with('items')->first();
 
         if (!$basket) {
-            return response()->json(['error' => __('Unable to find basket')], 404);
+            abort(404, __('Unable to find basket'));
         }
 
-        return response()->json(['basket' => $basket]);
+        return (new BasketResource($basket))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -50,12 +58,14 @@ class BasketController extends Controller
         $basket = Basket::where('id', $basket_id)->first();
 
         if (!$basket) {
-            return response()->json(['error' => __('Unable to find basket')], 404);
+            abort(404, __('Unable to find basket'));
         }
 
         $basket->items()->delete();
         $basket->delete();
 
-        return response()->json(['basket' => $basket], 202);
+        return (new BasketResource($basket))
+            ->response()
+            ->setStatusCode(202);
     }
 }

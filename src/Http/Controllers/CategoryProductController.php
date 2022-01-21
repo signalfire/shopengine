@@ -7,6 +7,13 @@ use Signalfire\Shopengine\Models\Category;
 
 class CategoryProductController extends Controller
 {
+    /**
+     * Gets paginated products in a category
+     *
+     * @param Illuminate\Http\Request $request,
+     * @param string $category_id
+     * @return string JSON
+     */
     public function index(Request $request, $category_id)
     {
         $size = (int) $request->query('size', 10);

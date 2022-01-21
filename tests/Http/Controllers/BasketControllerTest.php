@@ -3,6 +3,8 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
@@ -21,15 +23,19 @@ class BasketControllerTest extends TestCase
     public function testFailsToRetrieveBasketNonUuid()
     {
         $this
-            ->get('/api/basket/12')
+            ->json('GET', '/api/basket/12')
             ->assertStatus(404);
     }
 
     public function testFailsToRetrieveBasketNonExisting()
     {
-        $uuid = (string) Str::uuid();
+        $this->expectException(HttpException::class);
+
         $this
-            ->get('/api/basket/'.$uuid)
+            ->get('/api/basket/'.(string) Str::uuid())
+            ->assertJson([
+                'message' => __('Unable to find basket')
+            ])
             ->assertStatus(404);
     }
 
@@ -39,7 +45,7 @@ class BasketControllerTest extends TestCase
         $this
             ->get('/api/basket/'.$basket->id)
             ->assertJson([
-                'basket' => [
+                'data' => [
                     'id' => $basket->id,
                 ],
             ])
@@ -64,29 +70,36 @@ class BasketControllerTest extends TestCase
         $this
             ->get('/api/basket/'.$basket->id)
             ->assertJsonStructure([
-                'basket' => [
+                'data' => [
                     'id',
                     'created_at',
                     'updated_at',
                     'items',
                 ],
             ])
-            ->assertJsonCount(3, 'basket.items')
+            ->assertJsonCount(3, 'data.items')
             ->assertStatus(200);
     }
 
     public function testFailsToDestroyBasketNonExisting()
     {
+        $this->expectException(HttpException::class);
+
         $this
             ->delete('/api/basket/'.(string) Str::uuid())
+            ->assertJson([
+                'message' => __('Unable to find basket')
+            ])
             ->assertStatus(404);
     }
 
     public function testFailsToDestroyBasketNonUuid()
     {
+        // Checking for 405 as laravel fallback only seems to work on GET, HEAD, OPTIONS
+        // anything else seems to return 405.
         $this
             ->delete('/api/basket/12')
-            ->assertStatus(404);
+            ->assertStatus(405);
     }
 
     public function testDestroysBasket()
@@ -95,7 +108,7 @@ class BasketControllerTest extends TestCase
         $this
             ->delete('/api/basket/'.$basket->id)
             ->assertJsonStructure([
-                'basket' => [
+                'data' => [
                     'id',
                     'created_at',
                     'updated_at',
