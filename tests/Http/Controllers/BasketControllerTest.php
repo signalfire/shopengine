@@ -65,14 +65,6 @@ class BasketControllerTest extends TestCase
         }
         $this
             ->get('/api/basket/'.$basket->id)
-            ->assertJsonStructure([
-                'data' => [
-                    'id',
-                    'created_at',
-                    'updated_at',
-                    'items',
-                ],
-            ])
             ->assertJsonCount(3, 'data.items')
             ->assertStatus(200);
     }
@@ -100,13 +92,6 @@ class BasketControllerTest extends TestCase
         $basket = Basket::factory()->create();
         $this
             ->delete('/api/basket/'.$basket->id)
-            ->assertJsonStructure([
-                'data' => [
-                    'id',
-                    'created_at',
-                    'updated_at',
-                ],
-            ])
             ->assertStatus(202);
 
         $this->assertDeleted($basket);
