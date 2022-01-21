@@ -4,6 +4,7 @@ namespace Signalfire\Shopengine\Http\Controllers;
 
 use Signalfire\Shopengine\Http\Requests\DeleteBasketItemRequest;
 use Signalfire\Shopengine\Http\Requests\StoreBasketItemRequest;
+use Signalfire\Shopengine\Http\Resources\BasketResource;
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\ProductVariant;
@@ -57,7 +58,9 @@ class BasketItemController extends Controller
 
         $basket->refresh();
 
-        return response()->json(['basket' => $basket], 201);
+        return (new BasketResource($basket))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -85,6 +88,8 @@ class BasketItemController extends Controller
 
         $basket->refresh();
 
-        return response()->json(['basket' => $basket], 202);
+        return (new BasketResource($basket))
+            ->response()
+            ->setStatusCode(202);
     }
 }

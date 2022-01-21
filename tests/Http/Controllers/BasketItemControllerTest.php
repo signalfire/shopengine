@@ -207,12 +207,7 @@ class BasketItemControllerTest extends TestCase
                     'quantity'           => 1,
                 ]
             )
-            ->assertJsonStructure([
-                'basket' => [
-                    'id', 'created_at', 'updated_at', 'items',
-                ],
-            ])
-            ->assertJsonCount(1, 'basket.items')
+            ->assertJsonCount(1, 'data.items')
             ->assertStatus(201);
 
         $this->assertDatabaseCount('basket_items', 1);
@@ -251,12 +246,7 @@ class BasketItemControllerTest extends TestCase
                     'quantity'           => 2,
                 ]
             )
-            ->assertJsonStructure([
-                'basket' => [
-                    'id', 'created_at', 'updated_at', 'items',
-                ],
-            ])
-            ->assertJsonCount(1, 'basket.items')
+            ->assertJsonCount(1, 'data.items')
             ->assertStatus(201);
 
         $this->assertDatabaseCount('basket_items', 1);
@@ -301,12 +291,7 @@ class BasketItemControllerTest extends TestCase
                     'quantity'           => 0,
                 ]
             )
-            ->assertJsonStructure([
-                'basket' => [
-                    'id', 'created_at', 'updated_at', 'items',
-                ],
-            ])
-            ->assertJsonCount(0, 'basket.items')
+            ->assertJsonCount(0, 'data.items')
             ->assertStatus(201);
 
         $this->assertDatabaseCount('basket_items', 0);
@@ -359,12 +344,7 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                 ]
             )
-            ->assertJsonStructure([
-                'basket' => [
-                    'id', 'created_at', 'updated_at', 'items',
-                ],
-            ])
-            ->assertJsonCount(0, 'basket.items')
+            ->assertJsonCount(0, 'data.items')
             ->assertStatus(202);
 
         $this->assertDatabaseCount('basket_items', 0);
