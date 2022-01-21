@@ -72,6 +72,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        if ($request->user()->cannot('create', Category::class)) {
+            abort(403, __('Unable to create category'));
+        }
+
         $validated = $request->validated();
 
         $category = Category::create($validated);
@@ -90,16 +94,20 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, $category_id)
     {
-        $validated = $request->validated();
-        $name = $validated['name'];
-        $slug = $validated['slug'];
-        $status = $validated['status'];
-
         $category = Category::where('id', $category_id)->first();
 
         if (!$category) {
             abort(404, __('Unable to find category'));
         }
+
+        if ($request->user()->cannot('update', $category)) {
+            abort(403, __('Unable to update category'));
+        }
+
+        $validated = $request->validated();
+        $name = $validated['name'];
+        $slug = $validated['slug'];
+        $status = $validated['status'];
 
         $category->name = $name;
         $category->slug = $slug;

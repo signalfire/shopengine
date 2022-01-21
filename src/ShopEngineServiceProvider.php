@@ -6,18 +6,26 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
-use Signalfire\Shopengine\Nova\Category;
-use Signalfire\Shopengine\Nova\Resource;
+use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
+use Signalfire\Shopengine\Nova\Resource as NovaResource;
+use Signalfire\Shopengine\Models\Category;
+use Signalfire\Shopengine\Policies\CategoryPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Category::class => CategoryPolicy::class,
+    ];
+
     public function boot()
     {
         // Load views etc
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'shopengine');
 
+        // Load routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
+        // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         // Publish views and config
@@ -25,6 +33,7 @@ class ShopEngineServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => resource_path('views/vendor/shopengine'),
         ], 'shopengine-views');
 
+        // Publish config
         $this->publishes([
             __DIR__.'/../config/shopengine.php' => base_path('config/shopengine.php'),
         ], 'shopengine-config');
@@ -46,8 +55,8 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         // publish models
         Nova::resources([
-            Resource::class,
-            Category::class,
+            NovaResource::class,
+            NovaCategoryResource::class,
         ]);
     }
 
