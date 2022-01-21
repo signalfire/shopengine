@@ -3,12 +3,11 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BasketControllerTest extends TestCase
 {

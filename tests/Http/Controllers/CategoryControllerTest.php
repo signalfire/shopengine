@@ -3,9 +3,8 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
 use Signalfire\Shopengine\Models\Category;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CategoryControllerTest extends TestCase
 {
