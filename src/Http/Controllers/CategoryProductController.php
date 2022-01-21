@@ -11,7 +11,7 @@ class CategoryProductController extends Controller
      * Gets paginated products in a category.
      *
      * @param Signalfire\Shopengine\Http\Requests\GetCategoryProductsRequest $request,
-     * @param string                  $category_id
+     * @param string                                                         $category_id
      *
      * @return string JSON
      */
@@ -31,6 +31,7 @@ class CategoryProductController extends Controller
             ->products()
             ->available()
             ->count();
+
         return response()->json([
             'products' => $products,
             'total'    => $total,
