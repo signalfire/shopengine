@@ -2,7 +2,6 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Signalfire\Shopengine\Http\Requests\GetProductInCategoryRequest;
 use Signalfire\Shopengine\Models\Category;
 

@@ -34,6 +34,7 @@ class GetProductInCategoryRequest extends FormRequest
         $data = parent::all();
         $data['page'] = $this->query('page');
         $data['size'] = $this->query('size');
+
         return $data;
     }
 }
