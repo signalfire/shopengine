@@ -8,9 +8,10 @@ use Signalfire\Shopengine\Models\Product;
 class ProductController extends Controller
 {
     /**
-     * Gets paginated products
+     * Gets paginated products.
      *
      * @param Illuminate\Http\Request $request
+     *
      * @return string JSON
      */
     public function index(Request $request)
