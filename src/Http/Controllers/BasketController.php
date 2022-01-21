@@ -2,11 +2,8 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
-use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Http\Resources\BasketResource;
-use Signalfire\Shopengine\Http\Resources\ErrorResource;
+use Signalfire\Shopengine\Models\Basket;
 
 class BasketController extends Controller
 {
