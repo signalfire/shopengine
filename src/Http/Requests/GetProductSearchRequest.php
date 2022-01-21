@@ -25,8 +25,8 @@ class GetProductSearchRequest extends FormRequest
     {
         return [
             'keywords' => 'required|string|max:100',
-            'page' => 'nullable|integer',
-            'size' => 'nullable|integer|max:50',
+            'page'     => 'nullable|integer',
+            'size'     => 'nullable|integer|max:50',
         ];
     }
 

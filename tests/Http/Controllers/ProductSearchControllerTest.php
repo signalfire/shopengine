@@ -61,7 +61,7 @@ class ProductSearchControllerTest extends TestCase
     public function testFailsGetProductSearchPaginatedSizeQueryNumberAtMax()
     {
         $products = Product::factory()->count(20)->state([
-            'name' => 'A'
+            'name' => 'A',
         ])->create();
         $this
             ->json('GET', '/api/products/search?keywords=A&size=50')
