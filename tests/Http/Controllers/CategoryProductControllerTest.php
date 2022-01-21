@@ -91,4 +91,50 @@ class CategoryProductControllerTest extends TestCase
             ->assertJsonPath('pages', 0)
             ->assertStatus(200);
     }
+
+    public function testGetCategoryProductsPaginatedInvalidPageQueryNotNumber()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'.$category->id.'/products?page=A')
+            ->assertJsonValidationErrorFor('page', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testGetCategoryProductsPaginatedInvalidSizeQueryNotNumber()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'.$category->id.'/products?size=A')
+            ->assertJsonValidationErrorFor('size', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testGetCategoryProductsPaginatedSizeQueryNumberAtMax()
+    {
+        $category = Category::factory()->create();
+        $category = Category::factory()->create();
+        $products = Product::factory()->count(20)->create();
+        foreach ($products as $product) {
+            $product->categories()->attach($category->id);
+        }
+        $this
+            ->json('GET', '/api/category/'.$category->id.'/products?size=50')
+            ->assertJsonCount(20, 'products')
+            ->assertJsonPath('total', 20)
+            ->assertJsonPath('pages', 1)
+            ->assertStatus(200);
+    }
+
+    public function testGetCategoryProductsPaginatedInvalidSizeQueryNumberGreaterThanMax()
+    {
+        $category = Category::factory()->create();
+
+        $this
+            ->json('GET', '/api/category/'.$category->id.'/products?size=51')
+            ->assertJsonValidationErrorFor('size', 'errors')
+            ->assertStatus(422);
+    }
 }

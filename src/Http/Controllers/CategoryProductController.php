@@ -3,6 +3,7 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Signalfire\Shopengine\Http\Requests\GetProductInCategoryRequest;
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryProductController extends Controller
@@ -15,7 +16,7 @@ class CategoryProductController extends Controller
      *
      * @return string JSON
      */
-    public function index(Request $request, $category_id)
+    public function index(GetProductInCategoryRequest $request, $category_id)
     {
         $size = (int) $request->query('size', 10);
         $page = (int) $request->query('page', 1);
