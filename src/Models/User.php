@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Signalfire\Shopengine\Models\Factories\UserFactory;
-use Signalfire\Shopengine\Models\Role;
 
 class User extends Authenticatable
 {

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
 use Signalfire\Shopengine\Nova\Resource as NovaResource;
-use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
