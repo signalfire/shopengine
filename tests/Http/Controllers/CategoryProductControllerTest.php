@@ -18,9 +18,9 @@ class CategoryProductControllerTest extends TestCase
 
         $this
             ->json('GET', '/api/category/'.$category->id.'/products')
-            ->assertJsonCount(5, 'products')
-            ->assertJsonPath('total', 5)
-            ->assertJsonPath('pages', 1)
+            ->assertJsonCount(5, 'data')
+            ->assertJsonPath('meta.total', 5)
+            ->assertJsonPath('meta.pages', 1)
             ->assertStatus(200);
     }
 
@@ -35,11 +35,11 @@ class CategoryProductControllerTest extends TestCase
 
         $this
             ->json('GET', '/api/category/'.$category->id.'/products')
-            ->assertJsonCount(10, 'products')
-            ->assertJsonPath('products.0.id', $products[0]->id)
-            ->assertJsonPath('products.9.id', $products[9]->id)
-            ->assertJsonPath('total', 20)
-            ->assertJsonPath('pages', 2)
+            ->assertJsonCount(10, 'data')
+            ->assertJsonPath('data.0.id', $products[0]->id)
+            ->assertJsonPath('data.9.id', $products[9]->id)
+            ->assertJsonPath('meta.total', 20)
+            ->assertJsonPath('meta.pages', 2)
             ->assertStatus(200);
     }
 
@@ -54,11 +54,11 @@ class CategoryProductControllerTest extends TestCase
 
         $this
             ->json('GET', '/api/category/'.$category->id.'/products?page=2')
-            ->assertJsonCount(10, 'products')
-            ->assertJsonPath('products.0.id', $products[10]->id)
-            ->assertJsonPath('products.9.id', $products[19]->id)
-            ->assertJsonPath('total', 20)
-            ->assertJsonPath('pages', 2)
+            ->assertJsonCount(10, 'data')
+            ->assertJsonPath('data.0.id', $products[10]->id)
+            ->assertJsonPath('data.9.id', $products[19]->id)
+            ->assertJsonPath('meta.total', 20)
+            ->assertJsonPath('meta.pages', 2)
             ->assertStatus(200);
     }
 
@@ -72,11 +72,11 @@ class CategoryProductControllerTest extends TestCase
         }
         $this
             ->json('GET', '/api/category/'.$category->id.'/products?size=10')
-            ->assertJsonCount(10, 'products')
-            ->assertJsonPath('products.0.id', $products[0]->id)
-            ->assertJsonPath('products.4.id', $products[4]->id)
-            ->assertJsonPath('total', 20)
-            ->assertJsonPath('pages', 2)
+            ->assertJsonCount(10, 'data')
+            ->assertJsonPath('data.0.id', $products[0]->id)
+            ->assertJsonPath('data.4.id', $products[4]->id)
+            ->assertJsonPath('meta.total', 20)
+            ->assertJsonPath('meta.pages', 2)
             ->assertStatus(200);
     }
 
@@ -86,9 +86,9 @@ class CategoryProductControllerTest extends TestCase
 
         $this
             ->json('GET', '/api/category/'.$category->id.'/products')
-            ->assertJsonCount(0, 'products')
-            ->assertJsonPath('total', 0)
-            ->assertJsonPath('pages', 0)
+            ->assertJsonCount(0, 'data')
+            ->assertJsonPath('meta.total', 0)
+            ->assertJsonPath('meta.pages', 0)
             ->assertStatus(200);
     }
 
@@ -121,9 +121,9 @@ class CategoryProductControllerTest extends TestCase
         }
         $this
             ->json('GET', '/api/category/'.$category->id.'/products?size=50')
-            ->assertJsonCount(20, 'products')
-            ->assertJsonPath('total', 20)
-            ->assertJsonPath('pages', 1)
+            ->assertJsonCount(20, 'data')
+            ->assertJsonPath('meta.total', 20)
+            ->assertJsonPath('meta.pages', 1)
             ->assertStatus(200);
     }
 

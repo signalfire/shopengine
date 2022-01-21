@@ -3,6 +3,7 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Signalfire\Shopengine\Http\Requests\GetProductsRequest;
+use Signalfire\Shopengine\Http\Resources\ProductCollection;
 use Signalfire\Shopengine\Models\Product;
 
 class ProductController extends Controller
@@ -26,10 +27,12 @@ class ProductController extends Controller
         $total = Product::available()
             ->count();
 
-        return response()->json([
-            'products' => $products,
-            'total'    => $total,
-            'pages'    => ceil($total / $size),
-        ]);
+        return (new ProductCollection($products))
+            ->additional([
+                'meta' => [
+                    'total' => $total,
+                    'pages' => ceil($total / $size)
+                ]
+            ]);
     }
 }
