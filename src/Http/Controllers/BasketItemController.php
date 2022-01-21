@@ -23,7 +23,7 @@ class BasketItemController extends Controller
         $basket = Basket::where('id', $basket_id)->with('items')->first();
 
         if (!$basket) {
-            return response()->json(['error' => __('Unable to find basket')], 404);
+            abort(404, __('Unable to find basket'));
         }
 
         $validated = $request->validated();
@@ -35,7 +35,7 @@ class BasketItemController extends Controller
             ->first();
 
         if (!$variant) {
-            return response()->json(['error' => __('Variant not available or insufficient stock')], 404);
+            abort(404, __('Variant not available or insufficient stock'));
         }
 
         $item = $basket->items()->where('product_variant_id', $variant_id)->first();
@@ -73,7 +73,7 @@ class BasketItemController extends Controller
         $basket = Basket::where('id', $basket_id)->with('items')->first();
 
         if (!$basket) {
-            return response()->json(['error' => __('Unable to find basket')], 404);
+            abort(404, __('Unable to find basket'));
         }
 
         $validated = $request->validated();

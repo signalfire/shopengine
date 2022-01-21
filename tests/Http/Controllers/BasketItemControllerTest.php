@@ -3,6 +3,8 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
@@ -77,7 +79,10 @@ class BasketItemControllerTest extends TestCase
 
     public function testFailsAddingToBasketNoBasket()
     {
+        $this->expectException(HttpException::class);
+
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.(string) Str::uuid().'/items',
@@ -85,16 +90,17 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
                 ]
-            )
-            ->assertJson(['error' => __('Unable to find basket')])
-            ->assertStatus(404);
+            );
     }
 
     public function testFailsAddingToBasketProductVariantNotFound()
     {
+        $this->expectException(HttpException::class);
+
         $basket = Basket::factory()->create();
 
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -102,13 +108,13 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
                 ]
-            )
-            ->assertJson(['error' => __('Variant not available or insufficient stock')])
-            ->assertStatus(404);
+            );
     }
 
     public function testFailsAddingToBasketProductVariantNoStock()
     {
+        $this->expectException(HttpException::class);
+
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -119,6 +125,7 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -126,13 +133,13 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
                 ]
-            )
-            ->assertJson(['error' => __('Variant not available or insufficient stock')])
-            ->assertStatus(404);
+            );
     }
 
     public function testFailsAddingToBasketQuantityHigherVariantStock()
     {
+        $this->expectException(HttpException::class);
+
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -143,6 +150,7 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -150,13 +158,13 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 2,
                 ]
-            )
-            ->assertJson(['error' => __('Variant not available or insufficient stock')])
-            ->assertStatus(404);
+            );
     }
 
     public function testFailsAddingToBasketVariantStatusNotAvailable()
     {
+        $this->expectException(HttpException::class);
+
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -168,6 +176,7 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -175,9 +184,7 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
                 ]
-            )
-            ->assertJson(['error' => __('Variant not available or insufficient stock')])
-            ->assertStatus(404);
+            );
     }
 
     public function testAddsNewItemToBasket()
@@ -308,15 +315,17 @@ class BasketItemControllerTest extends TestCase
 
     public function testFailsToDeleteItemFromNonExistantBasket()
     {
+        $this->expectException(HttpException::class);
+
         $this
+            ->withoutExceptionHandling()
             ->json(
                 'DELETE',
                 '/api/basket/'.(string) Str::uuid().'/items',
                 [
                     'product_variant_id' => (string) Str::uuid(),
                 ]
-            )
-            ->assertStatus(404);
+            );
     }
 
     public function testDeletesItemFromBasket()

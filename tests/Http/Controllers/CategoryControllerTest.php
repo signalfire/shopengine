@@ -3,6 +3,8 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryControllerTest extends TestCase
@@ -11,7 +13,7 @@ class CategoryControllerTest extends TestCase
     {
         $categories = Category::factory()->count(3)->create();
         $this->json('GET', '/api/categories')
-            ->assertJsonCount(3, 'categories')
+            ->assertJsonCount(3, 'data')
             ->assertStatus(200);
     }
 
@@ -99,13 +101,6 @@ class CategoryControllerTest extends TestCase
                 'slug'   => $slug,
                 'status' => $status,
             ])
-            ->assertJson([
-                'category' => [
-                    'name'   => $name,
-                    'slug'   => $slug,
-                    'status' => $status,
-                ],
-            ])
             ->assertStatus(201);
 
         $this->assertDatabaseCount('categories', 1);
@@ -153,9 +148,11 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsGetByIdMissing()
     {
+        $this->expectException(HttpException::class);
+
         $this
-            ->json('GET', '/api/category/'.(string) Str::uuid())
-            ->assertStatus(200);
+            ->withoutExceptionHandling()
+            ->json('GET', '/api/category/'.(string) Str::uuid());
     }
 
     // Needs extended

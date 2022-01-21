@@ -3,16 +3,18 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BasketControllerTest extends TestCase
 {
     public function testCreatesAndReturnsBasket()
     {
+        $this->assertDatabaseCount('baskets', 0);
         $this
             ->post('/api/basket')
             ->assertStatus(201);
@@ -29,13 +31,9 @@ class BasketControllerTest extends TestCase
     public function testFailsToRetrieveBasketNonExisting()
     {
         $this->expectException(HttpException::class);
-
         $this
-            ->get('/api/basket/'.(string) Str::uuid())
-            ->assertJson([
-                'message' => __('Unable to find basket'),
-            ])
-            ->assertStatus(404);
+            ->withoutExceptionHandling()
+            ->get('/api/basket/'.(string) Str::uuid());
     }
 
     public function testRetrievesExistingBasket()
@@ -85,11 +83,8 @@ class BasketControllerTest extends TestCase
         $this->expectException(HttpException::class);
 
         $this
-            ->delete('/api/basket/'.(string) Str::uuid())
-            ->assertJson([
-                'message' => __('Unable to find basket'),
-            ])
-            ->assertStatus(404);
+            ->withoutExceptionHandling()
+            ->delete('/api/basket/'.(string) Str::uuid());
     }
 
     public function testFailsToDestroyBasketNonUuid()

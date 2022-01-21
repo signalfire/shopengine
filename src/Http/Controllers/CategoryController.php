@@ -4,6 +4,7 @@ namespace Signalfire\Shopengine\Http\Controllers;
 
 use Signalfire\Shopengine\Http\Requests\StoreCategoryRequest;
 use Signalfire\Shopengine\Http\Requests\UpdateCategoryRequest;
+use Signalfire\Shopengine\Http\Resources\CategoryResource;
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryController extends Controller
@@ -17,7 +18,9 @@ class CategoryController extends Controller
     {
         $categories = Category::available()->get();
 
-        return response()->json(['categories' => $categories]);
+        return (CategoryResource::collection($categories))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -32,10 +35,12 @@ class CategoryController extends Controller
         $category = Category::available()->where('id', $category_id)->first();
 
         if (!$category) {
-            return response()->json(['error' => __('Category not found')]);
+            abort(404, __('Unable to find category'));
         }
 
-        return response()->json(['category' => $category]);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -50,10 +55,12 @@ class CategoryController extends Controller
         $category = Category::available()->where('slug', $slug)->first();
 
         if (!$category) {
-            return response()->json(['error' => __('Category not found')]);
+            abort(404, __('Unable to find category'));
         }
 
-        return response()->json(['category' => $category]);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -69,7 +76,9 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
 
-        return response()->json(['category' => $category], 201);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -89,7 +98,7 @@ class CategoryController extends Controller
         $category = Category::where('id', $category_id)->first();
 
         if (!$category) {
-            return response()->json(['error' => __('Category not found')]);
+            abort(404, __('Unable to find category'));
         }
 
         $category->name = $name;
@@ -99,6 +108,8 @@ class CategoryController extends Controller
 
         $category->refresh();
 
-        return response()->json(['category' => $category], 204);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(204);
     }
 }
