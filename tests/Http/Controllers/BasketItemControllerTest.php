@@ -7,7 +7,6 @@ use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BasketItemControllerTest extends TestCase
 {
@@ -78,10 +77,7 @@ class BasketItemControllerTest extends TestCase
 
     public function testFailsAddingToBasketNoBasket()
     {
-        $this->expectException(HttpException::class);
-
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.(string) Str::uuid().'/items',
@@ -89,17 +85,15 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testFailsAddingToBasketProductVariantNotFound()
     {
-        $this->expectException(HttpException::class);
-
         $basket = Basket::factory()->create();
 
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -107,13 +101,12 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testFailsAddingToBasketProductVariantNoStock()
     {
-        $this->expectException(HttpException::class);
-
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -124,7 +117,6 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -132,13 +124,12 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testFailsAddingToBasketQuantityHigherVariantStock()
     {
-        $this->expectException(HttpException::class);
-
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -149,7 +140,6 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -157,13 +147,12 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 2,
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testFailsAddingToBasketVariantStatusNotAvailable()
     {
-        $this->expectException(HttpException::class);
-
         $basket = Basket::factory()->create();
 
         $product = Product::factory()->create();
@@ -175,7 +164,6 @@ class BasketItemControllerTest extends TestCase
         ])->create();
 
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'POST',
                 '/api/basket/'.$basket->id.'/items',
@@ -183,7 +171,8 @@ class BasketItemControllerTest extends TestCase
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testAddsNewItemToBasket()
@@ -299,17 +288,15 @@ class BasketItemControllerTest extends TestCase
 
     public function testFailsToDeleteItemFromNonExistantBasket()
     {
-        $this->expectException(HttpException::class);
-
         $this
-            ->withoutExceptionHandling()
             ->json(
                 'DELETE',
                 '/api/basket/'.(string) Str::uuid().'/items',
                 [
                     'product_variant_id' => (string) Str::uuid(),
                 ]
-            );
+            )
+            ->assertStatus(404);
     }
 
     public function testDeletesItemFromBasket()

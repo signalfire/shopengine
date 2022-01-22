@@ -7,23 +7,23 @@ use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductSearchController;
 
+use Signalfire\Shopengine\Models\Basket;
+use Signalfire\Shopengine\Models\Category;
+
+
 Route::middleware(['api'])
     ->prefix('api')
     ->group(function () {
         Route::prefix('basket')->group(function () {
             Route::post('/', [BasketController::class, 'store'])
                 ->name('basket.store');
-            Route::get('/{basket_id}', [BasketController::class, 'show'])
-                ->whereUuid('basket_id')
+            Route::get('/{basket}', [BasketController::class, 'show'])
                 ->name('basket.show');
-            Route::delete('/{basket_id}', [BasketController::class, 'destroy'])
-                ->whereUuid('basket_id')
+            Route::delete('/{basket}', [BasketController::class, 'destroy'])
                 ->name('basket.destroy');
-            Route::post('/{basket_id}/items', [BasketItemController::class, 'store'])
-                ->whereUuid('basket_id')
+            Route::post('/{basket}/items', [BasketItemController::class, 'store'])
                 ->name('basket.item.store');
-            Route::delete('/{basket_id}/items', [BasketItemController::class, 'destroy'])
-                ->whereUuid('basket_id')
+            Route::delete('/{basket}/items', [BasketItemController::class, 'destroy'])
                 ->name('basket.item.destroy');
         });
         Route::prefix('categories')->group(function () {
@@ -33,16 +33,11 @@ Route::middleware(['api'])
         Route::prefix('category')->group(function () {
             Route::post('/', [CategoryController::class, 'store'])
                 ->name('category.store');
-            Route::put('/{category_id}', [CategoryController::class, 'update'])
-                ->whereUuid('category_id')
+            Route::get('/{category}', [CategoryController::class, 'show'])
+                ->name('category.show');
+            Route::put('/{category}', [CategoryController::class, 'update'])
                 ->name('category.update');
-            Route::get('/{category_id}', [CategoryController::class, 'showById'])
-                ->whereUuid('category_id')
-                ->name('category.show.id');
-            Route::get('/{slug}', [CategoryController::class, 'showBySlug'])
-                ->name('category.show.slug');
-            Route::get('/{category_id}/products', [CategoryProductController::class, 'index'])
-                ->whereUuid('category_id')
+            Route::get('/{category}/products', [CategoryProductController::class, 'index'])
                 ->name('category.products.index');
         });
         Route::prefix('products')->group(function () {

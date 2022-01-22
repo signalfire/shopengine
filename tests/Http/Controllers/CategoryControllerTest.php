@@ -7,11 +7,11 @@ use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Role;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Spatie\Permission\PermissionRegistrar;
 
 class CategoryControllerTest extends TestCase
 {
-
     public function testGetsCategories()
     {
         $categories = Category::factory()->count(3)->create();
@@ -138,17 +138,14 @@ class CategoryControllerTest extends TestCase
     public function testFailsAddingCategoryNotInPolicyRole()
     {
         $user = User::factory()->create();
-
-        $this->expectException(HttpException::class);
-
         $this
             ->actingAs($user)
-            ->withoutExceptionHandling()
             ->json('POST', '/api/category', [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
                 'status' => 1,
-            ]);
+            ])
+            ->assertStatus(403);
     }
 
 
@@ -185,19 +182,15 @@ class CategoryControllerTest extends TestCase
     public function testFailsUpdatingCategoryNotInPolicyRole()
     {
         $user = User::factory()->create();
-
         $category = Category::factory()->create();
-
-        $this->expectException(HttpException::class);
-
         $this
             ->actingAs($user)
-            ->withoutExceptionHandling()
             ->json('PUT', '/api/category/'.$category->id, [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
                 'status' => 1,
-            ]);
+            ])
+            ->assertStatus(403);
     }
 
 
@@ -211,16 +204,6 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(200);
     }
 
-    public function testFailsGetByIdMissing()
-    {
-        $this->expectException(HttpException::class);
-
-        $this
-            ->withoutExceptionHandling()
-            ->json('GET', '/api/category/'.(string) Str::uuid());
-    }
-
-    // Needs extended
     public function testGetCategoryBySlug()
     {
         $category = Category::factory()->create();
@@ -229,4 +212,19 @@ class CategoryControllerTest extends TestCase
             ->json('GET', '/api/category/'.$category->slug)
             ->assertStatus(200);
     }
+
+    public function testFailsGetByIdMissing()
+    {
+        $this
+            ->json('GET', '/api/category/'.(string) Str::uuid())
+            ->assertStatus(404);
+    }
+
+    public function testFailsGetBySlugMissing()
+    {
+        $this
+            ->json('GET', '/api/category/test')
+            ->assertStatus(404);
+    }
+
 }

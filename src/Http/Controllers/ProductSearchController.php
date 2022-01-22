@@ -22,18 +22,14 @@ class ProductSearchController extends Controller
         $page = (int) $request->query('page', 1);
         $skip = $page === 1 ? 0 : ($page - 1) * $size;
 
-        try {
-            $products = Product::available()
-                ->search(['name'], $keywords)
-                ->skip($skip)
-                ->take($size)
-                ->get();
-            $total = Product::available()
-                ->search(['name'], $keywords)
-                ->count();
-        } catch (\Throwable $ex) {
-            var_dump($ex);
-        }
+        $products = Product::available()
+            ->search(['name'], $keywords)
+            ->skip($skip)
+            ->take($size)
+            ->get();
+        $total = Product::available()
+            ->search(['name'], $keywords)
+            ->count();
 
         return (new ProductCollection($products))
             ->additional([

@@ -7,7 +7,6 @@ use Signalfire\Shopengine\Models\Basket;
 use Signalfire\Shopengine\Models\BasketItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BasketControllerTest extends TestCase
 {
@@ -29,10 +28,9 @@ class BasketControllerTest extends TestCase
 
     public function testFailsToRetrieveBasketNonExisting()
     {
-        $this->expectException(HttpException::class);
         $this
-            ->withoutExceptionHandling()
-            ->get('/api/basket/'.(string) Str::uuid());
+            ->get('/api/basket/'.(string) Str::uuid())
+            ->assertStatus(404);
     }
 
     public function testRetrievesExistingBasket()
@@ -71,20 +69,16 @@ class BasketControllerTest extends TestCase
 
     public function testFailsToDestroyBasketNonExisting()
     {
-        $this->expectException(HttpException::class);
-
         $this
-            ->withoutExceptionHandling()
-            ->delete('/api/basket/'.(string) Str::uuid());
+            ->delete('/api/basket/'.(string) Str::uuid())
+            ->assertStatus(404);
     }
 
     public function testFailsToDestroyBasketNonUuid()
     {
-        // Checking for 405 as laravel fallback only seems to work on GET, HEAD, OPTIONS
-        // anything else seems to return 405.
         $this
             ->delete('/api/basket/12')
-            ->assertStatus(405);
+            ->assertStatus(404);
     }
 
     public function testDestroysBasket()

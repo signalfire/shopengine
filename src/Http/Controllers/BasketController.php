@@ -30,14 +30,8 @@ class BasketController extends Controller
      *
      * @return string JSON
      */
-    public function show($basket_id)
+    public function show(Basket $basket)
     {
-        $basket = Basket::where('id', $basket_id)->with('items')->first();
-
-        if (!$basket) {
-            abort(404, __('Unable to find basket'));
-        }
-
         return (new BasketResource($basket))
             ->response()
             ->setStatusCode(200);
@@ -50,14 +44,8 @@ class BasketController extends Controller
      *
      * @return string JSON
      */
-    public function destroy($basket_id)
+    public function destroy(Basket $basket)
     {
-        $basket = Basket::where('id', $basket_id)->first();
-
-        if (!$basket) {
-            abort(404, __('Unable to find basket'));
-        }
-
         $basket->items()->delete();
         $basket->delete();
 

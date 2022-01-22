@@ -19,13 +19,9 @@ class BasketItemController extends Controller
      *
      * @return string JSON
      */
-    public function store(StoreBasketItemRequest $request, $basket_id)
+    public function store(StoreBasketItemRequest $request, Basket $basket)
     {
-        $basket = Basket::where('id', $basket_id)->with('items')->first();
-
-        if (!$basket) {
-            abort(404, __('Unable to find basket'));
-        }
+        $basket->load('items');
 
         $validated = $request->validated();
         $variant_id = $validated['product_variant_id'];
@@ -50,13 +46,13 @@ class BasketItemController extends Controller
             }
         } else {
             $item = new BasketItem();
-            $item->basket_id = $basket_id;
-            $item->product_variant_id = $variant_id;
+            $item->basket_id = $basket->id;
+            $item->product_variant_id = $variant->id;
             $item->quantity = $quantity;
             $item->save();
         }
 
-        $basket->refresh();
+        $basket->refresh();        
 
         return (new BasketResource($basket))
             ->response()
@@ -71,15 +67,12 @@ class BasketItemController extends Controller
      *
      * @return string JSON
      */
-    public function destroy(DeleteBasketItemRequest $request, $basket_id)
+    public function destroy(DeleteBasketItemRequest $request, Basket $basket)
     {
-        $basket = Basket::where('id', $basket_id)->with('items')->first();
-
-        if (!$basket) {
-            abort(404, __('Unable to find basket'));
-        }
+        $basket->load('items');
 
         $validated = $request->validated();
+        
         $variant_id = $validated['product_variant_id'];
 
         $item = $basket->items()->where('product_variant_id', $variant_id)->first();

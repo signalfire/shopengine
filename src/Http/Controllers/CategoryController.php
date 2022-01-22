@@ -30,18 +30,27 @@ class CategoryController extends Controller
      *
      * @return string JSON
      */
-    public function showById($category_id)
+    public function showById(Category $category)
     {
-        $category = Category::available()->where('id', $category_id)->first();
-
-        if (!$category) {
-            abort(404, __('Unable to find category'));
-        }
-
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
     }
+
+    /**
+     * Gets category.
+     *
+     * @param Signalfire\Shopengine\Models\Category $category
+     *
+     * @return string JSON
+     */
+    public function show(Category $category)
+    {
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(200);
+    }
+
 
     /**
      * Gets category by slug.
@@ -50,14 +59,8 @@ class CategoryController extends Controller
      *
      * @return string JSON
      */
-    public function showBySlug($slug)
+    public function showBySlug(Category $category)
     {
-        $category = Category::available()->where('slug', $slug)->first();
-
-        if (!$category) {
-            abort(404, __('Unable to find category'));
-        }
-
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
@@ -92,14 +95,8 @@ class CategoryController extends Controller
      *
      * @return string JSON
      */
-    public function update(UpdateCategoryRequest $request, $category_id)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category = Category::where('id', $category_id)->first();
-
-        if (!$category) {
-            abort(404, __('Unable to find category'));
-        }
-
         if ($request->user()->cannot('update', $category)) {
             abort(403, __('Unable to update category'));
         }
