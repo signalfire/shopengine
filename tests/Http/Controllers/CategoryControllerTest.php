@@ -4,11 +4,8 @@ namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Category;
-use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Role;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Spatie\Permission\PermissionRegistrar;
+use Signalfire\Shopengine\Models\User;
 
 class CategoryControllerTest extends TestCase
 {
@@ -110,7 +107,7 @@ class CategoryControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $role = Role::factory()->state([
-            'name' => 'admin'
+            'name' => 'admin',
         ])->create();
         $user->roles()->attach($role);
         $name = 'this is a test';
@@ -148,12 +145,11 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(403);
     }
 
-
     public function testUpdatesCategory()
     {
         $user = User::factory()->create();
         $role = Role::factory()->state([
-            'name' => 'admin'
+            'name' => 'admin',
         ])->create();
         $user->roles()->attach($role);
         $name = 'this is a test';
@@ -193,7 +189,6 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(403);
     }
 
-
     // Needs extended
     public function testGetCategoryById()
     {
@@ -226,5 +221,4 @@ class CategoryControllerTest extends TestCase
             ->json('GET', '/api/category/test')
             ->assertStatus(404);
     }
-
 }

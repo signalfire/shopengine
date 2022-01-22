@@ -52,7 +52,7 @@ class BasketItemController extends Controller
             $item->save();
         }
 
-        $basket->refresh();        
+        $basket->refresh();
 
         return (new BasketResource($basket))
             ->response()
