@@ -72,7 +72,7 @@ class BasketItemController extends Controller
         $basket->load('items');
 
         $validated = $request->validated();
-        
+
         $variant_id = $validated['product_variant_id'];
 
         $item = $basket->items()->where('product_variant_id', $variant_id)->first();
