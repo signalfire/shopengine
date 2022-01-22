@@ -7,9 +7,6 @@ use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductSearchController;
 
-use Signalfire\Shopengine\Models\Basket;
-use Signalfire\Shopengine\Models\Category;
-
 Route::middleware(['api'])
     ->prefix('api')
     ->group(function () {

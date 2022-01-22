@@ -51,7 +51,6 @@ class CategoryController extends Controller
             ->setStatusCode(200);
     }
 
-
     /**
      * Gets category by slug.
      *

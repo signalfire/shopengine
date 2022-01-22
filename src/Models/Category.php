@@ -4,9 +4,9 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Factories\CategoryFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
-use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -25,12 +25,12 @@ class Category extends Model
         return $query->where('status', (int) config('shopengine.category.status.AVAILABLE'));
     }
 
-
     public function resolveRouteBinding($value, $field = null)
     {
         if (Str::isUuid($value)) {
             return $this->where('id', $value)->firstOrFail();
         }
+
         return $this->where('slug', $value)->firstOrFail();
     }
 
