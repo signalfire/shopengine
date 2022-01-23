@@ -13,6 +13,8 @@ class Product extends Model
     use Uuid;
     use HasFactory;
 
+    protected $fillable = ['name', 'slug', 'status'];
+
     public function items()
     {
         return $this->hasMany(BasketItem::class);
