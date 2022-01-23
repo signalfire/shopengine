@@ -22,7 +22,7 @@ class ProductVariantPolicy
     /**
      * Determine if the given product variant can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User    $user
+     * @param Signalfire\Shopengine\Models\User           $user
      * @param Signalfire\Shopengine\Models\ProductVariant $variant
      *
      * @return bool
