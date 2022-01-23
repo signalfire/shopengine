@@ -4,9 +4,9 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
-use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -38,6 +38,7 @@ class Product extends Model
         if (Str::isUuid($value)) {
             return $this->where('id', $value)->firstOrFail();
         }
+
         return $this->where('slug', $value)->firstOrFail();
     }
 

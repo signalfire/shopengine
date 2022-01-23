@@ -17,7 +17,7 @@ class ShopEngineServiceProvider extends ServiceProvider
 {
     protected $policies = [
         Category::class => CategoryPolicy::class,
-        Product::class => ProductPolicy::class,
+        Product::class  => ProductPolicy::class,
     ];
 
     public function boot()
@@ -52,6 +52,7 @@ class ShopEngineServiceProvider extends ServiceProvider
                     });
                 }
             });
+
             return $this;
         });
 

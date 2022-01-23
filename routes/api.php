@@ -4,9 +4,9 @@ use Signalfire\Shopengine\Http\Controllers\BasketController;
 use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
+use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductsSearchController;
-use Signalfire\Shopengine\Http\Controllers\ProductController;
 
 Route::middleware(['api'])
     ->prefix('api')

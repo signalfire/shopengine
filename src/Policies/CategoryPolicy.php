@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Policies;
 
 use Signalfire\Shopengine\Models\Category;
-use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
 
 class CategoryPolicy
