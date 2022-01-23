@@ -121,7 +121,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->state([
             'slug' => 'test',
         ])->create();
-        
+
         $this
             ->actingAs($user)
             ->json('POST', '/api/product', [
