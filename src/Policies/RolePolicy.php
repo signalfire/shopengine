@@ -22,7 +22,7 @@ class RolePolicy
     /**
      * Determine if the given role can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User $user
      * @param Signalfire\Shopengine\Models\Role $role
      *
      * @return bool

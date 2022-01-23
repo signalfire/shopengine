@@ -20,10 +20,10 @@ use Signalfire\Shopengine\Policies\RolePolicy;
 class ShopEngineServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        Category::class => CategoryPolicy::class,
-        Product::class  => ProductPolicy::class,
+        Category::class        => CategoryPolicy::class,
+        Product::class         => ProductPolicy::class,
         ProductVariant::class  => ProductVariantPolicy::class,
-        Role::class => RolePolicy::class
+        Role::class            => RolePolicy::class,
     ];
 
     public function boot()
