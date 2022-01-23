@@ -209,11 +209,11 @@ class ProductControllerTest extends TestCase
     public function testUpdatesProduct()
     {
         $user = User::factory()->create();
-        
+
         $role = Role::factory()->state([
             'name' => 'admin',
         ])->create();
-        
+
         $user->roles()->attach($role);
 
         $name = 'this is a test';
@@ -221,7 +221,7 @@ class ProductControllerTest extends TestCase
         $status = 1;
 
         $product = Product::factory()->create();
-        
+
         $response = $this
             ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
@@ -266,7 +266,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/' . $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'slug'   => 'test',
                 'status' => 1,
             ])
@@ -285,7 +285,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/' . $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'status' => 1,
             ])
@@ -304,7 +304,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/' . $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'name' => 'test',
                 'slug' => 'slug',
             ])
@@ -323,7 +323,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/' . $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
                 'status' => 1,
@@ -344,7 +344,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/'. $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 'A',
@@ -367,7 +367,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/' . $product->id, [
+            ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 1,
