@@ -4,8 +4,8 @@ namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Product;
-use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Role;
+use Signalfire\Shopengine\Models\User;
 
 class ProductControllerTest extends TestCase
 {
@@ -41,80 +41,81 @@ class ProductControllerTest extends TestCase
             ->assertStatus(404);
     }
 
-    public function testFailsCreateProductNameMissing() 
+    public function testFailsCreateProductNameMissing()
     {
         $this
             ->json('POST', '/api/product', [
-                'slug' => 'test',
-                'status' => 1
+                'slug'   => 'test',
+                'status' => 1,
             ])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertStatus(422);
     }
 
-    public function testFailsCreateProductSlugMissing() 
+    public function testFailsCreateProductSlugMissing()
     {
         $this
             ->json('POST', '/api/product', [
-                'name' => 'test',
-                'status' => 1
+                'name'   => 'test',
+                'status' => 1,
             ])
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertStatus(422);
     }
 
-    public function testFailsCreateProductStatusMissing() 
+    public function testFailsCreateProductStatusMissing()
     {
         $this
             ->json('POST', '/api/product', [
                 'name' => 'test',
-                'slug' => 'slug'
+                'slug' => 'slug',
             ])
             ->assertJsonValidationErrorFor('status', 'errors')
             ->assertStatus(422);
     }
 
-    public function testFailsCreateProductNameSlugTooLong() 
+    public function testFailsCreateProductNameSlugTooLong()
     {
         $this
             ->json('POST', '/api/product', [
-                'name' => str_repeat('x', 101),
-                'slug' => str_repeat('x', 101),
-                'status' => 1
+                'name'   => str_repeat('x', 101),
+                'slug'   => str_repeat('x', 101),
+                'status' => 1,
             ])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertStatus(422);
     }
 
-    public function testFailsCreateProductStatusNotInteger() 
+    public function testFailsCreateProductStatusNotInteger()
     {
         $this
             ->json('POST', '/api/product', [
-                'name' => 'test',
-                'slug' => 'test',
-                'status' => 'A'
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 'A',
             ])
             ->assertJsonValidationErrorFor('status', 'errors')
             ->assertStatus(422);
-    }    
+    }
 
-    public function testFailsCreateProductProductSlugExists() 
+    public function testFailsCreateProductProductSlugExists()
     {
         $product = Product::factory()->state([
-            'slug' => 'test'
+            'slug' => 'test',
         ])->create();
         $this
             ->json('POST', '/api/product', [
-                'name' => 'test',
-                'slug' => 'test',
-                'status' => 1
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 1,
             ])
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertStatus(422);
-    }        
+    }
 
-    public function testCreateAndReturnProduct(){
+    public function testCreateAndReturnProduct()
+    {
         $user = User::factory()->create();
         $role = Role::factory()->state([
             'name' => 'admin',
@@ -123,9 +124,9 @@ class ProductControllerTest extends TestCase
         $this
             ->actingAs($user)
             ->json('POST', '/api/product', [
-                'name' => 'test',
-                'slug' => 'test',
-                'status' => 1
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 1,
             ])
             ->assertStatus(201);
     }
