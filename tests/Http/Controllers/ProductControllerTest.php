@@ -3,7 +3,9 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
+use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
 
@@ -15,6 +17,23 @@ class ProductControllerTest extends TestCase
 
         $this
             ->json('GET', '/api/product/'.$product->id)
+            ->assertStatus(200);
+    }
+
+    public function testGetProductByIdWithVariantsCategories()
+    {
+        $product = Product::factory()->create();
+        $variants = ProductVariant::factory()->state([
+            'product_id' => $product->id,
+        ])->count(2)->create();
+        $categories = Category::factory()->count(4)->create();
+        foreach ($categories as $category) {
+            $product->categories()->attach($category);
+        }
+        $this
+            ->json('GET', '/api/product/'.$product->id)
+            ->assertJsonCount(2, 'data.variants')
+            ->assertJsonCount(4, 'data.categories')
             ->assertStatus(200);
     }
 
