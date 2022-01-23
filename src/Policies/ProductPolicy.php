@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Policies;
 
 use Signalfire\Shopengine\Models\Product;
-use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
 
 class ProductPolicy
@@ -23,7 +22,7 @@ class ProductPolicy
     /**
      * Determine if the given product can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User    $user
      * @param Signalfire\Shopengine\Models\Product $product
      *
      * @return bool

@@ -2,8 +2,8 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Signalfire\Shopengine\Models\Product;
 use Illuminate\Support\Str;
+use Signalfire\Shopengine\Models\Product;
 
 class ProductControllerTest extends TestCase
 {
