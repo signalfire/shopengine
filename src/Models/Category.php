@@ -25,6 +25,10 @@ class Category extends Model
         return $query->where('status', (int) config('shopengine.category.status.AVAILABLE'));
     }
 
+    public function isAvailable(){
+        return $this->status === (int) config('shopengine.category.status.AVAILABLE');
+    }
+
     public function resolveRouteBinding($value, $field = null)
     {
         if (Str::isUuid($value)) {
