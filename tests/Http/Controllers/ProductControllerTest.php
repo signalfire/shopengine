@@ -43,7 +43,10 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductNameMissing()
     {
+        $user = User::factory()->create();
+
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'slug'   => 'test',
                 'status' => 1,
@@ -54,7 +57,10 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductSlugMissing()
     {
+        $user = User::factory()->create();
+
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'status' => 1,
@@ -65,7 +71,10 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductStatusMissing()
     {
+        $user = User::factory()->create();
+
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name' => 'test',
                 'slug' => 'slug',
@@ -76,7 +85,10 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductNameSlugTooLong()
     {
+        $user = User::factory()->create();
+
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
@@ -89,7 +101,10 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductStatusNotInteger()
     {
+        $user = User::factory()->create();
+
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -101,10 +116,14 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductProductSlugExists()
     {
+        $user = User::factory()->create();
+
         $product = Product::factory()->state([
             'slug' => 'test',
         ])->create();
+        
         $this
+            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',

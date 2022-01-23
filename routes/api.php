@@ -28,17 +28,20 @@ Route::middleware(['api'])
         });
         Route::prefix('category')->group(function () {
             Route::post('/', [CategoryController::class, 'store'])
-                ->name('category.store');
+                ->name('category.store')
+                ->middleware('auth');
             Route::get('/{category}', [CategoryController::class, 'show'])
                 ->name('category.show');
             Route::put('/{category}', [CategoryController::class, 'update'])
-                ->name('category.update');
+                ->name('category.update')
+                ->middleware('auth');
             Route::get('/{category}/products', [CategoryProductController::class, 'index'])
                 ->name('category.products.index');
         });
         Route::prefix('product')->group(function () {
             Route::post('/', [ProductController::class, 'store'])
-                ->name('product.store');
+                ->name('product.store')
+                ->middleware('auth');
             Route::get('/{product}', [ProductController::class, 'show'])
                 ->name('product.show');
         });
