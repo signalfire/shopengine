@@ -2,14 +2,14 @@
 
 namespace Signalfire\Shopengine\Policies;
 
-use Signalfire\Shopengine\Models\Category;
+use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
 
-class CategoryPolicy
+class ProductPolicy
 {
     /**
-     * Determine if a category can be created by the user.
+     * Determine if a product can be created by the user.
      *
      * @param Signalfire\Shopengine\Models\User $user
      *
@@ -21,14 +21,14 @@ class CategoryPolicy
     }
 
     /**
-     * Determine if the given category can be updated by the user.
+     * Determine if the given product can be updated by the user.
      *
      * @param Signalfire\Shopengine\Models\User     $user
-     * @param Signalfire\Shopengine\Models\Category $category
+     * @param Signalfire\Shopengine\Models\Product $product
      *
      * @return bool
      */
-    public function update(User $user, Category $category)
+    public function update(User $user, Product $product)
     {
         return $user->isAdmin();
     }

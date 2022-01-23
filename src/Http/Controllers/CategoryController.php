@@ -24,20 +24,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Gets category by id.
-     *
-     * @param string $category_id
-     *
-     * @return string JSON
-     */
-    public function showById(Category $category)
-    {
-        return (new CategoryResource($category))
-            ->response()
-            ->setStatusCode(200);
-    }
-
-    /**
      * Gets category.
      *
      * @param Signalfire\Shopengine\Models\Category $category
@@ -45,20 +31,6 @@ class CategoryController extends Controller
      * @return string JSON
      */
     public function show(Category $category)
-    {
-        return (new CategoryResource($category))
-            ->response()
-            ->setStatusCode(200);
-    }
-
-    /**
-     * Gets category by slug.
-     *
-     * @param string $slug
-     *
-     * @return string JSON
-     */
-    public function showBySlug(Category $category)
     {
         return (new CategoryResource($category))
             ->response()

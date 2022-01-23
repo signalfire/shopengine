@@ -30,7 +30,6 @@ class Category extends Model
         if (Str::isUuid($value)) {
             return $this->where('id', $value)->firstOrFail();
         }
-
         return $this->where('slug', $value)->firstOrFail();
     }
 

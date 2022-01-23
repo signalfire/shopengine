@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -30,6 +31,14 @@ class Product extends Model
     public function scopeAvailable($query)
     {
         return $query->where('status', (int) config('shopengine.product.status.AVAILABLE'));
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        if (Str::isUuid($value)) {
+            return $this->where('id', $value)->firstOrFail();
+        }
+        return $this->where('slug', $value)->firstOrFail();
     }
 
     protected static function newFactory()

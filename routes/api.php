@@ -4,8 +4,9 @@ use Signalfire\Shopengine\Http\Controllers\BasketController;
 use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
+use Signalfire\Shopengine\Http\Controllers\ProductsController;
+use Signalfire\Shopengine\Http\Controllers\ProductsSearchController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
-use Signalfire\Shopengine\Http\Controllers\ProductSearchController;
 
 Route::middleware(['api'])
     ->prefix('api')
@@ -36,10 +37,16 @@ Route::middleware(['api'])
             Route::get('/{category}/products', [CategoryProductController::class, 'index'])
                 ->name('category.products.index');
         });
+        Route::prefix('product')->group(function () {
+            Route::post('/', [ProductController::class, 'store'])
+                ->name('product.store');
+            Route::get('/{product}', [ProductController::class, 'show'])
+                ->name('product.show');
+        });
         Route::prefix('products')->group(function () {
-            Route::get('/', [ProductController::class, 'index'])
+            Route::get('/', [ProductsController::class, 'index'])
                 ->name('products.index');
-            Route::get('/search', [ProductSearchController::class, 'index'])
+            Route::get('/search', [ProductsSearchController::class, 'index'])
                 ->name('product.search.index');
         });
         Route::fallback(function () {

@@ -7,14 +7,17 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Signalfire\Shopengine\Models\Category;
+use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
 use Signalfire\Shopengine\Nova\Resource as NovaResource;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
+use Signalfire\Shopengine\Policies\ProductPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
     protected $policies = [
         Category::class => CategoryPolicy::class,
+        Product::class => ProductPolicy::class,
     ];
 
     public function boot()
@@ -49,7 +52,6 @@ class ShopEngineServiceProvider extends ServiceProvider
                     });
                 }
             });
-
             return $this;
         });
 

@@ -49,6 +49,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function isAdmin()
+    {
+        $admin = Role::where('name', 'admin')->first();
+        return $this->roles->contains($admin);
+    }
+
     protected static function newFactory()
     {
         return UserFactory::new();

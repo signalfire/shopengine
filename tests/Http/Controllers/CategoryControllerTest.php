@@ -113,7 +113,6 @@ class CategoryControllerTest extends TestCase
         $name = 'this is a test';
         $slug = 'this-is-a-test';
         $status = 1;
-
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', [

@@ -3,36 +3,46 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Signalfire\Shopengine\Http\Requests\GetProductsRequest;
+use Signalfire\Shopengine\Http\Requests\StoreProductRequest;
 use Signalfire\Shopengine\Http\Resources\ProductCollection;
+use Signalfire\Shopengine\Http\Resources\ProductResource;
 use Signalfire\Shopengine\Models\Product;
 
 class ProductController extends Controller
 {
     /**
-     * Gets paginated products.
+     * Gets product.
      *
-     * @param Signalfire\Shopengine\Http\Requests\GetProductsRequest $request
+     * @param Signalfire\Shopengine\Models\Product $product
      *
      * @return string JSON
      */
-    public function index(GetProductsRequest $request)
+    public function show(Product $product)
     {
-        $size = (int) $request->query('size', 10);
-        $page = (int) $request->query('page', 1);
-        $skip = $page === 1 ? 0 : ($page - 1) * $size;
-        $products = Product::available()
-            ->skip($skip)
-            ->take($size)
-            ->get();
-        $total = Product::available()
-            ->count();
+        return (new ProductResource($product))
+            ->response()
+            ->setStatusCode(200);
+    }
 
-        return (new ProductCollection($products))
-            ->additional([
-                'meta' => [
-                    'total' => $total,
-                    'pages' => ceil($total / $size),
-                ],
-            ]);
+    /**
+     * Creates a new product.
+     *
+     * @param StoreProductRequest $request
+     *
+     * @return string JSON
+     */
+    public function store(StoreProductRequest $request)
+    {
+        if ($request->user()->cannot('create', Product::class)) {
+            abort(403, __('Unable to create product'));
+        }
+
+        $validated = $request->validated();
+
+        $product = Product::create($validated);
+
+        return (new ProductResource($product))
+            ->response()
+            ->setStatusCode(201);
     }
 }
