@@ -188,7 +188,6 @@ class CategoryControllerTest extends TestCase
             ->assertStatus(403);
     }
 
-    // Needs extended
     public function testGetCategoryById()
     {
         $category = Category::factory()->create();
