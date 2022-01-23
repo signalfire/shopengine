@@ -46,7 +46,7 @@ Route::middleware(['api'])
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductsController::class, 'index'])
                 ->name('products.index');
-            Route::get('/search', [ProductsSearchController::class, 'index'])
+            Route::get('/search', [ProductsController::class, 'search'])
                 ->name('product.search.index');
         });
         Route::fallback(function () {

@@ -25,7 +25,8 @@ class Category extends Model
         return $query->where('status', (int) config('shopengine.category.status.AVAILABLE'));
     }
 
-    public function isAvailable(){
+    public function isAvailable()
+    {
         return $this->status === (int) config('shopengine.category.status.AVAILABLE');
     }
 
