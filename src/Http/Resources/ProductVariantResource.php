@@ -13,7 +13,6 @@ class ProductVariantResource extends JsonResource
      *
      * @return array
      */
-
     public function toArray($request)
     {
         return [
