@@ -11,9 +11,9 @@ class ProductVariantControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $variants = ProductVariant::factory()->state([
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->count(3)->create();
-        $this->json('GET', '/api/product/'. $product->id . '/variants')
+        $this->json('GET', '/api/product/'.$product->id.'/variants')
             ->assertJsonCount(3, 'data')
             ->assertStatus(200);
     }
@@ -22,19 +22,19 @@ class ProductVariantControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $variant = ProductVariant::factory()->state([
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->create();
-        $this->json('GET', '/api/product/'. $product->id . '/variant/' . $variant->id)
+        $this->json('GET', '/api/product/'.$product->id.'/variant/'.$variant->id)
             ->assertJson([
                 'data' => [
-                    'id' => $variant->id,
+                    'id'         => $variant->id,
                     'product_id' => $variant->product_id,
-                    'name' => $variant->name,
-                    'slug' => $variant->slug,
-                    'stock' => $variant->stock,
-                    'price' => $variant->price,
-                    'status' => $variant->status
-                ]
+                    'name'       => $variant->name,
+                    'slug'       => $variant->slug,
+                    'stock'      => $variant->stock,
+                    'price'      => $variant->price,
+                    'status'     => $variant->status,
+                ],
             ])
             ->assertStatus(200);
     }
