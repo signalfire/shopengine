@@ -6,7 +6,6 @@ use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
-
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 
