@@ -31,7 +31,7 @@ Route::middleware(['api'])
                 ->name('category.show');
             Route::get('/{category}/products', [CategoryProductController::class, 'index'])
                 ->name('category.products.index');
-            Route::middleware(['auth'])->group(function(){
+            Route::middleware(['auth'])->group(function () {
                 Route::post('/', [CategoryController::class, 'store'])
                     ->name('category.store');
                 Route::put('/{category}', [CategoryController::class, 'update'])
@@ -41,7 +41,7 @@ Route::middleware(['api'])
         Route::prefix('product')->group(function () {
             Route::get('/{product}', [ProductController::class, 'show'])
                 ->name('product.show');
-            Route::middleware(['auth'])->group(function(){
+            Route::middleware(['auth'])->group(function () {
                 Route::post('/', [ProductController::class, 'store'])
                     ->name('product.store');
             });
