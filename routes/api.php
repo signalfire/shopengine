@@ -7,6 +7,9 @@ use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 
+use Signalfire\Shopengine\Models\Category;
+use Signalfire\Shopengine\Models\Product;
+
 Route::middleware(['api'])
     ->prefix('api')
     ->group(function () {
@@ -33,9 +36,11 @@ Route::middleware(['api'])
                 ->name('category.products.index');
             Route::middleware(['auth'])->group(function () {
                 Route::post('/', [CategoryController::class, 'store'])
-                    ->name('category.store');
+                    ->name('category.store')
+                    ->can('create', Category::class);
                 Route::put('/{category}', [CategoryController::class, 'update'])
-                    ->name('category.update');
+                    ->name('category.update')
+                    ->can('update', 'category');
             });
         });
         Route::prefix('product')->group(function () {
@@ -43,7 +48,8 @@ Route::middleware(['api'])
                 ->name('product.show');
             Route::middleware(['auth'])->group(function () {
                 Route::post('/', [ProductController::class, 'store'])
-                    ->name('product.store');
+                    ->name('product.store')
+                    ->can('create', Product::class);
             });
         });
         Route::prefix('products')->group(function () {

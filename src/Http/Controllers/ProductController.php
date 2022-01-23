@@ -31,10 +31,6 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        if ($request->user()->cannot('create', Product::class)) {
-            abort(403, __('Unable to create product'));
-        }
-
         $validated = $request->validated();
 
         $product = Product::create($validated);

@@ -46,10 +46,6 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        if ($request->user()->cannot('create', Category::class)) {
-            abort(403, __('Unable to create category'));
-        }
-
         $validated = $request->validated();
 
         $category = Category::create($validated);
@@ -68,10 +64,6 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        if ($request->user()->cannot('update', $category)) {
-            abort(403, __('Unable to update category'));
-        }
-
         $validated = $request->validated();
         $name = $validated['name'];
         $slug = $validated['slug'];

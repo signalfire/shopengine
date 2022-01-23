@@ -44,6 +44,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductNameMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $this
             ->actingAs($user)
@@ -58,6 +62,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductSlugMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $this
             ->actingAs($user)
@@ -72,6 +80,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductStatusMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $this
             ->actingAs($user)
@@ -86,6 +98,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductNameSlugTooLong()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $this
             ->actingAs($user)
@@ -102,6 +118,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductStatusNotInteger()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $this
             ->actingAs($user)
@@ -117,6 +137,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductProductSlugExists()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
 
         $product = Product::factory()->state([
             'slug' => 'test',
@@ -133,7 +157,7 @@ class ProductControllerTest extends TestCase
             ->assertStatus(422);
     }
 
-    public function testCreateAndReturnProduct()
+    public function testCreateProduct()
     {
         $user = User::factory()->create();
         $role = Role::factory()->state([
@@ -148,5 +172,18 @@ class ProductControllerTest extends TestCase
                 'status' => 1,
             ])
             ->assertStatus(201);
+    }
+
+    public function testFailsCreateProductNotInPolicyRole() {
+        $user = User::factory()->create();
+        $this
+            ->actingAs($user)
+            ->json('POST', '/api/product', [
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 1,
+            ])
+            ->assertStatus(403);
+
     }
 }

@@ -20,6 +20,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategory()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', [])
@@ -32,6 +36,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategoryNameMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', ['slug' => 'test', 'status' => 1])
@@ -42,6 +50,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategorySlugMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', ['name' => 'test', 'status' => 1])
@@ -52,6 +64,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategoryStatusMissing()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', ['name' => 'test', 'slug' => 'test'])
@@ -62,6 +78,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategoryNameSlugTooLong()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', [
@@ -77,6 +97,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsToAddCategoryStatusNotInteger()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $this
             ->actingAs($user)
             ->json('POST', '/api/category', [
@@ -91,6 +115,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsAddCategorySlugExists()
     {
         $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
         $category = Category::factory()->create();
         $this
             ->actingAs($user)
