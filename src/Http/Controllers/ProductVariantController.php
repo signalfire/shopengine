@@ -11,7 +11,7 @@ class ProductVariantController extends Controller
     /**
      * Gets product variant.
      *
-     * @param Signalfire\Shopengine\Models\Product $product
+     * @param Signalfire\Shopengine\Models\Product        $product
      * @param Signalfire\Shopengine\Models\ProductVariant $variant
      *
      * @return string JSON
