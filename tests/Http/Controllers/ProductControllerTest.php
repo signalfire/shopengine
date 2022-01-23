@@ -174,7 +174,8 @@ class ProductControllerTest extends TestCase
             ->assertStatus(201);
     }
 
-    public function testFailsCreateProductNotInPolicyRole() {
+    public function testFailsCreateProductNotInPolicyRole()
+    {
         $user = User::factory()->create();
         $this
             ->actingAs($user)
@@ -184,6 +185,5 @@ class ProductControllerTest extends TestCase
                 'status' => 1,
             ])
             ->assertStatus(403);
-
     }
 }
