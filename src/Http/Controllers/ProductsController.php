@@ -2,8 +2,8 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Signalfire\Shopengine\Http\Requests\GetProductsRequest;
 use Signalfire\Shopengine\Http\Requests\GetProductSearchRequest;
+use Signalfire\Shopengine\Http\Requests\GetProductsRequest;
 use Signalfire\Shopengine\Http\Resources\ProductCollection;
 use Signalfire\Shopengine\Models\Product;
 
