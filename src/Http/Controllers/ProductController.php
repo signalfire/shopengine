@@ -3,6 +3,7 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Signalfire\Shopengine\Http\Requests\StoreProductRequest;
+use Signalfire\Shopengine\Http\Requests\UpdateProductRequest;
 use Signalfire\Shopengine\Http\Resources\ProductResource;
 use Signalfire\Shopengine\Models\Product;
 
@@ -38,5 +39,31 @@ class ProductController extends Controller
         return (new ProductResource($product))
             ->response()
             ->setStatusCode(201);
+    }
+
+    /**
+     * Updates existing product.
+     *
+     * @param UpdateProductRequest $request
+     *
+     * @return string JSON
+     */
+    public function update(UpdateProductRequest $request, Product $product)
+    {
+        $validated = $request->validated();
+        $name = $validated['name'];
+        $slug = $validated['slug'];
+        $status = $validated['status'];
+
+        $product->name = $name;
+        $product->slug = $slug;
+        $product->status = $status;
+        $product->save();
+
+        $product->refresh();
+
+        return (new ProductResource($product))
+            ->response()
+            ->setStatusCode(204);
     }
 }

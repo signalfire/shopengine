@@ -4,7 +4,7 @@ namespace Signalfire\Shopengine\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategoryRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name'   => 'required|string|max:100',
-            'slug'   => 'required|string|max:100|unique:categories,slug,'.$this->get('category'),
+            'slug'   => 'required|string|max:100|unique:products,slug,'.$this->get('product'),
             'status' => 'required|integer',
         ];
     }

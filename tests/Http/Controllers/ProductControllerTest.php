@@ -186,4 +186,174 @@ class ProductControllerTest extends TestCase
             ])
             ->assertStatus(403);
     }
+
+    public function testUpdatesProduct()
+    {
+        $user = User::factory()->create();
+        
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        
+        $user->roles()->attach($role);
+
+        $name = 'this is a test';
+        $slug = 'this-is-a-test';
+        $status = 1;
+
+        $product = Product::factory()->create();
+        
+        $response = $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/'.$product->id, [
+                'name'   => $name,
+                'slug'   => $slug,
+                'status' => $status,
+            ])
+            ->assertStatus(204);
+
+        $this->assertDatabaseCount('products', 1);
+
+        $this->assertDatabaseHas('products', [
+            'id'     => $product->id,
+            'name'   => $name,
+            'slug'   => $slug,
+            'status' => $status,
+        ]);
+    }
+
+    public function testFailsUpdatingProductNotInPolicyRole()
+    {
+        $user = User::factory()->create();
+        $product = Product::factory()->create();
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/'.$product->id, [
+                'name'   => 'this is a test',
+                'slug'   => 'this-is-a-test',
+                'status' => 1,
+            ])
+            ->assertStatus(403);
+    }
+
+    public function testFailsUpdatingProductNameMissing()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+        $product = Product::factory()->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/' . $product->id, [
+                'slug'   => 'test',
+                'status' => 1,
+            ])
+            ->assertJsonValidationErrorFor('name', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testFailsUpdatingProductSlugMissing()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+        $product = Product::factory()->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/' . $product->id, [
+                'name'   => 'test',
+                'status' => 1,
+            ])
+            ->assertJsonValidationErrorFor('slug', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testFailsUpdatingProductStatusMissing()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+        $product = Product::factory()->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/' . $product->id, [
+                'name' => 'test',
+                'slug' => 'slug',
+            ])
+            ->assertJsonValidationErrorFor('status', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testFailsUpdatingProductNameSlugTooLong()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+        $product = Product::factory()->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/' . $product->id, [
+                'name'   => str_repeat('x', 101),
+                'slug'   => str_repeat('x', 101),
+                'status' => 1,
+            ])
+            ->assertJsonValidationErrorFor('name', 'errors')
+            ->assertJsonValidationErrorFor('slug', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testFailsUpdatingProductStatusNotInteger()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+        $product = Product::factory()->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/'. $product->id, [
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 'A',
+            ])
+            ->assertJsonValidationErrorFor('status', 'errors')
+            ->assertStatus(422);
+    }
+
+    public function testFailsUpdatingProductProductSlugExists()
+    {
+        $user = User::factory()->create();
+        $role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $user->roles()->attach($role);
+
+        $product = Product::factory()->state([
+            'slug' => 'test',
+        ])->create();
+
+        $this
+            ->actingAs($user)
+            ->json('PUT', '/api/product/' . $product->id, [
+                'name'   => 'test',
+                'slug'   => 'test',
+                'status' => 1,
+            ])
+            ->assertJsonValidationErrorFor('slug', 'errors')
+            ->assertStatus(422);
+    }
 }

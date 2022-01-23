@@ -49,6 +49,9 @@ Route::middleware(['api'])
                 Route::post('/', [ProductController::class, 'store'])
                     ->name('product.store')
                     ->can('create', Product::class);
+                Route::put('/{product}', [ProductController::class, 'update'])
+                    ->name('product.update')
+                    ->can('update', 'product');
             });
         });
         Route::prefix('products')->group(function () {
