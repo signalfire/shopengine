@@ -5,6 +5,8 @@ use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
+use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
+use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
@@ -45,6 +47,10 @@ Route::middleware(['api'])
         Route::prefix('product')->group(function () {
             Route::get('/{product}', [ProductController::class, 'show'])
                 ->name('product.show');
+            Route::get('/{product}/variants', [ProductVariantsController::class, 'index'])
+                ->name('product.variant.index');
+            Route::get('/{product}/variant/{variant}', [ProductVariantController::class, 'show'])
+                ->name('product.variant.show');
             Route::middleware(['auth'])->group(function () {
                 Route::post('/', [ProductController::class, 'store'])
                     ->name('product.store')
