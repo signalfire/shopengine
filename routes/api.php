@@ -10,6 +10,7 @@ use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
+use Signalfire\Shopengine\Models\ProductVariant;
 
 Route::middleware(['api'])
     ->prefix('api')
@@ -58,6 +59,14 @@ Route::middleware(['api'])
                 Route::put('/{product}', [ProductController::class, 'update'])
                     ->name('product.update')
                     ->can('update', 'product');
+            });
+            Route::middleware(['auth'])->group(function () {
+                Route::post('/{product}/variant', [ProductVariantController::class, 'store'])
+                    ->name('product.variant.store')
+                    ->can('create', ProductVariant::class);
+                Route::put('/{product}/variant/{variant}', [ProductVariantController::class, 'update'])
+                    ->name('product.variant.update')
+                    ->can('update', 'variant');
             });
         });
         Route::prefix('products')->group(function () {
