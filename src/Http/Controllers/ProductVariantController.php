@@ -28,7 +28,7 @@ class ProductVariantController extends Controller
     /**
      * Creates a new product variant.
      *
-     * @param StoreProductVariantRequest $request
+     * @param StoreProductVariantRequest           $request
      * @param Signalfire\Shopengine\Models\Product $product
      *
      * @return string JSON
@@ -47,7 +47,7 @@ class ProductVariantController extends Controller
     /**
      * Updates existing product variant.
      *
-     * @param UpdateProductVariantRequest $request
+     * @param UpdateProductVariantRequest                 $request
      * @param Signalfire\Shopengine\Models\Product        $product
      * @param Signalfire\Shopengine\Models\ProductVariant $variant
      *
