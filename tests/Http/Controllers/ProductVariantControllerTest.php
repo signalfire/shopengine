@@ -53,11 +53,11 @@ class ProductVariantControllerTest extends TestCase
             ->actingAs($user)
             ->json('POST', '/api/product/'.$product->id.'/variant', [
                 'product_id' => $product->id,
-                'name' => 'test',
-                'slug' => 'test',
-                'stock' => 10,
-                'price' => 1.99,
-                'status' => 1
+                'name'       => 'test',
+                'slug'       => 'test',
+                'stock'      => 10,
+                'price'      => 1.99,
+                'status'     => 1,
             ])
             ->assertJson([
                 'data' => [
@@ -77,7 +77,7 @@ class ProductVariantControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->create();
 
         $user = User::factory()->create();
@@ -87,29 +87,29 @@ class ProductVariantControllerTest extends TestCase
         ])->create();
 
         $user->roles()->attach($role);
-        
+
         $this
             ->actingAs($user)
-            ->json('PUT', '/api/product/'.$product->id.'/variant/' . $variant->id, [
+            ->json('PUT', '/api/product/'.$product->id.'/variant/'.$variant->id, [
                 'product_id' => $variant->product_id,
-                'name' => 'test1',
-                'slug' => 'test2',
-                'stock' => 12,
-                'price' => 299,
-                'status' => 1
+                'name'       => 'test1',
+                'slug'       => 'test2',
+                'stock'      => 12,
+                'price'      => 299,
+                'status'     => 1,
             ])
             ->assertStatus(204);
 
         $this->assertDatabaseCount('product_variants', 1);
 
         $this->assertDatabaseHas('product_variants', [
-            'id'     => $variant->id,
+            'id'         => $variant->id,
             'product_id' => $variant->product_id,
-            'name'   => 'test1',
-            'slug'   => 'test2',
-            'stock'  => 12,
-            'price'  => 299,
-            'status' => $variant->status,
+            'name'       => 'test1',
+            'slug'       => 'test2',
+            'stock'      => 12,
+            'price'      => 299,
+            'status'     => $variant->status,
         ]);
     }
 }
