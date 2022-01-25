@@ -11,7 +11,10 @@ use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
-use Signalfire\Shopengine\Nova\Resource as NovaResource;
+use Signalfire\Shopengine\Nova\Product as NovaProductResource;
+use Signalfire\Shopengine\Nova\ProductVariant as NovaProductVariantResource;
+use Signalfire\Shopengine\Nova\Role as NovaRoleResource;
+use Signalfire\Shopengine\Nova\User as NovaUserResource;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
@@ -64,8 +67,11 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         // publish models
         Nova::resources([
-            NovaResource::class,
             NovaCategoryResource::class,
+            NovaProductResource::class,
+            NovaProductVariantResource::class,
+            NovaRoleResource::class,
+            NovaUserResource::class,
         ]);
     }
 
