@@ -4,3 +4,8 @@
 
 ![StyleCI](https://github.styleci.io/repos/448303978/shield)
 
+## Installation
+
+Remove app/Nova resource files (not needed)
+
+In the config/auth.php set the user provider model to Signalfire\Shopengine\Models\User
