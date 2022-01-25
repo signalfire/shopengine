@@ -9,3 +9,5 @@
 Remove app/Nova resource files (not needed)
 
 In the config/auth.php set the user provider model to Signalfire\Shopengine\Models\User
+
+To seed data `php artisan db:seed --class=\\Signalfire\\Shopengine\\Database\\Seeders\\DatabaseSeeder`
