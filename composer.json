@@ -50,5 +50,8 @@
                 "Shopengine": "Signalfire\\Shopengine\\Facades\\ShopEngineFacade"
             }    
         }
+    },
+    "require": {
+        "madewithlove/laravel-nova-uuid-support": "^1.3"
     }
 }

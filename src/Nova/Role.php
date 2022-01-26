@@ -4,6 +4,7 @@ namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 
 class Role extends Resource
 {
@@ -19,7 +20,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -27,7 +28,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
@@ -41,6 +42,9 @@ class Role extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make(__('Name'), 'name')->sortable()
+                ->creationRules('required', 'max:100', 'unique:roles,name')
+                ->updateRules('required', 'max:100', 'unique:roles,name,{{resourceId}}'),
         ];
     }
 

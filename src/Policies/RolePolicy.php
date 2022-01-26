@@ -8,6 +8,17 @@ use Signalfire\Shopengine\Models\User;
 class RolePolicy
 {
     /**
+     * Determine if a role can be viewed by user.
+     *
+     * @param Signalfire\Shopengine\Models\User $user
+     *
+     * @return bool
+     */
+    public function view(User $user){
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine if a role can be created by the user.
      *
      * @param Signalfire\Shopengine\Models\User $user

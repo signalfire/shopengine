@@ -8,6 +8,17 @@ use Signalfire\Shopengine\Models\User;
 class CategoryPolicy
 {
     /**
+     * Determine if a category can be viewed by user.
+     *
+     * @param Signalfire\Shopengine\Models\User $user
+     *
+     * @return bool
+     */
+    public function view(User $user){
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine if a category can be created by the user.
      *
      * @param Signalfire\Shopengine\Models\User $user
@@ -29,6 +40,18 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category)
     {
+        return $user->isAdmin();
+    }
+
+    /**
+     * Determine if a category can be deleted by user.
+     *
+     * @param Signalfire\Shopengine\Models\User $user
+     * @param Signalfire\Shopengine\Models\Category $category
+     *
+     * @return bool
+     */
+    public function delete(User $user, Category $category){
         return $user->isAdmin();
     }
 }
