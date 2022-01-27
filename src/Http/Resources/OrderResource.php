@@ -16,7 +16,7 @@ class OrderResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'        => $this->id,
             'addresses' => [
                 'cardholder' => new AddressResource($this->cardholder),
                 'delivery' => new AddressResource($this->delivery),
@@ -26,8 +26,8 @@ class OrderResource extends JsonResource
             'gift' => $this->gift,
             'terms' => $this->terms,
             'dispatched_at' => $this->dispatched_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at'    => $this->created_at,
+            'updated_at'    => $this->updated_at,
         ];
     }
 }
