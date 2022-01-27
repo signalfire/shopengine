@@ -8,8 +8,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Signalfire\Shopengine\Models\Factories\UserFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
-use Signalfire\Shopengine\Models\Order;
-use Signalfire\Shopengine\Models\Address;
 
 class User extends Authenticatable
 {

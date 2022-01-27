@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Models\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Signalfire\Shopengine\Models\Order;
 
 class OrderFactory extends Factory
@@ -13,9 +12,9 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->uuid(),
+            'id'    => $this->faker->uuid(),
             'total' => $this->faker->randomFloat(2, 5, 100),
-            'gift' => false,
+            'gift'  => false,
             'terms' => true,
         ];
     }

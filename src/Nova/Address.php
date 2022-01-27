@@ -50,7 +50,7 @@ class Address extends Resource
                 ->rules('required', 'max:50'),
             Text::make(__('Postal Code'), 'posalcode')
                 ->sortable()
-                ->rules('required', 'max:50'),               
+                ->rules('required', 'max:50'),
         ];
     }
 
