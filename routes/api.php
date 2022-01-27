@@ -4,12 +4,11 @@ use Signalfire\Shopengine\Http\Controllers\BasketController;
 use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
+use Signalfire\Shopengine\Http\Controllers\OrderController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
-use Signalfire\Shopengine\Http\Controllers\OrderController;
-
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
