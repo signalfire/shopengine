@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Signalfire\Shopengine\Models\Factories\OrderFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
-use Signalfire\Shopengine\Models\Address;
-
 class Order extends Model
 {
     use Uuid;

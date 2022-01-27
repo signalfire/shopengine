@@ -12,9 +12,9 @@ class OrderItemFactory extends Factory
     public function definition()
     {
         return [
-            'id'    => $this->faker->uuid(),
+            'id'       => $this->faker->uuid(),
             'quantity' => $this->faker->randomDigit(),
-            'price' => $this->faker->randomFloat(2, 5, 100)
+            'price'    => $this->faker->randomFloat(2, 5, 100),
         ];
     }
 }
