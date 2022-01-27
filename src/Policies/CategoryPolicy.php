@@ -47,7 +47,7 @@ class CategoryPolicy
     /**
      * Determine if a category can be deleted by user.
      *
-     * @param Signalfire\Shopengine\Models\User $user
+     * @param Signalfire\Shopengine\Models\User     $user
      * @param Signalfire\Shopengine\Models\Category $category
      *
      * @return bool

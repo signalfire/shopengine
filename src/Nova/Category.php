@@ -3,11 +3,9 @@
 namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Slug;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 
 class Category extends Resource
 {
@@ -31,7 +29,7 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'name', 'slug'
+        'name', 'slug',
     ];
 
     /**
@@ -58,9 +56,10 @@ class Category extends Resource
                 foreach (config('shopengine.category.status') as $key => $value) {
                     $statuses[$value] = ucfirst(strtolower($key));
                 }
+
                 return $statuses;
             })->displayUsingLabels()->rules('required'),
-            HasMany::make('Products')
+            HasMany::make('Products'),
         ];
     }
 
