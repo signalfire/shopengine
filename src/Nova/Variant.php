@@ -3,11 +3,11 @@
 namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Slug;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Slug;
+use Laravel\Nova\Fields\Text;
 
 class Variant extends Resource
 {
