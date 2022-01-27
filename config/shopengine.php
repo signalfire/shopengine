@@ -25,7 +25,7 @@ return [
     'order' => [
         'status' => [
             'PROCESSING' => 1,
-            'DISPATCHED' => 2
-        ]
-    ]
+            'DISPATCHED' => 2,
+        ],
+    ],
 ];

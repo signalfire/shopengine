@@ -34,7 +34,7 @@ class AddressPolicy
     /**
      * Determine if the given address can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User    $user
      * @param Signalfire\Shopengine\Models\Address $address
      *
      * @return bool
@@ -47,7 +47,7 @@ class AddressPolicy
     /**
      * Determine if a address can be deleted by user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User    $user
      * @param Signalfire\Shopengine\Models\Address $address
      *
      * @return bool
