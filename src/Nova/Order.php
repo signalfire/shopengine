@@ -4,7 +4,6 @@ namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 
 class Order extends Resource
 {
@@ -28,7 +27,7 @@ class Order extends Resource
      * @var array
      */
     public static $search = [
-        'id'
+        'id',
     ];
 
     /**

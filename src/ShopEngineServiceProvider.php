@@ -6,26 +6,25 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\Category;
+use Signalfire\Shopengine\Models\Order;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
-use Signalfire\Shopengine\Models\Address;
-use Signalfire\Shopengine\Models\Order;
+use Signalfire\Shopengine\Nova\Address as NovaAddressResource;
 use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
+use Signalfire\Shopengine\Nova\Order as NovaOrderResource;
 use Signalfire\Shopengine\Nova\Product as NovaProductResource;
 use Signalfire\Shopengine\Nova\ProductVariant as NovaProductVariantResource;
 use Signalfire\Shopengine\Nova\Role as NovaRoleResource;
 use Signalfire\Shopengine\Nova\User as NovaUserResource;
-use Signalfire\Shopengine\Nova\Address as NovaAddressResource;
-use Signalfire\Shopengine\Nova\Order as NovaOrderResource;
-
+use Signalfire\Shopengine\Policies\AddressPolicy;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
+use Signalfire\Shopengine\Policies\OrderPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
-use Signalfire\Shopengine\Policies\AddressPolicy;
-use Signalfire\Shopengine\Policies\OrderPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {

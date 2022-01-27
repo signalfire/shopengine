@@ -28,7 +28,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('cardholder_address_id')->references('id')->on('addresses');
             $table->foreign('dispatch_address_id')->references('id')->on('addresses');
-
         });
     }
 

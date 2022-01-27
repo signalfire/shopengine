@@ -34,7 +34,7 @@ class OrderPolicy
     /**
      * Determine if the given order can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User  $user
      * @param Signalfire\Shopengine\Models\Order $order
      *
      * @return bool
@@ -47,7 +47,7 @@ class OrderPolicy
     /**
      * Determine if a order can be deleted by user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User  $user
      * @param Signalfire\Shopengine\Models\Order $order
      *
      * @return bool
