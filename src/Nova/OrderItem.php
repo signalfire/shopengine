@@ -3,8 +3,8 @@
 namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\ID;
 
 class OrderItem extends Resource
 {

@@ -22,8 +22,8 @@ use Signalfire\Shopengine\Nova\Role as RoleResource;
 use Signalfire\Shopengine\Nova\User as UserResource;
 use Signalfire\Shopengine\Nova\Variant as VariantResource;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
-use Signalfire\Shopengine\Policies\OrderPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
+use Signalfire\Shopengine\Policies\OrderPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
@@ -36,8 +36,8 @@ class ShopEngineServiceProvider extends ServiceProvider
         ProductVariant::class  => ProductVariantPolicy::class,
         Role::class            => RolePolicy::class,
         Address::class         => AddressPolicy::class,
-        Order::class        => OrderPolicy::class,
-        OrderItem::class => OrderItemPolicy::class,
+        Order::class           => OrderPolicy::class,
+        OrderItem::class       => OrderItemPolicy::class,
     ];
 
     public function boot()
