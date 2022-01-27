@@ -16,12 +16,19 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
+            $table->uuid('cardholder_address_id');
+            $table->uuid('dispatch_address_id');
             $table->decimal('total', 10, 2);
+            $table->boolean('gift');
+            $table->boolean('terms');
             $table->tinyInteger('status')->index();
-            $table->timestampTz('dispatched_at');
+            $table->timestampTz('dispatched_at')->nullable();
             $table->timestampsTz();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('cardholder_address_id')->references('id')->on('addresses');
+            $table->foreign('dispatch_address_id')->references('id')->on('addresses');
+
         });
     }
 

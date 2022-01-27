@@ -22,4 +22,10 @@ return [
             'AVAILABLE'   => 1,
         ],
     ],
+    'order' => [
+        'status' => [
+            'PROCESSING' => 1,
+            'DISPATCHED' => 2
+        ]
+    ]
 ];
