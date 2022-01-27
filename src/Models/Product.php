@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
+use Signalfire\Shopengine\Models\ProductVariant;
+
 class Product extends Model
 {
     use Uuid;

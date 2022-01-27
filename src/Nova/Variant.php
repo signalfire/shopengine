@@ -4,8 +4,12 @@ namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Slug;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Currency;
 
-class ProductVariant extends Resource
+class Variant extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -41,6 +45,10 @@ class ProductVariant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make(__('Name'), 'name')->sortable(),
+            Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
+            Number::make(__('Stock'), 'stock')->sortable(),
+            Currency::make(__('Price'), 'price')->sortable(),
         ];
     }
 

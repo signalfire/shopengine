@@ -14,7 +14,7 @@ use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Nova\Category as CategoryResource;
 use Signalfire\Shopengine\Nova\Product as ProductResource;
-use Signalfire\Shopengine\Nova\ProductVariant as ProductVariantResource;
+use Signalfire\Shopengine\Nova\Variant as VariantResource;
 use Signalfire\Shopengine\Nova\Role as RoleResource;
 use Signalfire\Shopengine\Nova\User as UserResource;
 use Signalfire\Shopengine\Nova\Address as AddressResource;
@@ -76,7 +76,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         Nova::resources([
             CategoryResource::class,
             ProductResource::class,
-            ProductVariantResource::class,
+            VariantResource::class,
             RoleResource::class,
             UserResource::class,
             AddressResource::class,
