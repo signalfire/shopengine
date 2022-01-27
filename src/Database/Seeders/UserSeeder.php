@@ -4,6 +4,7 @@ namespace Signalfire\Shopengine\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Str;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
 
@@ -21,7 +22,7 @@ class UserSeeder extends Seeder
         ])->create();
 
         $user = User::factory()->state([
-            'id'       => 1,
+            'id'       => '5e4ad4ad-6fee-4ff3-8e06-163e5166c625',
             'email'    => 'admin@example.com',
             'password' => Hash::make('internet'),
         ])->create();

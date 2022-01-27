@@ -9,7 +9,6 @@ use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\HasMany;
 
-
 class Category extends Resource
 {
     /**
@@ -54,14 +53,14 @@ class Category extends Resource
                 ->from('name')
                 ->creationRules('required', 'max:100', 'unique:categories,slug')
                 ->updateRules('required', 'max:100', 'unique:categories,slug,{{resourceId}}'),
-            Select::make('Status')->options(function(){
+            Select::make('Status')->options(function () {
                 $statuses = [];
-                foreach(config('shopengine.category.status') as $key => $value) {
-                    $statuses[$value] = ucfirst(strtolower($key));  
+                foreach (config('shopengine.category.status') as $key => $value) {
+                    $statuses[$value] = ucfirst(strtolower($key));
                 }
                 return $statuses;
             })->displayUsingLabels()->rules('required'),
-            HasMany::make('Products')            
+            HasMany::make('Products')
         ];
     }
 

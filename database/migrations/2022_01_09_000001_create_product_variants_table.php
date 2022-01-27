@@ -21,7 +21,7 @@ class CreateProductVariantsTable extends Migration
             $table->integer('stock');
             $table->decimal('price', 10, 2);
             $table->tinyInteger('status')->index();
-            $table->timestamps();
+            $table->timestampsTz();
 
             $table->foreign('product_id')->references('id')->on('products');
         });

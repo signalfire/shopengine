@@ -15,7 +15,7 @@ class CreateBasketsTable extends Migration
     {
         Schema::create('baskets', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 

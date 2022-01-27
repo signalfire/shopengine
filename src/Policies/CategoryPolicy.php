@@ -14,7 +14,8 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function view(User $user){
+    public function view(User $user)
+    {
         return $user->isAdmin();
     }
 
@@ -51,7 +52,8 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function delete(User $user, Category $category){
+    public function delete(User $user, Category $category)
+    {
         return $user->isAdmin();
     }
 }

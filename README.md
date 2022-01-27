@@ -6,6 +6,8 @@
 
 ## Installation
 
+Delete the 2014_10_12_000000_create_users_table.php laravel migration (@TODO: publish our migrations instead ?) to enable UUID for user
+
 Remove app/Nova resource files (not needed)
 
 In the config/auth.php set the user provider model to Signalfire\Shopengine\Models\User

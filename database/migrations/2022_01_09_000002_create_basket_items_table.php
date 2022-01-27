@@ -18,7 +18,7 @@ class CreateBasketItemsTable extends Migration
             $table->uuid('basket_id');
             $table->uuid('product_variant_id');
             $table->smallInteger('quantity')->default(0);
-            $table->timestamps();
+            $table->timestampsTz();
 
             $table->foreign('basket_id')->references('id')->on('baskets');
             $table->foreign('product_variant_id')->references('id')->on('product_variants');
