@@ -17,10 +17,10 @@ class ProductVariantSeeder extends Seeder
     {
         $products = Product::all();
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             ProductVariant::factory()->state([
                 'product_id' => $product->id,
-            ])->count(rand(1,10))->create();
+            ])->count(rand(1, 10))->create();
         }
     }
 }
