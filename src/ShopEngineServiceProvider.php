@@ -12,13 +12,13 @@ use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\Order;
-use Signalfire\Shopengine\Nova\Category as NovaCategoryResource;
-use Signalfire\Shopengine\Nova\Product as NovaProductResource;
-use Signalfire\Shopengine\Nova\ProductVariant as NovaProductVariantResource;
-use Signalfire\Shopengine\Nova\Role as NovaRoleResource;
-use Signalfire\Shopengine\Nova\User as NovaUserResource;
-use Signalfire\Shopengine\Nova\Address as NovaAddressResource;
-use Signalfire\Shopengine\Nova\Order as NovaOrderResource;
+use Signalfire\Shopengine\Nova\Category as CategoryResource;
+use Signalfire\Shopengine\Nova\Product as ProductResource;
+use Signalfire\Shopengine\Nova\ProductVariant as ProductVariantResource;
+use Signalfire\Shopengine\Nova\Role as RoleResource;
+use Signalfire\Shopengine\Nova\User as UserResource;
+use Signalfire\Shopengine\Nova\Address as AddressResource;
+use Signalfire\Shopengine\Nova\Order as OrderResource;
 
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
@@ -76,13 +76,13 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         // publish models
         Nova::resources([
-            NovaCategoryResource::class,
-            NovaProductResource::class,
-            NovaProductVariantResource::class,
-            NovaRoleResource::class,
-            NovaUserResource::class,
-            NovaAddressResource::class,
-            NovaOrderResource::class,
+            CategoryResource::class,
+            ProductResource::class,
+            ProductVariantResource::class,
+            RoleResource::class,
+            UserResource::class,
+            AddressResource::class,
+            OrderResource::class,
         ]);
     }
 

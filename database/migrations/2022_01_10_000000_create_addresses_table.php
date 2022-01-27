@@ -29,6 +29,7 @@ class CreateAddressesTable extends Migration
             $table->string('mobile', 30)->nullable();
             $table->string('phone', 30)->nullable();
             $table->string('email', 255)->nullable();
+            $table->timestampsTz();
 
             $table->foreign('user_id')->references('id')->on('users');
         });
