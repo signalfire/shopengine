@@ -8,6 +8,8 @@ use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
+use Signalfire\Shopengine\Http\Controllers\OrderController;
+
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
@@ -68,6 +70,10 @@ Route::middleware(['api'])
                     ->name('product.variant.update')
                     ->can('update', 'variant');
             });
+        });
+        Route::prefix('order')->group(function () {
+            Route::get('/{order}', [OrderController::class, 'show'])
+                ->name('product.show');
         });
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductsController::class, 'index'])
