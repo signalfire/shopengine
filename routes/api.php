@@ -73,7 +73,7 @@ Route::middleware(['api'])
         });
         Route::prefix('order')->group(function () {
             Route::get('/{order}', [OrderController::class, 'show'])
-                ->name('product.show');
+                ->name('order.show');
         });
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductsController::class, 'index'])

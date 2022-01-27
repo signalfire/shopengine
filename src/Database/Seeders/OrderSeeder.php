@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Signalfire\Shopengine\Models\Order;
 use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Address;
+use Signalfire\Shopengine\Models\ProductVariant;
+use Signalfire\Shopengine\Models\OrderItem;
 
 class OrderSeeder extends Seeder
 {
@@ -26,10 +28,20 @@ class OrderSeeder extends Seeder
             'user_id' => $user->id
         ])->create();
 
-        Order::factory()->state([
+        $orders = Order::factory()->state([
             'user_id' => $user->id,
             'cardholder_address_id' => $cardholder->id,
             'delivery_address_id' => $delivery->id,
         ])->count(5)->create();
+
+        foreach ($orders as $order) {
+            $variants = ProductVariant::all()->take(rand(1, 5));
+            foreach ($variants as $variant) {
+                $items = OrderItem::factory()->state([
+                    'order_id' => $order->id,
+                    'product_variant_id' => $variant->id,
+                ])->create();
+            }
+        }
     }
 }

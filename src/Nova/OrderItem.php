@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Currency;
 
-class Order extends Resource
+class OrderItem extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\Order::class;
+    public static $model = \Signalfire\Shopengine\Models\OrderItem::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -42,7 +42,7 @@ class Order extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Currency::make(__('Total'), 'total')->sortable(),
+            Currency::make(__('Price'), 'price')->sortable(),
         ];
     }
 

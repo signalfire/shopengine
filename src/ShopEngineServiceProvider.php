@@ -9,18 +9,21 @@ use Laravel\Nova\Nova;
 use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Order;
+use Signalfire\Shopengine\Models\OrderItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Nova\Address as AddressResource;
 use Signalfire\Shopengine\Nova\Category as CategoryResource;
 use Signalfire\Shopengine\Nova\Order as OrderResource;
+use Signalfire\Shopengine\Nova\OrderItem as OrderItemResource;
 use Signalfire\Shopengine\Nova\Product as ProductResource;
 use Signalfire\Shopengine\Nova\Role as RoleResource;
 use Signalfire\Shopengine\Nova\User as UserResource;
 use Signalfire\Shopengine\Nova\Variant as VariantResource;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
+use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
@@ -33,7 +36,8 @@ class ShopEngineServiceProvider extends ServiceProvider
         ProductVariant::class  => ProductVariantPolicy::class,
         Role::class            => RolePolicy::class,
         Address::class         => AddressPolicy::class,
-        Order::class           => OrderPolicy::class,
+        Order::class        => OrderPolicy::class,
+        OrderItem::class => OrderItemPolicy::class,
     ];
 
     public function boot()
@@ -81,6 +85,7 @@ class ShopEngineServiceProvider extends ServiceProvider
             UserResource::class,
             AddressResource::class,
             OrderResource::class,
+            OrderItemResource::class,
         ]);
     }
 

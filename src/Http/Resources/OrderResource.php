@@ -18,9 +18,10 @@ class OrderResource extends JsonResource
         return [
             'id' => $this->id,
             'addresses' => [
-                'cardholder' => '',
-                'dispatch' => '',
+                'cardholder' => new AddressResource($this->cardholder),
+                'delivery' => new AddressResource($this->delivery),
             ],
+            'items' => OrderItemResource::collection($this->items),
             'total' => $this->total,
             'gift' => $this->gift,
             'terms' => $this->terms,

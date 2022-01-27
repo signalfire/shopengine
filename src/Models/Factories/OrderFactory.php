@@ -16,6 +16,7 @@ class OrderFactory extends Factory
             'total' => $this->faker->randomFloat(2, 5, 100),
             'gift'  => false,
             'terms' => true,
+            'status' => 1,
         ];
     }
 }

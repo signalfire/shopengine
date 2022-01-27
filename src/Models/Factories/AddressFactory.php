@@ -3,10 +3,11 @@
 namespace Signalfire\Shopengine\Models\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Signalfire\Shopengine\Models\Address;
 
 class AddressFactory extends Factory
 {
-    protected $model = Order::class;
+    protected $model = Address::class;
 
     public function definition()
     {
@@ -22,7 +23,7 @@ class AddressFactory extends Factory
             'country'    => $this->faker->country(),
             'mobile'     => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
             'phone'      => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
-            'email'      => $this->faker->randomElement([$this->faker->safeEmail(), null]),
+            'email'      => $this->faker->safeEmail(),
         ];
     }
 }

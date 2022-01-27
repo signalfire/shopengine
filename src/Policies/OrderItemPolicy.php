@@ -2,10 +2,10 @@
 
 namespace Signalfire\Shopengine\Policies;
 
-use Signalfire\Shopengine\Models\Order;
+use Signalfire\Shopengine\Models\OrderItem;
 use Signalfire\Shopengine\Models\User;
 
-class OrderPolicy
+class OrderItemPolicy
 {
     /**
      * Determine if a address can be viewed by user.
@@ -20,7 +20,7 @@ class OrderPolicy
     }
 
     /**
-     * Determine if a address can be created by the user.
+     * Determine if a order item can be created by the user.
      *
      * @param Signalfire\Shopengine\Models\User $user
      *
@@ -32,28 +32,28 @@ class OrderPolicy
     }
 
     /**
-     * Determine if the given order can be updated by the user.
+     * Determine if the given order item can be updated by the user.
      *
      * @param Signalfire\Shopengine\Models\User  $user
-     * @param Signalfire\Shopengine\Models\Order $order
+     * @param Signalfire\Shopengine\Models\OrderItem $item
      *
      * @return bool
      */
-    public function update(User $user, Order $order)
+    public function update(User $user, OrderItem $item)
     {
-        return $user->isAdmin() || ($user->isCustomer() && $order->user_id === $user->id);
+        return $user->isAdmin() || ($user->isCustomer() && $item->order->user_id === $user->id);
     }
 
     /**
-     * Determine if a order can be deleted by user.
+     * Determine if a order item can be deleted by user.
      *
      * @param Signalfire\Shopengine\Models\User  $user
-     * @param Signalfire\Shopengine\Models\Order $order
+     * @param Signalfire\Shopengine\Models\OrderItem $item
      *
      * @return bool
      */
-    public function delete(User $user, Order $order)
+    public function delete(User $user, OrderItem $order)
     {
-        return $user->isAdmin() || ($user->isCustomer() && $order->user_id === $user->id);
+        return $user->isAdmin() || ($user->isCustomer() && $item->order->user_id === $user->id);
     }
 }
