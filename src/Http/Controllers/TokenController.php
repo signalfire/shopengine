@@ -5,10 +5,9 @@ namespace Signalfire\Shopengine\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
-use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Http\Requests\StoreLoginRequest;
 use Signalfire\Shopengine\Http\Resources\TokenResource;
+use Signalfire\Shopengine\Models\User;
 
 class TokenController extends Controller
 {
@@ -22,7 +21,7 @@ class TokenController extends Controller
 
         if (!$user || !Hash::check($password, $user->password)) {
             throw ValidationException::withMessages([
-                ['email' => ['The provided credentials are incorrect']]
+                ['email' => ['The provided credentials are incorrect']],
             ]);
         }
 
@@ -36,6 +35,7 @@ class TokenController extends Controller
     public function destroy(Request $request)
     {
         $request->user->tokens()->delete();
+
         return response()->json([], 202);
     }
 }
