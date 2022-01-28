@@ -2,6 +2,8 @@
 
 namespace Signalfire\Shopengine\Tests;
 
+use Laravel\Sanctum\SanctumServiceProvider;
+
 use Signalfire\Shopengine\ShopEngineServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -52,6 +54,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             ShopEngineServiceProvider::class,
+            SanctumServiceProvider::class,
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Signalfire\Shopengine\Tests;
 
+use Laravel\Sanctum\Sanctum;
+
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
@@ -9,6 +11,16 @@ use Signalfire\Shopengine\Models\User;
 
 class ProductVariantControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+        $this->role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $this->user->roles()->attach($this->role);
+    }
+
     public function testGetsProductVariants()
     {
         $product = Product::factory()->create();
@@ -43,14 +55,11 @@ class ProductVariantControllerTest extends TestCase
 
     public function testCreateProductVariant()
     {
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product/'.$product->id.'/variant', [
                 'product_id' => $product->id,
                 'name'       => 'test',
@@ -74,22 +83,15 @@ class ProductVariantControllerTest extends TestCase
 
     public function testUpdateProductVariant()
     {
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
         ])->create();
 
-        $user = User::factory()->create();
-
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-
-        $user->roles()->attach($role);
-
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id.'/variant/'.$variant->id, [
                 'product_id' => $variant->product_id,
                 'name'       => 'test1',

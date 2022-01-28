@@ -6,9 +6,20 @@ use Illuminate\Support\Str;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
+use Laravel\Sanctum\Sanctum;
 
 class CategoryControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+        $this->role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $this->user->roles()->attach($this->role);
+    }
+
     public function testGetsCategories()
     {
         $categories = Category::factory()->count(3)->create();
@@ -19,13 +30,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategory()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertJsonValidationErrorFor('slug', 'errors')
@@ -35,13 +42,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategoryNameMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', ['slug' => 'test', 'status' => 1])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertStatus(422);
@@ -49,13 +52,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategorySlugMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', ['name' => 'test', 'status' => 1])
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertStatus(422);
@@ -63,13 +62,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategoryStatusMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', ['name' => 'test', 'slug' => 'test'])
             ->assertJsonValidationErrorFor('status', 'errors')
             ->assertStatus(422);
@@ -77,13 +72,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategoryNameSlugTooLong()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [
                 'name'   => str_repeat('a', 101),
                 'slug'   => str_repeat('a', 101),
@@ -96,13 +87,9 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsToAddCategoryStatusNotInteger()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -114,14 +101,11 @@ class CategoryControllerTest extends TestCase
 
     public function testFailsAddCategorySlugExists()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $category = Category::factory()->create();
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [
                 'name'   => $category->name,
                 'slug'   => $category->slug,
@@ -133,16 +117,13 @@ class CategoryControllerTest extends TestCase
 
     public function testAddsCategory()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $name = 'this is a test';
         $slug = 'this-is-a-test';
         $status = 1;
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [
                 'name'   => $name,
                 'slug'   => $slug,
@@ -162,8 +143,10 @@ class CategoryControllerTest extends TestCase
     public function testFailsAddingCategoryNotInPolicyRole()
     {
         $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/category', [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
@@ -174,17 +157,14 @@ class CategoryControllerTest extends TestCase
 
     public function testUpdatesCategory()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+        
         $name = 'this is a test';
         $slug = 'this-is-a-test';
         $status = 1;
         $category = Category::factory()->create();
+
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/category/'.$category->id, [
                 'name'   => $name,
                 'slug'   => $slug,
@@ -205,9 +185,12 @@ class CategoryControllerTest extends TestCase
     public function testFailsUpdatingCategoryNotInPolicyRole()
     {
         $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
         $category = Category::factory()->create();
+
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/category/'.$category->id, [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',

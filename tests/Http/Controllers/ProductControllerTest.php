@@ -3,6 +3,7 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
@@ -11,6 +12,16 @@ use Signalfire\Shopengine\Models\User;
 
 class ProductControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+        $this->role = Role::factory()->state([
+            'name' => 'admin',
+        ])->create();
+        $this->user->roles()->attach($this->role);
+    }
+
     public function testGetProductById()
     {
         $product = Product::factory()->create();
@@ -62,14 +73,9 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductNameMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'slug'   => 'test',
                 'status' => 1,
@@ -80,14 +86,9 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductSlugMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'status' => 1,
@@ -98,14 +99,9 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductStatusMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name' => 'test',
                 'slug' => 'slug',
@@ -116,14 +112,9 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductNameSlugTooLong()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
@@ -136,14 +127,9 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductStatusNotInteger()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -155,18 +141,13 @@ class ProductControllerTest extends TestCase
 
     public function testFailsCreateProductProductSlugExists()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $product = Product::factory()->state([
             'slug' => 'test',
         ])->create();
 
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -178,13 +159,9 @@ class ProductControllerTest extends TestCase
 
     public function testCreateProduct()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -196,8 +173,10 @@ class ProductControllerTest extends TestCase
     public function testFailsCreateProductNotInPolicyRole()
     {
         $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
         $this
-            ->actingAs($user)
             ->json('POST', '/api/product', [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -208,13 +187,7 @@ class ProductControllerTest extends TestCase
 
     public function testUpdatesProduct()
     {
-        $user = User::factory()->create();
-
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $name = 'this is a test';
         $slug = 'this-is-a-test';
@@ -223,7 +196,6 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $response = $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => $name,
                 'slug'   => $slug,
@@ -244,9 +216,12 @@ class ProductControllerTest extends TestCase
     public function testFailsUpdatingProductNotInPolicyRole()
     {
         $user = User::factory()->create();
+
+        Sanctum::actingAs($user);
+
         $product = Product::factory()->create();
+
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
@@ -257,15 +232,11 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductNameMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'slug'   => 'test',
                 'status' => 1,
@@ -276,15 +247,11 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductSlugMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'status' => 1,
@@ -295,15 +262,11 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductStatusMissing()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name' => 'test',
                 'slug' => 'slug',
@@ -314,15 +277,11 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductNameSlugTooLong()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
@@ -335,15 +294,11 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductStatusNotInteger()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
+
         $product = Product::factory()->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'slug'   => 'test',
@@ -355,18 +310,13 @@ class ProductControllerTest extends TestCase
 
     public function testFailsUpdatingProductProductSlugExists()
     {
-        $user = User::factory()->create();
-        $role = Role::factory()->state([
-            'name' => 'admin',
-        ])->create();
-        $user->roles()->attach($role);
+        Sanctum::actingAs($this->user);
 
         $product = Product::factory()->state([
             'slug' => 'test',
         ])->create();
 
         $this
-            ->actingAs($user)
             ->json('PUT', '/api/product/'.$product->id, [
                 'name'   => 'test',
                 'slug'   => 'test',

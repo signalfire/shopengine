@@ -9,6 +9,7 @@ use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
+use Signalfire\Shopengine\Http\Controllers\TokenController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
@@ -37,7 +38,7 @@ Route::middleware(['api'])
                 ->name('category.show');
             Route::get('/{category}/products', [CategoryProductController::class, 'index'])
                 ->name('category.products.index');
-            Route::middleware(['auth'])->group(function () {
+            Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/', [CategoryController::class, 'store'])
                     ->name('category.store')
                     ->can('create', Category::class);
@@ -53,7 +54,7 @@ Route::middleware(['api'])
                 ->name('product.variant.index');
             Route::get('/{product}/variant/{variant}', [ProductVariantController::class, 'show'])
                 ->name('product.variant.show');
-            Route::middleware(['auth'])->group(function () {
+            Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/', [ProductController::class, 'store'])
                     ->name('product.store')
                     ->can('create', Product::class);
@@ -61,7 +62,7 @@ Route::middleware(['api'])
                     ->name('product.update')
                     ->can('update', 'product');
             });
-            Route::middleware(['auth'])->group(function () {
+            Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/{product}/variant', [ProductVariantController::class, 'store'])
                     ->name('product.variant.store')
                     ->can('create', ProductVariant::class);
@@ -71,14 +72,22 @@ Route::middleware(['api'])
             });
         });
         Route::prefix('order')->group(function () {
-            Route::get('/{order}', [OrderController::class, 'show'])
-                ->name('order.show');
+            Route::middleware(['auth:sanctum'])->group(function () {
+                Route::get('/{order}', [OrderController::class, 'show'])
+                    ->name('order.show');
+            });
         });
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductsController::class, 'index'])
                 ->name('products.index');
             Route::get('/search', [ProductsController::class, 'search'])
                 ->name('product.search.index');
+        });
+        Route::prefix('token')->group(function () {
+            Route::post('/', [TokenController::class, 'store']);
+            Route::middleware(['auth:sanctum'])->group(function () {
+                Route::delete('/', [TokenController::class, 'destroy']);
+            });
         });
         Route::fallback(function () {
             return response()->json([
