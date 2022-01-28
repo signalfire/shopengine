@@ -23,8 +23,6 @@ class CreateOrderItemsTable extends Migration
 
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_variant_id')->references('id')->on('product_variants');
-
-
         });
     }
 
@@ -37,5 +35,4 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::dropIfExists('order_items');
     }
-
 }
