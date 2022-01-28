@@ -2,28 +2,25 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\Hash;
-
 use Signalfire\Shopengine\Models\User;
 
 class TokenControllerTest extends TestCase
 {
     public function testItLogsInAndGetsToken()
     {
-
         $user = User::factory()->state([
-            'password' => Hash::make('testing')
+            'password' => Hash::make('testing'),
         ])->create();
 
         $this->post('/api/token', [
-            'email' => $user->email,
-            'password' => 'testing'
+            'email'    => $user->email,
+            'password' => 'testing',
         ])
         ->assertJsonStructure([
             'data' => [
-                'token'
-            ]
+                'token',
+            ],
         ])
         ->assertStatus(201);
     }

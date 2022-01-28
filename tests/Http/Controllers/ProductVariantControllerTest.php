@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Laravel\Sanctum\Sanctum;
-
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;

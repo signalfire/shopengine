@@ -3,10 +3,10 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\User;
-use Laravel\Sanctum\Sanctum;
 
 class CategoryControllerTest extends TestCase
 {
@@ -158,7 +158,7 @@ class CategoryControllerTest extends TestCase
     public function testUpdatesCategory()
     {
         Sanctum::actingAs($this->user);
-        
+
         $name = 'this is a test';
         $slug = 'this-is-a-test';
         $status = 1;

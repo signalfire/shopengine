@@ -2,8 +2,6 @@
 
 namespace Signalfire\Shopengine\Tests;
 
-use Laravel\Sanctum\Sanctum;
-
 use Signalfire\Shopengine\Models\Product;
 
 class ProductsControllerTest extends TestCase
