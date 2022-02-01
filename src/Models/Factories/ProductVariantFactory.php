@@ -13,6 +13,7 @@ class ProductVariantFactory extends Factory
     {
         return [
             'id'     => $this->faker->uuid(),
+            'barcode' => $this->faker->ean13(),
             'name'   => $this->faker->word(),
             'slug'   => $this->faker->slug(),
             'stock'  => $this->faker->randomDigitNot(0),

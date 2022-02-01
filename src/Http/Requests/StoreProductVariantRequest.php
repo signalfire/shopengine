@@ -25,6 +25,7 @@ class StoreProductVariantRequest extends FormRequest
     {
         return [
             'product_id' => 'required|uuid|exists:products,id',
+            'barcode'    => 'required|string|size:13',
             'name'       => 'required|string|max:100',
             'slug'       => 'required|string|max:100|unique:product_variants,slug',
             'stock'      => 'required|integer',

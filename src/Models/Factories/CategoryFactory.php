@@ -15,6 +15,7 @@ class CategoryFactory extends Factory
             'id'     => $this->faker->uuid(),
             'name'   => $this->faker->word(),
             'slug'   => $this->faker->slug(),
+            'description' => $this->faker->randomElement([$this->faker->sentence(), null]),
             'status' => 1,
         ];
     }

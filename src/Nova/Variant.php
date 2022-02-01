@@ -45,6 +45,7 @@ class Variant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Text::make(__('Barcode'), 'barcode')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
             Number::make(__('Stock'), 'stock')->sortable(),

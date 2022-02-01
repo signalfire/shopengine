@@ -61,6 +61,7 @@ class ProductVariantControllerTest extends TestCase
         $this
             ->json('POST', '/api/product/'.$product->id.'/variant', [
                 'product_id' => $product->id,
+                'barcode' => '9780201379621',
                 'name'       => 'test',
                 'slug'       => 'test',
                 'stock'      => 10,
@@ -70,6 +71,7 @@ class ProductVariantControllerTest extends TestCase
             ->assertJson([
                 'data' => [
                     'product_id' => $product->id,
+                    'barcode'   => '9780201379621',
                     'name'       => 'test',
                     'slug'       => 'test',
                     'stock'      => 10,

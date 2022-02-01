@@ -25,6 +25,7 @@ class OrderResource extends JsonResource
             'total'         => $this->total,
             'gift'          => $this->gift,
             'terms'         => $this->terms,
+            'printed'       => $this->printed,
             'dispatched_at' => $this->dispatched_at,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,

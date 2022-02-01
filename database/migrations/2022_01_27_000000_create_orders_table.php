@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total', 10, 2);
             $table->boolean('gift');
             $table->boolean('terms');
+            $table->boolean('printed')->default(false);
             $table->tinyInteger('status')->index();
             $table->timestampTz('dispatched_at')->nullable();
             $table->timestampsTz();
