@@ -32,8 +32,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function defineDatabaseMigrations()
     {
-        //@TODO: Don't like this....
-        //$this->loadLaravelMigrations();
+        $this->loadLaravelMigrations();
 
         $this->artisan('migrate', ['--database' => 'testbench'])->run();
 
