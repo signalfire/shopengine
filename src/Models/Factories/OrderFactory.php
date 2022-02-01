@@ -12,12 +12,12 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'id'     => $this->faker->uuid(),
-            'total'  => $this->faker->randomFloat(2, 5, 100),
-            'gift'   => false,
-            'terms'  => true,
+            'id'      => $this->faker->uuid(),
+            'total'   => $this->faker->randomFloat(2, 5, 100),
+            'gift'    => false,
+            'terms'   => true,
             'printed' => false,
-            'status' => 1,
+            'status'  => 1,
         ];
     }
 }
