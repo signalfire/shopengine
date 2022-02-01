@@ -12,13 +12,13 @@ class ProductVariantFactory extends Factory
     public function definition()
     {
         return [
-            'id'     => $this->faker->uuid(),
+            'id'      => $this->faker->uuid(),
             'barcode' => $this->faker->ean13(),
-            'name'   => $this->faker->word(),
-            'slug'   => $this->faker->slug(),
-            'stock'  => $this->faker->randomDigitNot(0),
-            'price'  => $this->faker->randomFloat(2, 5, 100),
-            'status' => 1,
+            'name'    => $this->faker->word(),
+            'slug'    => $this->faker->slug(),
+            'stock'   => $this->faker->randomDigitNot(0),
+            'price'   => $this->faker->randomFloat(2, 5, 100),
+            'status'  => 1,
         ];
     }
 }
