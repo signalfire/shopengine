@@ -93,6 +93,8 @@ class ShopEngineServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/shopengine.php', 'shopengine');
 
+        $this->app->register('Spatie\MediaLibrary\MediaLibraryServiceProvider');
+
         $this->app->bind('shopengine', function () {
             return new ShopEngine();
         });

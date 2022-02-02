@@ -10,6 +10,7 @@ use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
 use Signalfire\Shopengine\Http\Controllers\TokenController;
+use Signalfire\Shopengine\Http\Controllers\ProductImageController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
@@ -61,6 +62,8 @@ Route::middleware(['api'])
                 Route::put('/{product}', [ProductController::class, 'update'])
                     ->name('product.update')
                     ->can('update', 'product');
+                Route::post('/{product}/image', [ProductImageController::class, 'store'])
+                    ->name('product.image.store');
             });
             Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/{product}/variant', [ProductVariantController::class, 'store'])
