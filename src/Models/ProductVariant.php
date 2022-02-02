@@ -4,9 +4,9 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Signalfire\Shopengine\Models\Factories\ProductVariantFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class ProductVariant extends Model
 {
