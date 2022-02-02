@@ -4,9 +4,9 @@ namespace Signalfire\Shopengine\Tests;
 
 use Illuminate\Http\Testing\File;
 use Laravel\Sanctum\Sanctum;
-use Signalfire\Shopengine\Models\User;
-use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\Product;
+use Signalfire\Shopengine\Models\Role;
+use Signalfire\Shopengine\Models\User;
 
 class ProductImageControllerTest extends TestCase
 {
@@ -26,16 +26,16 @@ class ProductImageControllerTest extends TestCase
 
         config()->set('filesystems.disks.media', [
             'driver' => 'local',
-            'root' => __DIR__.'/../../temp',
+            'root'   => __DIR__.'/../../temp',
         ]);
-        
+
         config()->set('medialibrary.default_filesystem', 'media');
 
         $image = File::image('photo.jpg');
 
         $product = Product::factory()->create();
 
-        $response = $this->postJson('/api/product/'. $product->id . '/image', [
+        $response = $this->postJson('/api/product/'.$product->id.'/image', [
             'image' => $image,
         ]);
 
@@ -45,6 +45,5 @@ class ProductImageControllerTest extends TestCase
 
         $this->assertCount(1, $photos);
         $this->assertFileExists($photos->first()->getPath());
-
     }
 }

@@ -5,11 +5,10 @@ namespace Signalfire\Shopengine\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\HasMedia;
-
 use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Product extends Model implements HasMedia
 {
