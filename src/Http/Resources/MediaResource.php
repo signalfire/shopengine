@@ -16,13 +16,13 @@ class MediaResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'url' => $this->getUrl(),
-            'full_url' => $this->getFullUrl(),
-            'name' => $this->name,
-            'size' => $this->size,
+            'id'         => $this->id,
+            'url'        => $this->getUrl(),
+            'full_url'   => $this->getFullUrl(),
+            'name'       => $this->name,
+            'size'       => $this->size,
             'size_human' => $this->human_readable_size,
-            'mime' => $this->mime_type
+            'mime'       => $this->mime_type,
         ];
     }
 }

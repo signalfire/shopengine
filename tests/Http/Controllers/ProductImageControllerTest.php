@@ -35,7 +35,7 @@ class ProductImageControllerTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $this->json('POST', '/api/product/'. $product->id . '/image', [
+        $this->json('POST', '/api/product/'.$product->id.'/image', [
             'image' => $image,
         ])
         ->assertStatus(201);
@@ -52,21 +52,21 @@ class ProductImageControllerTest extends TestCase
 
         config()->set('filesystems.disks.media', [
             'driver' => 'local',
-            'root' => __DIR__.'/../../temp',
+            'root'   => __DIR__.'/../../temp',
         ]);
-        
+
         config()->set('medialibrary.default_filesystem', 'media');
 
         $image = File::image('photo.jpg');
 
         $product = Product::factory()->create();
 
-        $this->json('POST', '/api/product/'. $product->id . '/image', [
+        $this->json('POST', '/api/product/'.$product->id.'/image', [
             'image' => $image,
         ])
         ->assertStatus(201);
 
-        $this->json('DELETE', '/api/product/' . $product->id . '/image/1')
+        $this->json('DELETE', '/api/product/'.$product->id.'/image/1')
             ->assertStatus(202);
     }
 }

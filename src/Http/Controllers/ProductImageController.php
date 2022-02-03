@@ -2,8 +2,6 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Signalfire\Shopengine\Http\Requests\StoreProductImageRequest;
 use Signalfire\Shopengine\Http\Resources\ProductResource;
 use Signalfire\Shopengine\Models\Product;
@@ -11,7 +9,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductImageController extends Controller
 {
-
     /**
      * Uploads a new product image.
      *
@@ -21,7 +18,6 @@ class ProductImageController extends Controller
      */
     public function store(StoreProductImageRequest $request, Product $product)
     {
-
         $product->addMediaFromRequest('image')->toMediaCollection('images');
 
         $product->refresh();
@@ -34,7 +30,7 @@ class ProductImageController extends Controller
     /**
      * Deletes a product image.
      *
-     * @param Signalfire\Shopengine\Models\Product $product
+     * @param Signalfire\Shopengine\Models\Product              $product
      * @param Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return string JSON
