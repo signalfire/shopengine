@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
-
 use Signalfire\Shopengine\Models\Order;
 
 class OrderInvoiceController extends Controller
@@ -18,7 +17,7 @@ class OrderInvoiceController extends Controller
     public function show(Order $order)
     {
         $pdf = PDF::loadView('shopengine::pdf.invoice', ['order' => $order]);
-        
+
         return $pdf->download('invoice.pdf');
     }
 }
