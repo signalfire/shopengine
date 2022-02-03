@@ -18,7 +18,7 @@ class AddressFactory extends Factory
             'surname'    => $this->faker->lastName(),
             'address1'   => $this->faker->streetAddress(),
             'towncity'   => $this->faker->city(),
-            'county'     => $this->faker->county(),
+            'county'     => $this->faker->state(),
             'postalcode' => $this->faker->postcode(),
             'country'    => $this->faker->country(),
             'mobile'     => $this->faker->randomElement([$this->faker->phoneNumber(), null]),

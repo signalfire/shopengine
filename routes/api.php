@@ -5,6 +5,7 @@ use Signalfire\Shopengine\Http\Controllers\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\CategoryController;
 use Signalfire\Shopengine\Http\Controllers\CategoryProductController;
 use Signalfire\Shopengine\Http\Controllers\OrderController;
+use Signalfire\Shopengine\Http\Controllers\OrderInvoiceController;
 use Signalfire\Shopengine\Http\Controllers\ProductController;
 use Signalfire\Shopengine\Http\Controllers\ProductImageController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
@@ -68,8 +69,6 @@ Route::middleware(['api'])
                 Route::delete('/{product}/image/{image}', [ProductImageController::class, 'destroy'])
                     ->name('product.image.destroy')
                     ->can('update', 'product');
-            });
-            Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/{product}/variant', [ProductVariantController::class, 'store'])
                     ->name('product.variant.store')
                     ->can('create', ProductVariant::class);
@@ -82,6 +81,8 @@ Route::middleware(['api'])
             Route::middleware(['auth:sanctum'])->group(function () {
                 Route::get('/{order}', [OrderController::class, 'show'])
                     ->name('order.show');
+                Route::get('/{order}/invoice', [OrderInvoiceController::class, 'show'])
+                    ->name('order.invoice.show');
             });
         });
         Route::prefix('products')->group(function () {

@@ -16,9 +16,9 @@
   </testsuites>
   <logging/>
   <php>
-    <!--
     <env name="APP_DEBUG" value="1"/>
-    <server name="APP_ENV" value="testing"/> -->
+    <env name="APP_ENV" value="testing"/>
     <env name="DB_CONNECTION" value="testbench"/>
+    <env name="FAKER_LOCALE" value="en_GB"/>
   </php>
 </phpunit>
