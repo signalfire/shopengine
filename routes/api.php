@@ -63,7 +63,11 @@ Route::middleware(['api'])
                     ->name('product.update')
                     ->can('update', 'product');
                 Route::post('/{product}/image', [ProductImageController::class, 'store'])
-                    ->name('product.image.store');
+                    ->name('product.image.store')
+                    ->can('create', Product::class);
+                Route::delete('/{product}/image/{image}', [ProductImageController::class, 'destroy'])
+                    ->name('product.image.destroy')
+                    ->can('update', 'product');
             });
             Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/{product}/variant', [ProductVariantController::class, 'store'])

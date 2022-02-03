@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             'slug'       => $this->slug,
             'categories' => CategoryResource::collection($this->categories),
             'variants'   => ProductVariantResource::collection($this->variants),
+            'images'     => MediaResource::collection($this->getMedia('images')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

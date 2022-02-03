@@ -35,16 +35,41 @@ class ProductImageControllerTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $response = $this->postJson('/api/product/'. $product->id . '/image', [
+        $this->json('POST', '/api/product/'. $product->id . '/image', [
             'image' => $image,
-        ]);
-
-        $response->assertStatus(200);
+        ])
+        ->assertStatus(201);
 
         $photos = $product->getMedia('images');
 
         $this->assertCount(1, $photos);
         $this->assertFileExists($photos->first()->getPath());
+    }
+
+    public function testDeleteImageFromProduct()
+    {
+        Sanctum::actingAs($this->user);
+
+        config()->set('filesystems.disks.media', [
+            'driver' => 'local',
+            'root' => __DIR__.'/../../temp',
+        ]);
+        
+        config()->set('medialibrary.default_filesystem', 'media');
+
+        $image = File::image('photo.jpg');
+
+        $product = Product::factory()->create();
+
+        $this->json('POST', '/api/product/'. $product->id . '/image', [
+            'image' => $image,
+        ])
+        ->assertStatus(201);
+
+        $this->json('DELETE', '/api/product/' . $product->id . '/image/1')
+            ->assertStatus(202);
+        
 
     }
+
 }
