@@ -9,7 +9,8 @@ use Signalfire\Shopengine\Http\Resources\ProductResource;
 use Signalfire\Shopengine\Models\Product;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ProductImageController extends Controller {
+class ProductImageController extends Controller
+{
 
     /**
      * Uploads a new product image.
@@ -18,7 +19,8 @@ class ProductImageController extends Controller {
      *
      * @return string JSON
      */
-    public function store(StoreProductImageRequest $request, Product $product) {
+    public function store(StoreProductImageRequest $request, Product $product)
+    {
 
         $product->addMediaFromRequest('image')->toMediaCollection('images');
 
@@ -27,7 +29,7 @@ class ProductImageController extends Controller {
         return (new ProductResource($product))
             ->response()
             ->setStatusCode(201);
-    }   
+    }
 
     /**
      * Deletes a product image.

@@ -68,8 +68,5 @@ class ProductImageControllerTest extends TestCase
 
         $this->json('DELETE', '/api/product/' . $product->id . '/image/1')
             ->assertStatus(202);
-        
-
     }
-
 }
