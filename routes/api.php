@@ -11,6 +11,7 @@ use Signalfire\Shopengine\Http\Controllers\ProductImageController;
 use Signalfire\Shopengine\Http\Controllers\ProductsController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\ProductVariantsController;
+use Signalfire\Shopengine\Http\Controllers\ProductVariantImageController;
 use Signalfire\Shopengine\Http\Controllers\TokenController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
@@ -75,6 +76,12 @@ Route::middleware(['api'])
                 Route::put('/{product}/variant/{variant}', [ProductVariantController::class, 'update'])
                     ->name('product.variant.update')
                     ->can('update', 'variant');
+                Route::post('/{product}/variant/{variant}/image', [ProductVariantImageController::class, 'store'])
+                    ->name('product.variant.image.store')
+                    ->can('create', Product::class);
+                Route::delete('/{product}/variant/{variant}/image/{image}', [ProductVariantImageController::class, 'destroy'])
+                    ->name('product.variant.image.destroy')
+                    ->can('update', 'product');
             });
         });
         Route::prefix('order')->group(function () {
