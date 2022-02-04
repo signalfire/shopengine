@@ -2,14 +2,13 @@
 
 namespace Signalfire\Shopengine\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-
-use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 
 class Variant extends Resource
 {
@@ -52,7 +51,7 @@ class Variant extends Resource
             Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
             Number::make(__('Stock'), 'stock')->sortable(),
             Currency::make(__('Price'), 'price')->sortable(),
-            Files::make('Images', 'images')            
+            Files::make('Images', 'images'),
         ];
     }
 

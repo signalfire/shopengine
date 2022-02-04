@@ -51,6 +51,4 @@ class OrderControllerTest extends TestCase
             ->get('/api/order/'.$order->id)
             ->assertStatus(200);
     }
-
-
 }

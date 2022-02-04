@@ -51,7 +51,7 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaCollection('images');
     }
-    
+
     protected static function newFactory()
     {
         return ProductFactory::new();
