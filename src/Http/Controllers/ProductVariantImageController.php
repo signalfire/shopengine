@@ -13,8 +13,8 @@ class ProductVariantImageController extends Controller
     /**
      * Uploads a new product variant image.
      *
-     * @param StoreProductVariantImageRequest $request
-     * @param Signalfire\Shopengine\Models\Product $product
+     * @param StoreProductVariantImageRequest             $request
+     * @param Signalfire\Shopengine\Models\Product        $product
      * @param Signalfire\Shopengine\Models\ProductVariant $variant
      *
      * @return string JSON
@@ -33,8 +33,8 @@ class ProductVariantImageController extends Controller
     /**
      * Deletes a product variant image.
      *
-     * @param Signalfire\Shopengine\Models\Product $product
-     * @param Signalfire\Shopengine\Models\ProductVariant $variant
+     * @param Signalfire\Shopengine\Models\Product              $product
+     * @param Signalfire\Shopengine\Models\ProductVariant       $variant
      * @param Spatie\MediaLibrary\MediaCollections\Models\Media $media
      *
      * @return string JSON

@@ -37,10 +37,10 @@ class ProductVariantImageControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->create();
 
-        $this->json('POST', '/api/product/'.$product->id.'/variant/'.$variant->id . '/image', [
+        $this->json('POST', '/api/product/'.$product->id.'/variant/'.$variant->id.'/image', [
             'image' => $image,
         ])
         ->assertStatus(201);
@@ -67,11 +67,11 @@ class ProductVariantImageControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $variant = ProductVariant::factory()->state([
-            'product_id' => $product->id
+            'product_id' => $product->id,
         ])->create();
 
         $this->json('POST', '/api/product/'.$product->id.'/variant/'.$variant->id.'/image', [
-            'image' => $image
+            'image' => $image,
         ])
         ->assertStatus(201);
 
