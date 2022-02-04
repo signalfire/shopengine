@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Signalfire\Shopengine\Models\Factories\ProductVariantFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 class ProductVariant extends Model implements HasMedia
 {
