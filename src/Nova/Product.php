@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-
 use Signalfire\Shopengine\Models\Product as Model;
 
 class Product extends Resource
@@ -20,8 +19,8 @@ class Product extends Resource
     public static $model = Model::class;
 
     /**
-     * The resource group
-     * 
+     * The resource group.
+     *
      * @var string
      */
     public static $group = 'Shopengine';

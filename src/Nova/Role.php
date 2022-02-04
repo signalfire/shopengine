@@ -5,7 +5,6 @@ namespace Signalfire\Shopengine\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-
 use Signalfire\Shopengine\Models\Role as Model;
 
 class Role extends Resource
