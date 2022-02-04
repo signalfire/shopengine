@@ -15,7 +15,7 @@ class Order extends Model
     protected $fillable = ['user_id', 'total', 'status'];
 
     protected $casts = [
-        'dispatched_at' => 'datetime'
+        'dispatched_at' => 'datetime',
     ];
 
     public function user()

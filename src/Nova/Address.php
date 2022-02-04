@@ -4,9 +4,8 @@ namespace Signalfire\Shopengine\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
-
+use Laravel\Nova\Fields\Text;
 use Signalfire\Shopengine\Models\Address as Model;
 
 class Address extends Resource
@@ -19,8 +18,8 @@ class Address extends Resource
     public static $model = Model::class;
 
     /**
-     * The resource group
-     * 
+     * The resource group.
+     *
      * @var string
      */
     public static $group = 'Shopengine';
@@ -30,8 +29,9 @@ class Address extends Resource
      *
      * @var string
      */
-    public function title() {
-        return $this->title . ' ' . $this->forename . ' ' . $this->surname;
+    public function title()
+    {
+        return $this->title.' '.$this->forename.' '.$this->surname;
     }
 
     /**
@@ -55,12 +55,12 @@ class Address extends Resource
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
             Select::make('Title')->options([
-                'Mr' => 'Mr',
-                'Mrs' => 'Mrs',
-                'Ms' => 'Ms',
-                'Dr' => 'Dr',
+                'Mr'   => 'Mr',
+                'Mrs'  => 'Mrs',
+                'Ms'   => 'Ms',
+                'Dr'   => 'Dr',
                 'Prof' => 'Prof',
-                'Sir' => 'Sir'
+                'Sir'  => 'Sir',
             ]),
             Text::make(__('Forename'), 'forename')
                 ->sortable()

@@ -8,7 +8,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-
 use Signalfire\Shopengine\Models\Category as Model;
 
 class Category extends Resource
@@ -21,8 +20,8 @@ class Category extends Resource
     public static $model = Model::class;
 
     /**
-     * The resource group
-     * 
+     * The resource group.
+     *
      * @var string
      */
     public static $group = 'Shopengine';
