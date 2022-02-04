@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
+use Signalfire\Shopengine\Models\Role as Model;
+
 class Role extends Resource
 {
     /**
@@ -13,7 +15,7 @@ class Role extends Resource
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\Role::class;
+    public static $model = Model::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

@@ -20,11 +20,20 @@ class Variant extends Resource
     public static $model = \Signalfire\Shopengine\Models\ProductVariant::class;
 
     /**
+     * The resource group
+     * 
+     * @var string
+     */
+    public static $group = 'Shopengine';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public function title() {
+        return ucfirst($this->name);
+    }
 
     /**
      * The columns that should be searched.
@@ -36,6 +45,13 @@ class Variant extends Resource
     ];
 
     /**
+     * Hide in navigation
+     * 
+     * @var string
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * Get the fields displayed by the resource.
      *
      * @param \Illuminate\Http\Request $request
@@ -45,7 +61,7 @@ class Variant extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->hideFromIndex(),
             Text::make(__('Barcode'), 'barcode')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             Slug::make(__('Slug'), 'slug')->from('name')->sortable(),

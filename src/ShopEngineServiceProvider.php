@@ -16,7 +16,7 @@ use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Nova\Address as AddressResource;
 use Signalfire\Shopengine\Nova\Category as CategoryResource;
 use Signalfire\Shopengine\Nova\Order as OrderResource;
-use Signalfire\Shopengine\Nova\OrderItem as OrderItemResource;
+use Signalfire\Shopengine\Nova\Item as OrderItemResource;
 use Signalfire\Shopengine\Nova\Product as ProductResource;
 use Signalfire\Shopengine\Nova\Role as RoleResource;
 use Signalfire\Shopengine\Nova\User as UserResource;

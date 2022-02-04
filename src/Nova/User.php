@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
+use Signalfire\Shopengine\Models\User as Model;
+
 class User extends Resource
 {
     /**
@@ -16,7 +18,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\User::class;
+    public static $model = Model::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.

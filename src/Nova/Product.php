@@ -8,6 +8,8 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
+use Signalfire\Shopengine\Models\Product as Model;
+
 class Product extends Resource
 {
     /**
@@ -15,7 +17,14 @@ class Product extends Resource
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\Product::class;
+    public static $model = Model::class;
+
+    /**
+     * The resource group
+     * 
+     * @var string
+     */
+    public static $group = 'Shopengine';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

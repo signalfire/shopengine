@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 
+use Signalfire\Shopengine\Models\Category as Model;
+
 class Category extends Resource
 {
     /**
@@ -16,7 +18,14 @@ class Category extends Resource
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\Category::class;
+    public static $model = Model::class;
+
+    /**
+     * The resource group
+     * 
+     * @var string
+     */
+    public static $group = 'Shopengine';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -44,7 +53,7 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->hideFromIndex(),
             Text::make(__('Name'), 'name')
                 ->sortable()
                 ->rules('required', 'max:100'),

@@ -5,15 +5,33 @@ namespace Signalfire\Shopengine\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Number;
 
-class OrderItem extends Resource
+use Signalfire\Shopengine\Models\OrderItem as Model;
+
+class Item extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\OrderItem::class;
+    public static $model = Model::class;
+
+    /**
+     * The resource group
+     * 
+     * @var string
+     */
+    public static $group = 'Shopengine';
+
+    /**
+     * Hide in navigation
+     * 
+     * @var string
+     */
+    public static $displayInNavigation = false;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -28,7 +46,7 @@ class OrderItem extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id'
     ];
 
     /**
@@ -40,9 +58,15 @@ class OrderItem extends Resource
      */
     public function fields(Request $request)
     {
+        // $table->uuid('product_variant_id');
+        // $table->smallInteger('quantity')->default(0);
+        // $table->decimal('price', 10, 2);
+
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(__('ID'), 'id')->hideFromIndex(),
+            BelongsTo::make('Variant'),
             Currency::make(__('Price'), 'price')->sortable(),
+            Number::make(__('Quantity'))
         ];
     }
 
