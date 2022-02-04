@@ -44,6 +44,11 @@ class Order extends Model
         return $query->whereNull('dispatched_at');
     }
 
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('id', $value)->firstOrFail();
+    }
+
     protected static function newFactory()
     {
         return OrderFactory::new();

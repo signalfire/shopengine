@@ -7,6 +7,8 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
+
 class Product extends Resource
 {
     /**
@@ -46,7 +48,7 @@ class Product extends Resource
             Text::make(__('Name'), 'name')->sortable(),
             HasMany::make('Categories'),
             HasMany::make('Variants'),
-
+            Files::make('Images', 'images')
         ];
     }
 

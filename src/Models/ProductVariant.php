@@ -40,6 +40,11 @@ class ProductVariant extends Model implements HasMedia
         ]);
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images');
+    }    
+
     protected static function newFactory()
     {
         return ProductVariantFactory::new();

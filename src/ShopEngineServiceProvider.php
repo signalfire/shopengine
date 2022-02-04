@@ -95,6 +95,7 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         $this->app->register('Spatie\MediaLibrary\MediaLibraryServiceProvider');
         $this->app->register('Barryvdh\DomPDF\ServiceProvider');
+        $this->app->register('Ebess\AdvancedNovaMediaLibrary\AdvancedNovaMediaLibraryServiceProvider');
 
         $this->app->bind('shopengine', function () {
             return new ShopEngine();

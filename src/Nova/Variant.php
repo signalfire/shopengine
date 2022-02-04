@@ -9,6 +9,8 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
+
 class Variant extends Resource
 {
     /**
@@ -50,6 +52,7 @@ class Variant extends Resource
             Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
             Number::make(__('Stock'), 'stock')->sortable(),
             Currency::make(__('Price'), 'price')->sortable(),
+            Files::make('Images', 'images')            
         ];
     }
 

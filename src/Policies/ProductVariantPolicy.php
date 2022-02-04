@@ -8,6 +8,18 @@ use Signalfire\Shopengine\Models\User;
 class ProductVariantPolicy
 {
     /**
+     * Determine if a product variant can be viewed by user.
+     *
+     * @param Signalfire\Shopengine\Models\User $user
+     *
+     * @return bool
+     */
+    public function view(User $user)
+    {
+        return $user->isAdmin();
+    }
+
+    /**
      * Determine if a product variant can be created by the user.
      *
      * @param Signalfire\Shopengine\Models\User $user

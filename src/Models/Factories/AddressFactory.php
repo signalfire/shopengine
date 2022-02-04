@@ -18,7 +18,9 @@ class AddressFactory extends Factory
             'surname'    => $this->faker->lastName(),
             'address1'   => $this->faker->streetAddress(),
             'towncity'   => $this->faker->city(),
-            'county'     => $this->faker->state(),
+            //'county'     => $this->faker->state(),
+            // @TODO Find way to set PHP locale in module
+            'county'     => 'county',
             'postalcode' => $this->faker->postcode(),
             'country'    => $this->faker->country(),
             'mobile'     => $this->faker->randomElement([$this->faker->phoneNumber(), null]),

@@ -47,6 +47,11 @@ class Product extends Model implements HasMedia
         return $this->where('slug', $value)->firstOrFail();
     }
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images');
+    }
+    
     protected static function newFactory()
     {
         return ProductFactory::new();
