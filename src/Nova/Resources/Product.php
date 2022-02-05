@@ -8,7 +8,9 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 use Signalfire\Shopengine\Models\Product as Model;
+use Signalfire\Shopengine\Nova\Actions\ChangeProductStatus;
 
 class Product extends Resource
 {
@@ -63,6 +65,16 @@ class Product extends Resource
                 ->sortable()
                 ->creationRules('required', 'max:200', 'unique:products,slug')
                 ->updateRules('required', 'max:200', 'unique:products,slug,{{resourceId}}'),
+            Select::make('Status')->options(function () {
+                $statuses = [];
+                foreach (config('shopengine.product.status') as $key => $value) {
+                    $statuses[$value] = ucfirst(strtolower($key));
+                }
+
+                return $statuses;
+            })
+            ->displayUsingLabels()
+            ->rules('required'),
             HasMany::make('Categories'),
             HasMany::make('Variants'),
         ];
@@ -113,6 +125,8 @@ class Product extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ChangeProductStatus
+        ];
     }
 }

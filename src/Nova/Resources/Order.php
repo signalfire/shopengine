@@ -13,6 +13,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Stack;
 use Signalfire\Shopengine\Models\Order as Model;
 use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
+use Signalfire\Shopengine\Nova\Actions\MarkOrderDispatched;
+use Signalfire\Shopengine\Nova\Actions\MarkOrderProcessing;
 
 class Order extends Resource
 {
@@ -121,7 +123,7 @@ class Order extends Resource
     public function filters(Request $request)
     {
         return [
-            new OrderPrinted(),
+            new OrderPrinted,
         ];
     }
 
@@ -146,6 +148,9 @@ class Order extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new MarkOrderDispatched,
+            new MarkOrderProcessing,
+        ];
     }
 }
