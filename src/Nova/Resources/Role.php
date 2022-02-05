@@ -1,17 +1,15 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
 
-use Signalfire\Shopengine\Models\Category as Model;
+use Signalfire\Shopengine\Models\Role as Model;
 
-class Category extends Resource
+class Role extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -19,13 +17,6 @@ class Category extends Resource
      * @var string
      */
     public static $model = Model::class;
-
-    /**
-     * The resource group
-     * 
-     * @var string
-     */
-    public static $group = 'Shopengine';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -40,7 +31,7 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'name', 'slug',
+        'id', 'name',
     ];
 
     /**
@@ -54,23 +45,10 @@ class Category extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
-            Text::make(__('Name'), 'name')
-                ->sortable()
-                ->rules('required', 'max:100'),
-            Slug::make(__('Slug'), 'slug')
-                ->sortable()
-                ->from('name')
-                ->creationRules('required', 'max:100', 'unique:categories,slug')
-                ->updateRules('required', 'max:100', 'unique:categories,slug,{{resourceId}}'),
-            Select::make('Status')->options(function () {
-                $statuses = [];
-                foreach (config('shopengine.category.status') as $key => $value) {
-                    $statuses[$value] = ucfirst(strtolower($key));
-                }
-
-                return $statuses;
-            })->displayUsingLabels()->rules('required'),
-            HasMany::make('Products'),
+            Text::make(__('Name'), 'name')->sortable()
+                ->creationRules('required', 'max:100', 'unique:roles,name')
+                ->updateRules('required', 'max:100', 'unique:roles,name,{{resourceId}}'),
+            HasMany::make('Users'),
         ];
     }
 

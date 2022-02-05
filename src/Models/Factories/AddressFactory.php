@@ -23,9 +23,6 @@ class AddressFactory extends Factory
             'county'     => 'county',
             'postalcode' => $this->faker->postcode(),
             'country'    => $this->faker->country(),
-            'mobile'     => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
-            'phone'      => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
-            'email'      => $this->faker->safeEmail(),
         ];
     }
 }

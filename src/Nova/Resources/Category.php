@@ -1,16 +1,17 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Slug;
+use Laravel\Nova\Fields\Text;
 
-use Signalfire\Shopengine\Models\OrderItem as Model;
+use Signalfire\Shopengine\Models\Category as Model;
 
-class Item extends Resource
+class Category extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -27,18 +28,11 @@ class Item extends Resource
     public static $group = 'Shopengine';
 
     /**
-     * Hide in navigation
-     * 
-     * @var string
-     */
-    public static $displayInNavigation = false;
-
-    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -46,7 +40,7 @@ class Item extends Resource
      * @var array
      */
     public static $search = [
-        'id'
+        'id', 'name', 'slug',
     ];
 
     /**
@@ -58,15 +52,25 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
-        // $table->uuid('product_variant_id');
-        // $table->smallInteger('quantity')->default(0);
-        // $table->decimal('price', 10, 2);
-
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
-            BelongsTo::make('Variant'),
-            Currency::make(__('Price'), 'price')->sortable(),
-            Number::make(__('Quantity'))
+            Text::make(__('Name'), 'name')
+                ->sortable()
+                ->rules('required', 'max:100'),
+            Slug::make(__('Slug'), 'slug')
+                ->sortable()
+                ->from('name')
+                ->creationRules('required', 'max:100', 'unique:categories,slug')
+                ->updateRules('required', 'max:100', 'unique:categories,slug,{{resourceId}}'),
+            Select::make('Status')->options(function () {
+                $statuses = [];
+                foreach (config('shopengine.category.status') as $key => $value) {
+                    $statuses[$value] = ucfirst(strtolower($key));
+                }
+
+                return $statuses;
+            })->displayUsingLabels()->rules('required'),
+            HasMany::make('Products'),
         ];
     }
 

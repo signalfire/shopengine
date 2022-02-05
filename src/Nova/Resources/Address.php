@@ -1,23 +1,22 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
 
-class Variant extends Resource
+use Signalfire\Shopengine\Models\Address as Model;
+
+class Address extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \Signalfire\Shopengine\Models\ProductVariant::class;
+    public static $model = Model::class;
 
     /**
      * The resource group
@@ -32,7 +31,7 @@ class Variant extends Resource
      * @var string
      */
     public function title() {
-        return ucfirst($this->name);
+        return $this->title . ' ' . $this->forename . ' ' . $this->surname;
     }
 
     /**
@@ -41,15 +40,8 @@ class Variant extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'forename', 'surname', 'postalcode',
     ];
-
-    /**
-     * Hide in navigation
-     * 
-     * @var string
-     */
-    public static $displayInNavigation = false;
 
     /**
      * Get the fields displayed by the resource.
@@ -62,12 +54,41 @@ class Variant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
-            Text::make(__('Barcode'), 'barcode')->sortable(),
-            Text::make(__('Name'), 'name')->sortable(),
-            Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
-            Number::make(__('Stock'), 'stock')->sortable(),
-            Currency::make(__('Price'), 'price')->sortable(),
-            Files::make('Images', 'images'),
+            Select::make('Title')->options([
+                'Mr' => 'Mr',
+                'Mrs' => 'Mrs',
+                'Ms' => 'Ms',
+                'Dr' => 'Dr',
+                'Prof' => 'Prof',
+                'Sir' => 'Sir'
+            ]),
+            Text::make(__('Forename'), 'forename')
+                ->sortable()
+                ->rules('required', 'max:50'),
+            Text::make(__('Surname'), 'surname')
+                ->sortable()
+                ->rules('required', 'max:50'),
+            Text::make(__('Address 1'), 'address1')
+                ->sortable()
+                ->rules('required', 'max:50'),
+            Text::make(__('Address 2'), 'address2')
+                ->hideFromIndex()
+                ->rules('nullable', 'max:50'),
+            Text::make(__('Address 3'), 'address3')
+                ->hideFromIndex()
+                ->rules('nullable', 'max:50'),
+            Text::make(__('Town/City'), 'towncity')
+                ->hideFromIndex()
+                ->rules('required', 'max:50'),
+            Text::make(__('County'), 'county')
+                ->sortable()
+                ->rules('required', 'max:50'),
+            Text::make(__('Postal Code'), 'postalcode')
+                ->sortable()
+                ->rules('required', 'max:50'),
+            Text::make(__('Country'), 'country')
+                ->sortable()
+                ->rules('required', 'max:50'),
         ];
     }
 

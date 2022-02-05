@@ -1,6 +1,6 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource as NovaResource;

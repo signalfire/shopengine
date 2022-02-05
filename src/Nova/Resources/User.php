@@ -1,14 +1,17 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Gravatar;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
-use Signalfire\Shopengine\Models\Role as Model;
+use Signalfire\Shopengine\Models\User as Model;
 
-class Role extends Resource
+class User extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -30,7 +33,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'name',
+        'id', 'name', 'email',
     ];
 
     /**
@@ -43,10 +46,27 @@ class Role extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name')->sortable()
-                ->creationRules('required', 'max:100', 'unique:roles,name')
-                ->updateRules('required', 'max:100', 'unique:roles,name,{{resourceId}}'),
+            ID::make()->hideFromIndex(),
+
+            Gravatar::make()->maxWidth(50),
+
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
+            Text::make('Email')
+                ->sortable()
+                ->rules('required', 'email', 'max:254')
+                ->creationRules('unique:users,email')
+                ->updateRules('unique:users,email,{{resourceId}}'),
+
+            Password::make('Password')
+                ->onlyOnForms()
+                ->creationRules('required', 'string', 'min:8')
+                ->updateRules('nullable', 'string', 'min:8'),
+            HasMany::make('Addresses'),
+            HasMany::make('Orders'),
+            HasMany::make('Roles'),
         ];
     }
 

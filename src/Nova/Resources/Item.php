@@ -1,17 +1,16 @@
 <?php
 
-namespace Signalfire\Shopengine\Nova;
+namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Password;
-use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Number;
 
-use Signalfire\Shopengine\Models\User as Model;
+use Signalfire\Shopengine\Models\OrderItem as Model;
 
-class User extends Resource
+class Item extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -21,11 +20,25 @@ class User extends Resource
     public static $model = Model::class;
 
     /**
+     * The resource group
+     * 
+     * @var string
+     */
+    public static $group = 'Shopengine';
+
+    /**
+     * Hide in navigation
+     * 
+     * @var string
+     */
+    public static $displayInNavigation = false;
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -33,7 +46,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'price',
     ];
 
     /**
@@ -45,27 +58,15 @@ class User extends Resource
      */
     public function fields(Request $request)
     {
+        // $table->uuid('product_variant_id');
+        // $table->smallInteger('quantity')->default(0);
+        // $table->decimal('price', 10, 2);
+
         return [
-            ID::make()->sortable(),
-
-            Gravatar::make()->maxWidth(50),
-
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
-
-            Text::make('Email')
-                ->sortable()
-                ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
-
-            Password::make('Password')
-                ->onlyOnForms()
-                ->creationRules('required', 'string', 'min:8')
-                ->updateRules('nullable', 'string', 'min:8'),
-            HasMany::make('Addresses'),
-            HasMany::make('Orders'),
+            ID::make(__('ID'), 'id')->hideFromIndex(),
+            BelongsTo::make('Variant'),
+            Currency::make(__('Price'), 'price')->sortable(),
+            Number::make(__('Quantity'))
         ];
     }
 
