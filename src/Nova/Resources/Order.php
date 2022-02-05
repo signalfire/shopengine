@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Signalfire\Shopengine\Models\Order as Model;
+use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
 
 class Order extends Resource
 {
@@ -98,7 +99,9 @@ class Order extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new OrderPrinted
+        ];
     }
 
     /**
