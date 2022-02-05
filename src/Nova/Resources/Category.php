@@ -8,6 +8,9 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\DateTime;
+
 use Signalfire\Shopengine\Models\Category as Model;
 
 class Category extends Resource
@@ -52,24 +55,37 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->hideFromIndex(),
+            ID::make(__('ID'), 'id')
+                ->hideFromIndex(),
             Text::make(__('Name'), 'name')
                 ->sortable()
                 ->rules('required', 'max:100'),
+            Textarea::make(__('Description'), 'description')
+                ->rules('nullable', 'max:4000')
+                ->nullable()
+                ->onlyOnForms(),
             Slug::make(__('Slug'), 'slug')
                 ->sortable()
                 ->from('name')
                 ->creationRules('required', 'max:100', 'unique:categories,slug')
                 ->updateRules('required', 'max:100', 'unique:categories,slug,{{resourceId}}'),
-            Select::make('Status')->options(function () {
-                $statuses = [];
-                foreach (config('shopengine.category.status') as $key => $value) {
-                    $statuses[$value] = ucfirst(strtolower($key));
-                }
+            Select::make('Status')
+                ->options(function () {
+                    $statuses = [];
+                    foreach (config('shopengine.category.status') as $key => $value) {
+                        $statuses[$value] = ucfirst(strtolower($key));
+                    }
 
-                return $statuses;
-            })->displayUsingLabels()->rules('required'),
+                    return $statuses;
+                })
+                ->displayUsingLabels()
+                ->rules('required'),
             HasMany::make('Products'),
+            DateTime::make('Created At')
+                ->showOnIndex()
+                ->showOnDetail()
+                ->exceptOnForms()
+
         ];
     }
 

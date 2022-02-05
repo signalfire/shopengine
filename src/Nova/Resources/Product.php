@@ -52,10 +52,16 @@ class Product extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->hideFromIndex(),
-            Text::make(__('Name'), 'name')->sortable(),
-            Slug::make(__('Slug'), 'slug')->sortable(),
-            HasMany::make('Categories'),
+            ID::make(__('ID'), 'id')
+                ->hideFromIndex(),
+            Text::make(__('Name'), 'name')
+                ->rules('required', 'max:200')
+                ->sortable(),
+            Slug::make(__('Slug'), 'slug')
+                ->sortable()
+                ->creationRules('required', 'max:200', 'unique:products,slug')
+                ->updateRules('required', 'max:200', 'unique:products,slug,{{resourceId}}'),
+                HasMany::make('Categories'),
             HasMany::make('Variants'),
             Files::make('Images', 'images'),
         ];

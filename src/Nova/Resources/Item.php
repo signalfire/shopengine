@@ -62,10 +62,15 @@ class Item extends Resource
         // $table->decimal('price', 10, 2);
 
         return [
-            ID::make(__('ID'), 'id')->hideFromIndex(),
+            ID::make(__('ID'), 'id')
+                ->hideFromIndex(),
             BelongsTo::make('Variant'),
-            Currency::make(__('Price'), 'price')->sortable(),
-            Number::make(__('Quantity')),
+            Currency::make(__('Price'), 'price')
+                ->sortable()
+                ->rules('required', 'numeric'),
+            Number::make(__('Quantity'))
+                ->sortable()
+                ->rules('required', 'numeric'),
         ];
     }
 

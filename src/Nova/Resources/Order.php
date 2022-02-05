@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Stack;
+
 use Signalfire\Shopengine\Models\Order as Model;
 use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
 
@@ -59,11 +61,28 @@ class Order extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
-            BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address'),
-            BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address'),
-            Currency::make(__('Total'), 'total')->sortable()->rules('required', 'numeric'),
-            Boolean::make(__('Gift'), 'gift'),
-            Boolean::make(__('Terms'), 'terms')->rules('required'),
+            Stack::make('Cardholder / Delivery Address', [
+                BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
+                    ->displayUsing(function($address){
+                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
+                    }),
+                BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address')
+                    ->displayUsing(function($address){
+                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
+                    }),
+            ]),
+            BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
+                ->onlyOnForms(),
+            BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address')
+                ->onlyOnForms(),
+            Currency::make(__('Total'), 'total')
+                ->sortable()
+                ->rules('required', 'numeric'),
+            Boolean::make(__('Gift'), 'gift')
+                ->hideFromIndex(),
+            Boolean::make(__('Terms'), 'terms')
+                ->hideFromIndex()
+                ->rules('required'),
             Boolean::make(__('Printed'), 'printed'),
             Select::make('Status')->options(function () {
                 $statuses = [];
@@ -72,8 +91,17 @@ class Order extends Resource
                 }
 
                 return $statuses;
-            })->displayUsingLabels()->rules('required'),
-            DateTime::make('Dispatched At')->rules('nullable'),
+            })
+            ->displayUsingLabels()
+            ->rules('required'),
+            DateTime::make('Created At')
+                ->exceptOnForms(),
+            DateTime::make('Updated At')
+                ->exceptOnForms()
+                ->hideFromIndex(),
+            DateTime::make('Dispatched At')
+                ->nullable()
+                ->rules('nullable'),
             HasMany::make('Items'),
         ];
     }

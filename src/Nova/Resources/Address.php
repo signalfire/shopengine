@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\DateTime;
 use Signalfire\Shopengine\Models\Address as Model;
 
 class Address extends Resource
@@ -53,15 +54,17 @@ class Address extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->hideFromIndex(),
-            Select::make('Title')->options([
-                'Mr'   => 'Mr',
-                'Mrs'  => 'Mrs',
-                'Ms'   => 'Ms',
-                'Dr'   => 'Dr',
-                'Prof' => 'Prof',
-                'Sir'  => 'Sir',
-            ]),
+            ID::make(__('ID'), 'id')
+                ->hideFromIndex(),
+            Select::make('Title')
+                ->options([
+                    'Mr'   => 'Mr',
+                    'Mrs'  => 'Mrs',
+                    'Ms'   => 'Ms',
+                    'Dr'   => 'Dr',
+                    'Prof' => 'Prof',
+                    'Sir'  => 'Sir',
+                ]),
             Text::make(__('Forename'), 'forename')
                 ->sortable()
                 ->rules('required', 'max:50'),
@@ -73,9 +76,11 @@ class Address extends Resource
                 ->rules('required', 'max:50'),
             Text::make(__('Address 2'), 'address2')
                 ->hideFromIndex()
+                ->nullable()
                 ->rules('nullable', 'max:50'),
             Text::make(__('Address 3'), 'address3')
                 ->hideFromIndex()
+                ->nullable()
                 ->rules('nullable', 'max:50'),
             Text::make(__('Town/City'), 'towncity')
                 ->hideFromIndex()
@@ -89,6 +94,10 @@ class Address extends Resource
             Text::make(__('Country'), 'country')
                 ->sortable()
                 ->rules('required', 'max:50'),
+            DateTime::make('Created At')
+                ->showOnIndex()
+                ->showOnDetail()
+                ->exceptOnForms()
         ];
     }
 
