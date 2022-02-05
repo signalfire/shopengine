@@ -9,6 +9,7 @@ use Signalfire\Shopengine\Models\Factories\ProductFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model implements HasMedia
 {
@@ -50,6 +51,13 @@ class Product extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(300)
+              ->height(300);
     }
 
     protected static function newFactory()

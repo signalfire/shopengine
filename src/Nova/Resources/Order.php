@@ -62,14 +62,8 @@ class Order extends Resource
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
             Stack::make('Cardholder / Delivery Address', [
-                BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
-                    ->displayUsing(function($address){
-                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
-                    }),
-                BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address')
-                    ->displayUsing(function($address){
-                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
-                    }),
+                BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address'),
+                BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address'),
             ]),
             BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
                 ->onlyOnForms(),

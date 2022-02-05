@@ -2,7 +2,7 @@
 
 namespace Signalfire\Shopengine\Nova\Resources;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -54,6 +54,8 @@ class Product extends Resource
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
+            Images::make('Images', 'images')
+                ->conversionOnIndexView('thumb'),
             Text::make(__('Name'), 'name')
                 ->rules('required', 'max:200')
                 ->sortable(),
@@ -61,9 +63,8 @@ class Product extends Resource
                 ->sortable()
                 ->creationRules('required', 'max:200', 'unique:products,slug')
                 ->updateRules('required', 'max:200', 'unique:products,slug,{{resourceId}}'),
-                HasMany::make('Categories'),
+            HasMany::make('Categories'),
             HasMany::make('Variants'),
-            Files::make('Images', 'images'),
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace Signalfire\Shopengine\Nova\Resources;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
@@ -61,14 +61,34 @@ class Variant extends Resource
      */
     public function fields(Request $request)
     {
+        // $table->string('barcode', 13);
+        // $table->string('name', 200);
+        // $table->string('slug', 200)->unique();
+        // $table->integer('stock');
+        // $table->decimal('price', 10, 2);
+        // $table->tinyInteger('status')->index();
+
         return [
-            ID::make(__('ID'), 'id')->hideFromIndex(),
-            Text::make(__('Barcode'), 'barcode')->sortable(),
-            Text::make(__('Name'), 'name')->sortable(),
-            Slug::make(__('Slug'), 'slug')->from('name')->sortable(),
-            Number::make(__('Stock'), 'stock')->sortable(),
-            Currency::make(__('Price'), 'price')->sortable(),
-            Files::make('Images', 'images'),
+            ID::make(__('ID'), 'id')
+                ->hideFromIndex(),
+            Images::make('Images', 'images'),           
+            Text::make(__('Barcode'), 'barcode')
+                ->sortable()
+                ->rules('required', 'min:13'),
+            Text::make(__('Name'), 'name')
+                ->sortable()
+                ->rules('required', 'max:200'),
+            Slug::make(__('Slug'), 'slug')
+                ->from('name')
+                ->sortable()
+                ->creationRules('required', 'max:200', 'unique:product_variants,slug')
+                ->updateRules('required', 'max:200', 'unique:product_variants,slug,{{resourceId}}'),
+            Number::make(__('Stock'), 'stock')
+                ->sortable()
+                ->rules('required', 'numeric'),
+            Currency::make(__('Price'), 'price')
+                ->sortable()
+                ->rules('required','numeric'),
         ];
     }
 
