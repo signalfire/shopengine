@@ -71,7 +71,7 @@ class Variant extends Resource
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
-            Images::make('Images', 'images'),           
+            Images::make('Images', 'images'),
             Text::make(__('Barcode'), 'barcode')
                 ->sortable()
                 ->rules('required', 'min:13'),
@@ -88,7 +88,7 @@ class Variant extends Resource
                 ->rules('required', 'numeric'),
             Currency::make(__('Price'), 'price')
                 ->sortable()
-                ->rules('required','numeric'),
+                ->rules('required', 'numeric'),
         ];
     }
 
