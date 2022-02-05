@@ -42,7 +42,7 @@ class Variant extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'barcode', 'name', 'slug', 'price'
+        'id', 'barcode', 'name', 'slug', 'price',
     ];
 
     /**
