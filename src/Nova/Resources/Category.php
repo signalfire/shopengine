@@ -3,14 +3,13 @@
 namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\DateTime;
-
 use Signalfire\Shopengine\Models\Category as Model;
 
 class Category extends Resource
@@ -84,7 +83,7 @@ class Category extends Resource
             DateTime::make('Created At')
                 ->showOnIndex()
                 ->showOnDetail()
-                ->exceptOnForms()
+                ->exceptOnForms(),
 
         ];
     }
