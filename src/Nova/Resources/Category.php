@@ -10,9 +10,8 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Signalfire\Shopengine\Nova\Actions\ChangeCategoryStatus;
-
 use Signalfire\Shopengine\Models\Category as Model;
+use Signalfire\Shopengine\Nova\Actions\ChangeCategoryStatus;
 
 class Category extends Resource
 {
@@ -136,7 +135,7 @@ class Category extends Resource
     public function actions(Request $request)
     {
         return [
-            new ChangeCategoryStatus
+            new ChangeCategoryStatus(),
         ];
     }
 }
