@@ -32,7 +32,7 @@ class Address extends Resource
      */
     public function title()
     {
-        return $this->title . ' ' . $this->forename . ' ' . $this->surname . ', ' . $this->address1 . ', ' . $this->towncity . ', ' . $this->postalcode;
+        return $this->title.' '.$this->forename.' '.$this->surname.', '.$this->address1.', '.$this->towncity.', '.$this->postalcode;
     }
 
     /**
