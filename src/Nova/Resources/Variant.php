@@ -20,8 +20,8 @@ class Variant extends Resource
     public static $model = \Signalfire\Shopengine\Models\ProductVariant::class;
 
     /**
-     * The resource group
-     * 
+     * The resource group.
+     *
      * @var string
      */
     public static $group = 'Shopengine';
@@ -31,7 +31,8 @@ class Variant extends Resource
      *
      * @var string
      */
-    public function title() {
+    public function title()
+    {
         return ucfirst($this->name);
     }
 
@@ -45,8 +46,8 @@ class Variant extends Resource
     ];
 
     /**
-     * Hide in navigation
-     * 
+     * Hide in navigation.
+     *
      * @var string
      */
     public static $displayInNavigation = false;

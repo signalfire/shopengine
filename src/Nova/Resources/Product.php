@@ -21,8 +21,8 @@ class Product extends Resource
     public static $model = Model::class;
 
     /**
-     * The resource group
-     * 
+     * The resource group.
+     *
      * @var string
      */
     public static $group = 'Shopengine';
