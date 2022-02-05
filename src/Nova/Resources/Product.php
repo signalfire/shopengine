@@ -61,7 +61,7 @@ class Product extends Resource
                 ->sortable()
                 ->creationRules('required', 'max:200', 'unique:products,slug')
                 ->updateRules('required', 'max:200', 'unique:products,slug,{{resourceId}}'),
-                HasMany::make('Categories'),
+            HasMany::make('Categories'),
             HasMany::make('Variants'),
             Files::make('Images', 'images'),
         ];

@@ -11,7 +11,6 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Stack;
-
 use Signalfire\Shopengine\Models\Order as Model;
 use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
 
@@ -63,12 +62,12 @@ class Order extends Resource
             ID::make(__('ID'), 'id')->hideFromIndex(),
             Stack::make('Cardholder / Delivery Address', [
                 BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
-                    ->displayUsing(function($address){
-                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
+                    ->displayUsing(function ($address) {
+                        return $address->title.' '.$address->forename.' '.$address->surname.', '.$address->address1.', '.$address->towncity.', '.$address->postalcode;
                     }),
                 BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address')
-                    ->displayUsing(function($address){
-                        return $address->title . ' ' . $address->forename . ' ' . $address->surname . ', ' . $address->address1 . ', ' . $address->towncity . ', ' . $address->postalcode;
+                    ->displayUsing(function ($address) {
+                        return $address->title.' '.$address->forename.' '.$address->surname.', '.$address->address1.', '.$address->towncity.', '.$address->postalcode;
                     }),
             ]),
             BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
