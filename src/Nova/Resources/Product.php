@@ -6,9 +6,9 @@ use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
 use Signalfire\Shopengine\Models\Product as Model;
 use Signalfire\Shopengine\Nova\Actions\ChangeProductStatus;
 
@@ -126,7 +126,7 @@ class Product extends Resource
     public function actions(Request $request)
     {
         return [
-            new ChangeProductStatus
+            new ChangeProductStatus(),
         ];
     }
 }
