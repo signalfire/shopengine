@@ -3,10 +3,10 @@
 namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\DateTime;
 use Signalfire\Shopengine\Models\Address as Model;
 
 class Address extends Resource
@@ -97,7 +97,7 @@ class Address extends Resource
             DateTime::make('Created At')
                 ->showOnIndex()
                 ->showOnDetail()
-                ->exceptOnForms()
+                ->exceptOnForms(),
         ];
     }
 

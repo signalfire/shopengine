@@ -11,7 +11,6 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Stack;
-
 use Signalfire\Shopengine\Models\Order as Model;
 use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
 
