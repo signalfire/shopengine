@@ -57,10 +57,6 @@ class Item extends Resource
      */
     public function fields(Request $request)
     {
-        // $table->uuid('product_variant_id');
-        // $table->smallInteger('quantity')->default(0);
-        // $table->decimal('price', 10, 2);
-
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
