@@ -9,6 +9,12 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Select;
+
+use Signalfire\Shopengine\Nova\Actions\ChangePricesByPercentage;
+use Signalfire\Shopengine\Nova\Actions\ChangePricesToSameAmount;
+use Signalfire\Shopengine\Nova\Actions\ChangeVariantStatus;
+use Signalfire\Shopengine\Nova\Actions\ChangeVariantQuantity;
 
 class Variant extends Resource
 {
@@ -61,13 +67,6 @@ class Variant extends Resource
      */
     public function fields(Request $request)
     {
-        // $table->string('barcode', 13);
-        // $table->string('name', 200);
-        // $table->string('slug', 200)->unique();
-        // $table->integer('stock');
-        // $table->decimal('price', 10, 2);
-        // $table->tinyInteger('status')->index();
-
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
@@ -89,6 +88,17 @@ class Variant extends Resource
             Currency::make(__('Price'), 'price')
                 ->sortable()
                 ->rules('required', 'numeric'),
+            Select::make('Status')->options(function () {
+                $statuses = [];
+                foreach (config('shopengine.variant.status') as $key => $value) {
+                    $statuses[$value] = ucfirst(strtolower($key));
+                }
+
+                return $statuses;
+            })
+            ->displayUsingLabels()
+            ->rules('required'),
+    
         ];
     }
 
@@ -137,6 +147,11 @@ class Variant extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ChangePricesByPercentage,
+            new ChangePricesToSameAmount,
+            new ChangeVariantStatus,
+            new ChangeVariantQuantity
+        ];
     }
 }

@@ -27,5 +27,10 @@ return [
             'PROCESSING' => 1,
             'DISPATCHED' => 2,
         ],
+        'emails' => [
+            'canned' => [
+                'POSTAL UPGRADE' => 'postal-upgrade'
+            ]
+        ]
     ],
 ];
