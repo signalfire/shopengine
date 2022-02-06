@@ -51,14 +51,8 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validated();
-        $name = $validated['name'];
-        $slug = $validated['slug'];
-        $status = $validated['status'];
 
-        $product->name = $name;
-        $product->slug = $slug;
-        $product->status = $status;
-        $product->save();
+        $product->update($validated);
 
         $product->refresh();
 

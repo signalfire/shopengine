@@ -13,7 +13,7 @@ class Category extends Model
     use Uuid;
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'status'];
+    protected $fillable = ['name', 'slug', 'description', 'status'];
 
     public function products()
     {

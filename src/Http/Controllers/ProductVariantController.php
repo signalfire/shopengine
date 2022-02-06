@@ -56,27 +56,8 @@ class ProductVariantController extends Controller
     public function update(UpdateProductVariantRequest $request, Product $product, ProductVariant $variant)
     {
         $validated = $request->validated();
-        $variant->update($validated);
-        // $product_id = $validated['product_id'];
-        // $name = $validated['name'];
-        // $slug = $validated['slug'];
-        // $stock = $validated['stock'];
-        // $price = $validated['price'];
-        // $length = $validated['length'];
-        // $width = $validated['width'];
-        // $height = $validated['height'];
-        // $status = $validated['status'];
 
-        // $variant->product_id = $product_id;
-        // $variant->name = $name;
-        // $variant->slug = $slug;
-        // $variant->stock = $stock;
-        // $variant->price = $price;
-        // $variant->length = $length;
-        // $variant->width = $width;
-        // $variant->height = $height;
-        // $variant->status = $status;
-        // $variant->save();
+        $variant->update($validated);
 
         $variant->refresh();
 

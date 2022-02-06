@@ -65,14 +65,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $validated = $request->validated();
-        $name = $validated['name'];
-        $slug = $validated['slug'];
-        $status = $validated['status'];
 
-        $category->name = $name;
-        $category->slug = $slug;
-        $category->status = $status;
-        $category->save();
+        $category->update($validated);
 
         $category->refresh();
 

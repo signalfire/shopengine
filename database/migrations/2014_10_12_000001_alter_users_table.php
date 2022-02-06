@@ -29,7 +29,11 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->change();
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('mobile');
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone');
         });
     }
