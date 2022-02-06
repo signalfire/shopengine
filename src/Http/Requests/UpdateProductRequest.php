@@ -24,10 +24,10 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => 'required|string|max:100',
-            'slug'   => 'required|string|max:100|unique:products,slug,'.$this->get('product'),
+            'name'        => 'required|string|max:100',
+            'slug'        => 'required|string|max:100|unique:products,slug,'.$this->get('product'),
             'description' => 'nullable|string|max:4000',
-            'status' => 'required|integer',
+            'status'      => 'required|integer',
         ];
     }
 }
