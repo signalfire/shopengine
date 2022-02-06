@@ -63,7 +63,7 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
-            
+
             Text::make('Mobile')
                 ->rules('required', 'max:30'),
 

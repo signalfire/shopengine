@@ -39,7 +39,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         Address::class         => AddressPolicy::class,
         Order::class           => OrderPolicy::class,
         OrderItem::class       => OrderItemPolicy::class,
-        User::class => UserPolicy::class,
+        User::class            => UserPolicy::class,
     ];
 
     public function boot()
