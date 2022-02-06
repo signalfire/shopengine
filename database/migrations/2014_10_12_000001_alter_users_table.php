@@ -19,10 +19,10 @@ class AlterUsersTable extends Migration
             $table->uuid('id')->change();
             if ($driver === 'sqlite') {
                 $table->string('forename', 50)->nullable()->after('name');
-                $table->string('surname', 50)->nullable()->after('forename');    
-            }else{
+                $table->string('surname', 50)->nullable()->after('forename');
+            } else {
                 $table->string('forename', 50)->after('name');
-                $table->string('surname', 50)->after('forename');    
+                $table->string('surname', 50)->after('forename');
             }
             $table->string('mobile', 30)->nullable()->after('password');
             $table->string('phone', 30)->nullable()->after('mobile');
