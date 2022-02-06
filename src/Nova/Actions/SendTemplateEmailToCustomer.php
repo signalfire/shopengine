@@ -3,8 +3,8 @@
 namespace Signalfire\Shopengine\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
@@ -26,7 +26,6 @@ class SendTemplateEmailToCustomer extends Action implements ShouldQueue
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            
         }
     }
 
@@ -43,9 +42,10 @@ class SendTemplateEmailToCustomer extends Action implements ShouldQueue
                 foreach (config('shopengine.order.emails.canned') as $key => $value) {
                     $statuses[$value] = ucfirst(strtolower($key));
                 }
+
                 return $statuses;
             })
-            ->rules('required')
+            ->rules('required'),
         ];
     }
 }

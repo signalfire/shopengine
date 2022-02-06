@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Select;
-
 use Signalfire\Shopengine\Nova\Actions\ChangePricesByPercentage;
 use Signalfire\Shopengine\Nova\Actions\ChangePricesToSameAmount;
-use Signalfire\Shopengine\Nova\Actions\ChangeVariantStatus;
 use Signalfire\Shopengine\Nova\Actions\ChangeVariantQuantity;
+use Signalfire\Shopengine\Nova\Actions\ChangeVariantStatus;
 
 class Variant extends Resource
 {
@@ -98,7 +97,7 @@ class Variant extends Resource
             })
             ->displayUsingLabels()
             ->rules('required'),
-    
+
         ];
     }
 
@@ -148,10 +147,10 @@ class Variant extends Resource
     public function actions(Request $request)
     {
         return [
-            new ChangePricesByPercentage,
-            new ChangePricesToSameAmount,
-            new ChangeVariantStatus,
-            new ChangeVariantQuantity
+            new ChangePricesByPercentage(),
+            new ChangePricesToSameAmount(),
+            new ChangeVariantStatus(),
+            new ChangeVariantQuantity(),
         ];
     }
 }
