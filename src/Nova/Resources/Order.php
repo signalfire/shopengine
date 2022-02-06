@@ -12,11 +12,11 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Stack;
 use Signalfire\Shopengine\Models\Order as Model;
+use Signalfire\Shopengine\Nova\Actions\GenerateOrderPdf;
 use Signalfire\Shopengine\Nova\Actions\MarkOrderDispatched;
 use Signalfire\Shopengine\Nova\Actions\MarkOrderProcessing;
 use Signalfire\Shopengine\Nova\Actions\SendEmailToCustomer;
 use Signalfire\Shopengine\Nova\Actions\SendTemplateEmailToCustomer;
-use Signalfire\Shopengine\Nova\Actions\GenerateOrderPdf;
 use Signalfire\Shopengine\Nova\Filters\OrderPrinted;
 
 class Order extends Resource
@@ -152,11 +152,11 @@ class Order extends Resource
     public function actions(Request $request)
     {
         return [
-            new MarkOrderDispatched,
-            new MarkOrderProcessing,
-            new SendEmailToCustomer,
-            new SendTemplateEmailToCustomer,
-            new GenerateOrderPdf,
+            new MarkOrderDispatched(),
+            new MarkOrderProcessing(),
+            new SendEmailToCustomer(),
+            new SendTemplateEmailToCustomer(),
+            new GenerateOrderPdf(),
         ];
     }
 }
