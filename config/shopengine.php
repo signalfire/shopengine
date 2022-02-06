@@ -29,8 +29,8 @@ return [
         ],
         'emails' => [
             'canned' => [
-                'POSTAL UPGRADE' => 'postal-upgrade'
-            ]
-        ]
+                'POSTAL UPGRADE' => 'postal-upgrade',
+            ],
+        ],
     ],
 ];
