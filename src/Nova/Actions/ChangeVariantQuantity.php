@@ -11,15 +11,17 @@ use Laravel\Nova\Fields\Text;
 
 class ChangeVariantQuantity extends Action
 {
-    use InteractsWithQueue, Queueable;
+    use InteractsWithQueue;
+    use Queueable;
 
-  /**
-   * Perform the action on the given models.
-   *
-   * @param  \Laravel\Nova\Fields\ActionFields  $fields
-   * @param  \Illuminate\Support\Collection  $models
-   * @return mixed
-   */
+    /**
+     * Perform the action on the given models.
+     *
+     * @param \Laravel\Nova\Fields\ActionFields $fields
+     * @param \Illuminate\Support\Collection    $models
+     *
+     * @return mixed
+     */
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
@@ -28,16 +30,16 @@ class ChangeVariantQuantity extends Action
         }
     }
 
-  /**
-   * Get the fields available on the action.
-   *
-   * @return array
-   */
+    /**
+     * Get the fields available on the action.
+     *
+     * @return array
+     */
     public function fields()
     {
         return [
-        Text::make('Quantity')
-            ->rules('required', 'numeric')
+            Text::make('Quantity')
+                ->rules('required', 'numeric'),
         ];
     }
 }

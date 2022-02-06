@@ -30,7 +30,7 @@ class UpdateProductVariantRequest extends FormRequest
             'stock'      => 'required|integer',
             'price'      => 'required|numeric',
             'length'     => 'required|numeric',
-            'width'     => 'required|numeric',
+            'width'      => 'required|numeric',
             'height'     => 'required|numeric',
             'weight'     => 'required|numeric',
             'status'     => 'required|integer',
