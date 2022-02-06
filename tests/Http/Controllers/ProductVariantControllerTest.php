@@ -60,31 +60,31 @@ class ProductVariantControllerTest extends TestCase
 
         $this
             ->json('POST', '/api/product/'.$product->id.'/variant', [
-                'product_id' => $product->id,
-                'barcode'    => '9780201379621',
-                'name'       => 'test',
-                'slug'       => 'test',
-                'stock'      => 10,
-                'price'      => 1.99,
+                'product_id'  => $product->id,
+                'barcode'     => '9780201379621',
+                'name'        => 'test',
+                'slug'        => 'test',
+                'stock'       => 10,
+                'price'       => 1.99,
                 'length'      => 10,
-                'width'     => 11,
-                'height'    => 12,
-                'weight'    => 1.2,
-                'status'     => 1,
+                'width'       => 11,
+                'height'      => 12,
+                'weight'      => 1.2,
+                'status'      => 1,
             ])
             ->assertJson([
                 'data' => [
-                    'product_id' => $product->id,
-                    'barcode'    => '9780201379621',
-                    'name'       => 'test',
-                    'slug'       => 'test',
-                    'stock'      => 10,
-                    'price'      => 1.99,
+                    'product_id'  => $product->id,
+                    'barcode'     => '9780201379621',
+                    'name'        => 'test',
+                    'slug'        => 'test',
+                    'stock'       => 10,
+                    'price'       => 1.99,
                     'length'      => 10,
-                    'width'     => 11,
-                    'height'    => 12,
-                    'weight'    => 1.2,
-                    'status'     => 1,
+                    'width'       => 11,
+                    'height'      => 12,
+                    'weight'      => 1.2,
+                    'status'      => 1,
                 ],
             ])
             ->assertStatus(201);
@@ -102,33 +102,33 @@ class ProductVariantControllerTest extends TestCase
 
         $this
             ->json('PUT', '/api/product/'.$product->id.'/variant/'.$variant->id, [
-                'product_id' => $product->id,
-                'name'       => 'test1',
-                'slug'       => 'test2',
-                'stock'      => 12,
-                'price'      => 299,
+                'product_id'  => $product->id,
+                'name'        => 'test1',
+                'slug'        => 'test2',
+                'stock'       => 12,
+                'price'       => 299,
                 'length'      => 5,
-                'width'     => 6,
-                'height'    => 7,
-                'weight'    => 1.5,
-                'status'     => 1,
+                'width'       => 6,
+                'height'      => 7,
+                'weight'      => 1.5,
+                'status'      => 1,
             ])
             ->assertStatus(204);
 
         $this->assertDatabaseCount('product_variants', 1);
 
         $this->assertDatabaseHas('product_variants', [
-            'id'         => $variant->id,
-            'product_id' => $product->id,
-            'name'       => 'test1',
-            'slug'       => 'test2',
-            'stock'      => 12,
-            'price'      => 299,
+            'id'          => $variant->id,
+            'product_id'  => $product->id,
+            'name'        => 'test1',
+            'slug'        => 'test2',
+            'stock'       => 12,
+            'price'       => 299,
             'length'      => 5,
-            'width'     => 6,
-            'height'    => 7,
-            'weight'    => 1.5,
-            'status'     => 1,
+            'width'       => 6,
+            'height'      => 7,
+            'weight'      => 1.5,
+            'status'      => 1,
         ]);
     }
 }
