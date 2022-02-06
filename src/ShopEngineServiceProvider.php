@@ -27,6 +27,7 @@ use Signalfire\Shopengine\Policies\OrderPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
+use Signalfire\Shopengine\Policies\UserPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         Address::class         => AddressPolicy::class,
         Order::class           => OrderPolicy::class,
         OrderItem::class       => OrderItemPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     public function boot()

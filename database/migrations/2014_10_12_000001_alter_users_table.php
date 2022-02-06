@@ -15,6 +15,8 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->uuid('id')->change();
+            $table->string('mobile', 30)->nullable()->after('password');
+            $table->string('phone', 30)->nullable()->after('mobile');
         });
     }
 
@@ -27,6 +29,8 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->change();
+            $table->dropColumn('mobile');
+            $table->dropColumn('phone');
         });
     }
 }
