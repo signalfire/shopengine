@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Text;
 
 class ChangeVariantQuantity extends Action
 {
-  use InteractsWithQueue, Queueable;
+    use InteractsWithQueue, Queueable;
 
   /**
    * Perform the action on the given models.
@@ -21,24 +21,24 @@ class ChangeVariantQuantity extends Action
    * @param  \Illuminate\Support\Collection  $models
    * @return mixed
    */
-  public function handle(ActionFields $fields, Collection $models)
-  {
-    foreach ($models as $model) {
-      $model->stock = $fields->quantity;
-      $model->save();
+    public function handle(ActionFields $fields, Collection $models)
+    {
+        foreach ($models as $model) {
+            $model->stock = $fields->quantity;
+            $model->save();
+        }
     }
-  }
 
   /**
    * Get the fields available on the action.
    *
    * @return array
    */
-  public function fields()
-  {
-    return [
-        Text::make('Quantity')        
+    public function fields()
+    {
+        return [
+        Text::make('Quantity')
             ->rules('required', 'numeric')
-    ];
-  }
+        ];
+    }
 }

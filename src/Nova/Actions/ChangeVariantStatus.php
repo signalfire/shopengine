@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\Select;
 
 class ChangeVariantStatus extends Action
 {
-  use InteractsWithQueue, Queueable;
+    use InteractsWithQueue, Queueable;
 
   /**
    * Perform the action on the given models.
@@ -21,22 +21,22 @@ class ChangeVariantStatus extends Action
    * @param  \Illuminate\Support\Collection  $models
    * @return mixed
    */
-  public function handle(ActionFields $fields, Collection $models)
-  {
-    foreach ($models as $model) {
-      $model->status = $fields->status;
-      $model->save();
+    public function handle(ActionFields $fields, Collection $models)
+    {
+        foreach ($models as $model) {
+            $model->status = $fields->status;
+            $model->save();
+        }
     }
-  }
 
   /**
    * Get the fields available on the action.
    *
    * @return array
    */
-  public function fields()
-  {
-    return [
+    public function fields()
+    {
+        return [
         Select::make('Status')->options(function () {
             $statuses = [];
             foreach (config('shopengine.variant.status') as $key => $value) {
@@ -45,6 +45,6 @@ class ChangeVariantStatus extends Action
             return $statuses;
         })
         ->rules('required')
-    ];
-  }
+        ];
+    }
 }

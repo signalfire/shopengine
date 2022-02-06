@@ -21,6 +21,10 @@ class CreateProductVariantsTable extends Migration
             $table->string('slug', 200)->unique();
             $table->integer('stock');
             $table->decimal('price', 10, 2);
+            $table->unsignedSmallInteger('length');
+            $table->unsignedSmallInteger('width');
+            $table->unsignedSmallInteger('height');
+            $table->decimal('weight', 10, 2);
             $table->tinyInteger('status')->index();
             $table->timestampsTz();
 

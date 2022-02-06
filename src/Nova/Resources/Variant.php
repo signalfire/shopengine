@@ -88,6 +88,18 @@ class Variant extends Resource
             Currency::make(__('Price'), 'price')
                 ->sortable()
                 ->rules('required', 'numeric'),
+            Number::make(__('Length'), 'length')
+                ->onlyOnForms()
+                ->rules('required', 'numeric'),
+            Number::make(__('Width'), 'width')
+                ->onlyOnForms()
+                ->rules('required', 'numeric'),
+            Number::make(__('Height'), 'height')
+                ->onlyOnForms()
+                ->rules('required', 'numeric'),
+            Number::make(__('Weight'), 'weight')
+                ->onlyOnForms()
+                ->rules('required', 'numeric'),
             Select::make('Status')->options(function () {
                 $statuses = [];
                 foreach (config('shopengine.variant.status') as $key => $value) {

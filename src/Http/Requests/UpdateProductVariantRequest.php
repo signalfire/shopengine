@@ -29,6 +29,10 @@ class UpdateProductVariantRequest extends FormRequest
             'slug'       => 'required|string|max:100|unique:product_variants,slug,'.$this->get('variant'),
             'stock'      => 'required|integer',
             'price'      => 'required|numeric',
+            'length'     => 'required|numeric',
+            'width'     => 'required|numeric',
+            'height'     => 'required|numeric',
+            'weight'     => 'required|numeric',
             'status'     => 'required|integer',
         ];
     }

@@ -26,7 +26,6 @@ class SendTemplateEmailToCustomer extends Action implements ShouldQueue
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            
         }
     }
 

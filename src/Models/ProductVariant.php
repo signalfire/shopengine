@@ -17,7 +17,9 @@ class ProductVariant extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-        'product_id', 'barcode', 'name', 'slug', 'stock', 'price', 'status',
+        'product_id', 'barcode', 'name', 'slug',
+        'stock', 'price', 'length', 'width', 'height',
+        'weight', 'status'
     ];
 
     public function product()

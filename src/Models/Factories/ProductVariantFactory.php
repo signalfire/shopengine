@@ -18,6 +18,10 @@ class ProductVariantFactory extends Factory
             'slug'    => $this->faker->slug(),
             'stock'   => $this->faker->randomDigitNot(0),
             'price'   => $this->faker->randomFloat(2, 5, 100),
+            'length'  => $this->faker->randomDigit(),
+            'width'   => $this->faker->randomDigit(),
+            'height'  => $this->faker->randomDigit(),
+            'weight'  => $this->faker->randomFloat(2, 0.1, 10),
             'status'  => 1,
         ];
     }

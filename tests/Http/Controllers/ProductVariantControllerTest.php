@@ -66,6 +66,10 @@ class ProductVariantControllerTest extends TestCase
                 'slug'       => 'test',
                 'stock'      => 10,
                 'price'      => 1.99,
+                'length'      => 10,
+                'width'     => 11,
+                'height'    => 12,
+                'weight'    => 1.2,
                 'status'     => 1,
             ])
             ->assertJson([
@@ -76,6 +80,10 @@ class ProductVariantControllerTest extends TestCase
                     'slug'       => 'test',
                     'stock'      => 10,
                     'price'      => 1.99,
+                    'length'      => 10,
+                    'width'     => 11,
+                    'height'    => 12,
+                    'weight'    => 1.2,
                     'status'     => 1,
                 ],
             ])
@@ -94,11 +102,15 @@ class ProductVariantControllerTest extends TestCase
 
         $this
             ->json('PUT', '/api/product/'.$product->id.'/variant/'.$variant->id, [
-                'product_id' => $variant->product_id,
+                'product_id' => $product->id,
                 'name'       => 'test1',
                 'slug'       => 'test2',
                 'stock'      => 12,
                 'price'      => 299,
+                'length'      => 5,
+                'width'     => 6,
+                'height'    => 7,
+                'weight'    => 1.5,
                 'status'     => 1,
             ])
             ->assertStatus(204);
@@ -107,12 +119,16 @@ class ProductVariantControllerTest extends TestCase
 
         $this->assertDatabaseHas('product_variants', [
             'id'         => $variant->id,
-            'product_id' => $variant->product_id,
+            'product_id' => $product->id,
             'name'       => 'test1',
             'slug'       => 'test2',
             'stock'      => 12,
             'price'      => 299,
-            'status'     => $variant->status,
+            'length'      => 5,
+            'width'     => 6,
+            'height'    => 7,
+            'weight'    => 1.5,
+            'status'     => 1,
         ]);
     }
 }
