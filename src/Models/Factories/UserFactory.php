@@ -18,8 +18,8 @@ class UserFactory extends Factory
             'email'             => $this->faker->safeEmail(),
             'email_verified_at' => now(),
             'password'          => Hash::make($this->faker->password()),
-            'mobile' => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
-            'phone' => $this->faker->randomElement([$this->faker->phoneNumber(), null])
+            'mobile'            => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
+            'phone'             => $this->faker->randomElement([$this->faker->phoneNumber(), null]),
         ];
     }
 }
