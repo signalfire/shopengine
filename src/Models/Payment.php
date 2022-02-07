@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 //use Signalfire\Shopengine\Models\Factories\OrderFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
-use Signalfire\Shopengine\Models\Order;
 
 class Payment extends Model
 {

@@ -17,12 +17,11 @@ use Signalfire\Shopengine\Nova\Resources\Address as AddressResource;
 use Signalfire\Shopengine\Nova\Resources\Category as CategoryResource;
 use Signalfire\Shopengine\Nova\Resources\Item as OrderItemResource;
 use Signalfire\Shopengine\Nova\Resources\Order as OrderResource;
+use Signalfire\Shopengine\Nova\Resources\Payment as PaymentResource;
 use Signalfire\Shopengine\Nova\Resources\Product as ProductResource;
 use Signalfire\Shopengine\Nova\Resources\Role as RoleResource;
 use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
-use Signalfire\Shopengine\Nova\Resources\Payment as PaymentResource;
-
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;

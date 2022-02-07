@@ -8,6 +8,5 @@ Route::middleware('web')
     ->group(function () {
         Route::get('/order/{order}/invoice', [OrderInvoiceController::class, 'show'])
             ->name('account.invoice.show');
-            //->can('view', 'order');
+        //->can('view', 'order');
     });
-
