@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('order_id');
             $table->string('gateway', 30);
-            $table->string('reference',100);
+            $table->string('reference', 100);
             $table->decimal('total', 10, 2);
             $table->timestampsTz();
 
