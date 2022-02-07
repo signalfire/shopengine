@@ -15,7 +15,7 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/'.$basket->id.'/items', [])
+            ->json('POST', route('basket.item.store', ['basket' => $basket->id]), [])
             ->assertJsonValidationErrorFor('product_variant_id', 'errors')
             ->assertJsonValidationErrorFor('quantity', 'errors')
             ->assertStatus(422);
@@ -26,7 +26,11 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/'.$basket->id.'/items', ['quantity' => 1])
+            ->json(
+                'POST',
+                route('basket.item.store', ['basket' => $basket->id]),
+                ['quantity' => 1]
+            )
             ->assertJsonValidationErrorFor('product_variant_id', 'errors')
             ->assertStatus(422);
     }
@@ -36,7 +40,11 @@ class BasketItemControllerTest extends TestCase
         $basket = Basket::factory()->create();
 
         $this
-            ->json('POST', '/api/basket/'.$basket->id.'/items', ['product_variant_id' => (string) Str::uuid()])
+            ->json(
+                'POST',
+                route('basket.item.store', ['basket' => $basket->id]),
+                ['product_variant_id' => (string) Str::uuid()]
+            )
             ->assertJsonValidationErrorFor('quantity', 'errors')
             ->assertStatus(422);
     }
@@ -48,7 +56,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 'A',
@@ -65,7 +73,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => 12,
                     'quantity'           => 1,
@@ -80,7 +88,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.(string) Str::uuid().'/items',
+                route('basket.item.store', ['basket' => (string) Str::uuid()]),
                 [
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
@@ -96,7 +104,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => (string) Str::uuid(),
                     'quantity'           => 1,
@@ -119,7 +127,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),                
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
@@ -142,7 +150,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 2,
@@ -166,7 +174,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
@@ -190,7 +198,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
@@ -229,7 +237,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 2,
@@ -274,7 +282,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 0,
@@ -291,7 +299,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'DELETE',
-                '/api/basket/'.(string) Str::uuid().'/items',
+                route('basket.item.destroy', (string) Str::uuid()),
                 [
                     'product_variant_id' => (string) Str::uuid(),
                 ]
@@ -326,7 +334,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'DELETE',
-                '/api/basket/'.$basket->id.'/items',
+                route('basket.item.destroy', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                 ]
