@@ -14,7 +14,7 @@ class BasketControllerTest extends TestCase
     {
         $this->assertDatabaseCount('baskets', 0);
         $this
-            ->post('/api/basket')
+            ->post(route('basket.store'))
             ->assertStatus(201);
         $this->assertDatabaseCount('baskets', 1);
     }
@@ -22,14 +22,14 @@ class BasketControllerTest extends TestCase
     public function testFailsToRetrieveBasketNonUuid()
     {
         $this
-            ->json('GET', '/api/basket/12')
+            ->json('GET', route('basket.show', ['basket' => 12]))
             ->assertStatus(404);
     }
 
     public function testFailsToRetrieveBasketNonExisting()
     {
         $this
-            ->get('/api/basket/'.(string) Str::uuid())
+            ->get(route('basket.show', ['basket' => (string) Str::uuid()]))
             ->assertStatus(404);
     }
 
@@ -37,7 +37,7 @@ class BasketControllerTest extends TestCase
     {
         $basket = Basket::factory()->create();
         $this
-            ->get('/api/basket/'.$basket->id)
+            ->get(route('basket.show', ['basket' => $basket->id]))
             ->assertJson([
                 'data' => [
                     'id' => $basket->id,
@@ -62,7 +62,7 @@ class BasketControllerTest extends TestCase
                 ->create();
         }
         $this
-            ->get('/api/basket/'.$basket->id)
+            ->get(route('basket.show', ['basket' => $basket->id]))
             ->assertJsonCount(3, 'data.items')
             ->assertStatus(200);
     }
@@ -70,14 +70,14 @@ class BasketControllerTest extends TestCase
     public function testFailsToDestroyBasketNonExisting()
     {
         $this
-            ->delete('/api/basket/'.(string) Str::uuid())
+            ->delete(route('basket.destroy', ['basket' => (string) Str::uuid()]))
             ->assertStatus(404);
     }
 
     public function testFailsToDestroyBasketNonUuid()
     {
         $this
-            ->delete('/api/basket/12')
+            ->delete(route('basket.destroy', ['basket' => 12]))
             ->assertStatus(404);
     }
 
@@ -85,7 +85,7 @@ class BasketControllerTest extends TestCase
     {
         $basket = Basket::factory()->create();
         $this
-            ->delete('/api/basket/'.$basket->id)
+            ->delete(route('basket.destroy', ['basket' => $basket->id]))
             ->assertStatus(202);
 
         $this->assertDeleted($basket);
