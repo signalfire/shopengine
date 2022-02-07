@@ -36,7 +36,7 @@ class Payment extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'reference', 'gateway'
+        'id', 'reference', 'gateway',
     ];
 
     /**
