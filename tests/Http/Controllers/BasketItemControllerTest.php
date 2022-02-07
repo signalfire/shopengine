@@ -127,7 +127,7 @@ class BasketItemControllerTest extends TestCase
         $this
             ->json(
                 'POST',
-                route('basket.item.store', ['basket' => $basket->id]),                
+                route('basket.item.store', ['basket' => $basket->id]),
                 [
                     'product_variant_id' => $variant->id,
                     'quantity'           => 1,
