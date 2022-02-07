@@ -101,6 +101,8 @@ class Order extends Resource
                 ->nullable()
                 ->rules('nullable'),
             HasMany::make('Items'),
+            HasMany::make('Payments'),
+
         ];
     }
 

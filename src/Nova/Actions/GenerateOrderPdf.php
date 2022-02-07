@@ -25,8 +25,8 @@ class GenerateOrderPdf extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        foreach ($models as $model) {
-        }
+        $order = $models->first();
+        return Action::download('/account/order/' . $order->id . '/invoice', 'invoice.pdf');
     }
 
     /**

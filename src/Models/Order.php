@@ -38,6 +38,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function scopeDispatched($query)
     {
         return $query->whereNotNull('dispatched_at');

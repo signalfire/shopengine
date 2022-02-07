@@ -21,6 +21,8 @@ use Signalfire\Shopengine\Nova\Resources\Product as ProductResource;
 use Signalfire\Shopengine\Nova\Resources\Role as RoleResource;
 use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
+use Signalfire\Shopengine\Nova\Resources\Payment as PaymentResource;
+
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
@@ -49,6 +51,7 @@ class ShopEngineServiceProvider extends ServiceProvider
 
         // Load routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -88,6 +91,7 @@ class ShopEngineServiceProvider extends ServiceProvider
             AddressResource::class,
             OrderResource::class,
             OrderItemResource::class,
+            PaymentResource::class,
         ]);
     }
 
