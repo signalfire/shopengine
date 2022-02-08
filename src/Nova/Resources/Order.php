@@ -65,14 +65,11 @@ class Order extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->hideFromIndex(),
-            Stack::make('Cardholder / Delivery Address', [
-                BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address'),
-                BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address'),
-            ]),
             BelongsTo::make('Cardholder Address', 'cardholder', 'Signalfire\Shopengine\Nova\Resources\Address')
-                ->onlyOnForms(),
+                ->onlyOnForms()
+                ->showOnDetail(),
             BelongsTo::make('Delivery Address', 'delivery', 'Signalfire\Shopengine\Nova\Resources\Address')
-                ->onlyOnForms(),
+                ->showOnIndex(),
             Currency::make(__('Total'), 'total')
                 ->sortable()
                 ->rules('required', 'numeric'),
