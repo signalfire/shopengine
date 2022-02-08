@@ -53,7 +53,7 @@ class CategoryProductControllerTest extends TestCase
         }
 
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?page=2')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?page=2')
             ->assertJsonCount(10, 'data')
             ->assertJsonPath('data.0.id', $products[10]->id)
             ->assertJsonPath('data.9.id', $products[19]->id)
@@ -72,7 +72,7 @@ class CategoryProductControllerTest extends TestCase
         }
 
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?size=10')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?size=10')
             ->assertJsonCount(10, 'data')
             ->assertJsonPath('data.0.id', $products[0]->id)
             ->assertJsonPath('data.4.id', $products[4]->id)
@@ -98,7 +98,7 @@ class CategoryProductControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?page=A')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?page=A')
             ->assertJsonValidationErrorFor('page', 'errors')
             ->assertStatus(422);
     }
@@ -108,7 +108,7 @@ class CategoryProductControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?size=A')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?size=A')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
@@ -121,7 +121,7 @@ class CategoryProductControllerTest extends TestCase
             $product->categories()->attach($category->id);
         }
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?size=50')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?size=50')
             ->assertJsonCount(20, 'data')
             ->assertJsonPath('meta.total', 20)
             ->assertJsonPath('meta.pages', 1)
@@ -133,7 +133,7 @@ class CategoryProductControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', route('category.products.index', ['category' => $category->id]) . '?size=51')
+            ->json('GET', route('category.products.index', ['category' => $category->id]).'?size=51')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
