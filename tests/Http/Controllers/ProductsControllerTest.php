@@ -34,7 +34,7 @@ class ProductsControllerTest extends TestCase
     {
         $products = Product::factory()->count(20)->create();
         $this
-            ->json('GET', route('products.index') . '?page=2')
+            ->json('GET', route('products.index').'?page=2')
             ->assertJsonCount(10, 'data')
             ->assertJsonPath('data.0.id', $products[10]->id)
             ->assertJsonPath('data.9.id', $products[19]->id)
@@ -47,7 +47,7 @@ class ProductsControllerTest extends TestCase
     {
         $products = Product::factory()->count(10)->create();
         $this
-            ->json('GET', route('products.index') . '?size=5')
+            ->json('GET', route('products.index').'?size=5')
             ->assertJsonCount(5, 'data')
             ->assertJsonPath('data.0.id', $products[0]->id)
             ->assertJsonPath('data.4.id', $products[4]->id)
@@ -69,7 +69,7 @@ class ProductsControllerTest extends TestCase
     public function testGetProductsPaginatedInvalidPageQueryNotNumber()
     {
         $this
-            ->json('GET', route('products.index') . '?page=A')
+            ->json('GET', route('products.index').'?page=A')
             ->assertJsonValidationErrorFor('page', 'errors')
             ->assertStatus(422);
     }
@@ -77,7 +77,7 @@ class ProductsControllerTest extends TestCase
     public function testGetProductsPaginatedInvalidSizeQueryNotNumber()
     {
         $this
-            ->json('GET', route('products.index') . '?size=A')
+            ->json('GET', route('products.index').'?size=A')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
@@ -86,7 +86,7 @@ class ProductsControllerTest extends TestCase
     {
         $products = Product::factory()->count(20)->create();
         $this
-            ->json('GET', route('products.index') . '?size=50')
+            ->json('GET', route('products.index').'?size=50')
             ->assertJsonCount(20, 'data')
             ->assertJsonPath('meta.total', 20)
             ->assertJsonPath('meta.pages', 1)
@@ -98,7 +98,7 @@ class ProductsControllerTest extends TestCase
         $products = Product::factory()->count(20)->create();
 
         $this
-            ->json('GET', route('products.index') . '?size=51')
+            ->json('GET', route('products.index').'?size=51')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
@@ -107,7 +107,7 @@ class ProductsControllerTest extends TestCase
     {
         $product = Product::factory()->create();
         $this
-            ->json('GET', route('products.index') . '?keywords='.$product->name)
+            ->json('GET', route('products.index').'?keywords='.$product->name)
             ->assertJsonCount(1, 'data')
             ->assertJsonPath('meta.total', 1)
             ->assertJsonPath('meta.pages', 1)
@@ -126,7 +126,7 @@ class ProductsControllerTest extends TestCase
     public function testFailsGetProductSearchPaginatedKeywordsTooLong()
     {
         $this
-            ->json('GET', route('products.search.index') . '?keywords='.str_repeat('x', 101))
+            ->json('GET', route('products.search.index').'?keywords='.str_repeat('x', 101))
             ->assertJsonValidationErrorFor('keywords', 'errors')
             ->assertStatus(422);
     }
@@ -134,7 +134,7 @@ class ProductsControllerTest extends TestCase
     public function testFailsGetProductSearchPaginatedInvalidPageQueryNotNumber()
     {
         $this
-            ->json('GET', route('products.search.index') . '?keywords=A&page=A')
+            ->json('GET', route('products.search.index').'?keywords=A&page=A')
             ->assertJsonValidationErrorFor('page', 'errors')
             ->assertStatus(422);
     }
@@ -142,7 +142,7 @@ class ProductsControllerTest extends TestCase
     public function testFailsGetProductSearchPaginatedInvalidSizeQueryNotNumber()
     {
         $this
-            ->json('GET', route('products.search.index') . '?keywords=A&size=A')
+            ->json('GET', route('products.search.index').'?keywords=A&size=A')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
@@ -150,7 +150,7 @@ class ProductsControllerTest extends TestCase
     public function testFailsGetProductSearchPaginatedInvalidSizeQueryNumberGreaterThanMax()
     {
         $this
-            ->json('GET', route('products.search.index') . '?keywords=A&size=51')
+            ->json('GET', route('products.search.index').'?keywords=A&size=51')
             ->assertJsonValidationErrorFor('size', 'errors')
             ->assertStatus(422);
     }
@@ -161,7 +161,7 @@ class ProductsControllerTest extends TestCase
             'name' => 'A',
         ])->create();
         $this
-            ->json('GET', route('products.search.index') . '?keywords=A&size=50')
+            ->json('GET', route('products.search.index').'?keywords=A&size=50')
             ->assertJsonCount(20, 'data')
             ->assertJsonPath('meta.total', 20)
             ->assertJsonPath('meta.pages', 1)
