@@ -23,7 +23,7 @@ class CategoryControllerTest extends TestCase
     public function testGetsCategories()
     {
         $categories = Category::factory()->count(3)->create();
-        $this->json('GET', '/api/categories')
+        $this->json('GET', route('categories.index'))
             ->assertJsonCount(3, 'data')
             ->assertStatus(200);
     }
@@ -33,7 +33,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', [])
+            ->json('POST', route('category.store'), [])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertJsonValidationErrorFor('status', 'errors')
@@ -45,7 +45,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', ['slug' => 'test', 'status' => 1])
+            ->json('POST', route('category.store'), ['slug' => 'test', 'status' => 1])
             ->assertJsonValidationErrorFor('name', 'errors')
             ->assertStatus(422);
     }
@@ -55,7 +55,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', ['name' => 'test', 'status' => 1])
+            ->json('POST', route('category.store'), ['name' => 'test', 'status' => 1])
             ->assertJsonValidationErrorFor('slug', 'errors')
             ->assertStatus(422);
     }
@@ -65,7 +65,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', ['name' => 'test', 'slug' => 'test'])
+            ->json('POST', route('category.store'), ['name' => 'test', 'slug' => 'test'])
             ->assertJsonValidationErrorFor('status', 'errors')
             ->assertStatus(422);
     }
@@ -75,7 +75,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', [
+            ->json('POST', route('category.store'), [
                 'name'   => str_repeat('a', 101),
                 'slug'   => str_repeat('a', 101),
                 'status' => 1,
@@ -90,7 +90,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/category', [
+            ->json('POST', route('category.store'), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 'a',
@@ -106,7 +106,7 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('POST', '/api/category', [
+            ->json('POST', route('category.store'), [
                 'name'   => $category->name,
                 'slug'   => $category->slug,
                 'status' => $category->status,
@@ -124,7 +124,7 @@ class CategoryControllerTest extends TestCase
         $status = 1;
 
         $this
-            ->json('POST', '/api/category', [
+            ->json('POST', route('category.store'), [
                 'name'   => $name,
                 'slug'   => $slug,
                 'status' => $status,
@@ -147,7 +147,7 @@ class CategoryControllerTest extends TestCase
         Sanctum::actingAs($user);
 
         $this
-            ->json('POST', '/api/category', [
+            ->json('POST', route('category.store'), [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
                 'status' => 1,
@@ -165,7 +165,7 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('PUT', '/api/category/'.$category->id, [
+            ->json('PUT', route('category.update', ['category' => $category->id]), [
                 'name'   => $name,
                 'slug'   => $slug,
                 'status' => $status,
@@ -191,7 +191,7 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('PUT', '/api/category/'.$category->id, [
+            ->json('PUT', route('category.update', ['category' => $category->id]), [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
                 'status' => 1,
@@ -204,7 +204,7 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', '/api/category/'.$category->id)
+            ->json('GET', route('category.show', ['category' => $category->id]))
             ->assertStatus(200);
     }
 
@@ -213,21 +213,21 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
 
         $this
-            ->json('GET', '/api/category/'.$category->slug)
+            ->json('GET', route('category.show', ['category' => $category->slug]))
             ->assertStatus(200);
     }
 
     public function testFailsGetByIdMissing()
     {
         $this
-            ->json('GET', '/api/category/'.(string) Str::uuid())
+            ->json('GET', route('category.show', (string) Str::uuid()))
             ->assertStatus(404);
     }
 
-    public function testFailsGetBySlugMissing()
+    public function testFailsGetBySlugNotFound()
     {
         $this
-            ->json('GET', '/api/category/test')
+            ->json('GET', route('category.show', 'test'))
             ->assertStatus(404);
     }
 }
