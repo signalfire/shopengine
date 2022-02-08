@@ -48,7 +48,7 @@ class OrderControllerTest extends TestCase
             'product_variant_id' => $variant->id,
         ])->create();
         $this
-            ->get('/api/order/'.$order->id)
+            ->get(route('order.show', ['order' => $order->id]))
             ->assertStatus(200);
     }
 }

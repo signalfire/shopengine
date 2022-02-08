@@ -26,7 +26,7 @@ class ProductVariantControllerTest extends TestCase
         $variants = ProductVariant::factory()->state([
             'product_id' => $product->id,
         ])->count(3)->create();
-        $this->json('GET', '/api/product/'.$product->id.'/variants')
+        $this->json('GET', route('product.variants.index', ['product' => $product->id]))
             ->assertJsonCount(3, 'data')
             ->assertStatus(200);
     }
@@ -37,7 +37,7 @@ class ProductVariantControllerTest extends TestCase
         $variant = ProductVariant::factory()->state([
             'product_id' => $product->id,
         ])->create();
-        $this->json('GET', '/api/product/'.$product->id.'/variant/'.$variant->id)
+        $this->json('GET', route('product.variant.show', ['product' => $product->id, 'variant' => $variant->id]))
             ->assertJson([
                 'data' => [
                     'id'         => $variant->id,
@@ -59,7 +59,7 @@ class ProductVariantControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('POST', '/api/product/'.$product->id.'/variant', [
+            ->json('POST', route('product.variant.store', ['product' => $product->id]), [
                 'product_id'  => $product->id,
                 'barcode'     => '9780201379621',
                 'name'        => 'test',
@@ -101,7 +101,7 @@ class ProductVariantControllerTest extends TestCase
         ])->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id.'/variant/'.$variant->id, [
+            ->json('PUT', route('product.variant.update', ['product' => $product->id, 'variant' => $variant->id]), [
                 'product_id'  => $product->id,
                 'name'        => 'test1',
                 'slug'        => 'test2',

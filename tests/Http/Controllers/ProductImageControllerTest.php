@@ -35,7 +35,7 @@ class ProductImageControllerTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $this->json('POST', '/api/product/'.$product->id.'/image', [
+        $this->json('POST', route('product.image.store', ['product' => $product->id]), [
             'image' => $image,
         ])
         ->assertStatus(201);
@@ -61,12 +61,12 @@ class ProductImageControllerTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $this->json('POST', '/api/product/'.$product->id.'/image', [
+        $this->json('POST', route('product.image.store', ['product' => $product->id]), [
             'image' => $image,
         ])
         ->assertStatus(201);
 
-        $this->json('DELETE', '/api/product/'.$product->id.'/image/1')
+        $this->json('DELETE', route('product.image.destroy', ['product' => $product->id, 'image' => 1]))
             ->assertStatus(202);
     }
 }

@@ -54,7 +54,7 @@ Route::middleware(['api'])
             Route::get('/{product}', [ProductController::class, 'show'])
                 ->name('product.show');
             Route::get('/{product}/variants', [ProductVariantsController::class, 'index'])
-                ->name('product.variant.index');
+                ->name('product.variants.index');
             Route::get('/{product}/variant/{variant}', [ProductVariantController::class, 'show'])
                 ->name('product.variant.show');
             Route::middleware(['auth:sanctum'])->group(function () {
@@ -96,12 +96,14 @@ Route::middleware(['api'])
             Route::get('/', [ProductsController::class, 'index'])
                 ->name('products.index');
             Route::get('/search', [ProductsController::class, 'search'])
-                ->name('product.search.index');
+                ->name('products.search.index');
         });
         Route::prefix('token')->group(function () {
-            Route::post('/', [TokenController::class, 'store']);
+            Route::post('/', [TokenController::class, 'store'])
+                ->name('token.store');
             Route::middleware(['auth:sanctum'])->group(function () {
-                Route::delete('/', [TokenController::class, 'destroy']);
+                Route::delete('/', [TokenController::class, 'destroy'])
+                    ->name('token.destroy');
             });
         });
         Route::fallback(function () {

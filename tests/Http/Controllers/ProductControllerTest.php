@@ -27,7 +27,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('GET', '/api/product/'.$product->id)
+            ->json('GET', route('product.show', ['product' => $product->id]))
             ->assertStatus(200);
     }
 
@@ -42,7 +42,7 @@ class ProductControllerTest extends TestCase
             $product->categories()->attach($category);
         }
         $this
-            ->json('GET', '/api/product/'.$product->id)
+            ->json('GET', route('product.show', ['product' => $product->id]))
             ->assertJsonCount(2, 'data.variants')
             ->assertJsonCount(4, 'data.categories')
             ->assertStatus(200);
@@ -53,21 +53,21 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('GET', '/api/product/'.$product->slug)
+            ->json('GET', route('product.show', ['product' => $product->slug]))
             ->assertStatus(200);
     }
 
     public function testFailsGetProductByIdMissing()
     {
         $this
-            ->json('GET', '/api/product/'.(string) Str::uuid())
+            ->json('GET', route('product.show', ['product' => (string) Str::uuid()]))
             ->assertStatus(404);
     }
 
     public function testFailsGetProductBySlugMissing()
     {
         $this
-            ->json('GET', '/api/product/test')
+            ->json('GET', route('product.show', ['product' => 'test']))
             ->assertStatus(404);
     }
 
@@ -76,7 +76,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'slug'   => 'test',
                 'status' => 1,
             ])
@@ -89,7 +89,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => 'test',
                 'status' => 1,
             ])
@@ -102,7 +102,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name' => 'test',
                 'slug' => 'slug',
             ])
@@ -115,7 +115,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
                 'status' => 1,
@@ -130,7 +130,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 'A',
@@ -148,7 +148,7 @@ class ProductControllerTest extends TestCase
         ])->create();
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 1,
@@ -162,7 +162,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 1,
@@ -177,7 +177,7 @@ class ProductControllerTest extends TestCase
         Sanctum::actingAs($user);
 
         $this
-            ->json('POST', '/api/product', [
+            ->json('POST', route('product.store'), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 1,
@@ -196,7 +196,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $response = $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => $name,
                 'slug'   => $slug,
                 'status' => $status,
@@ -222,7 +222,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => 'this is a test',
                 'slug'   => 'this-is-a-test',
                 'status' => 1,
@@ -237,7 +237,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'slug'   => 'test',
                 'status' => 1,
             ])
@@ -252,7 +252,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => 'test',
                 'status' => 1,
             ])
@@ -267,7 +267,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name' => 'test',
                 'slug' => 'slug',
             ])
@@ -282,7 +282,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => str_repeat('x', 101),
                 'slug'   => str_repeat('x', 101),
                 'status' => 1,
@@ -299,7 +299,7 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 'A',
@@ -317,7 +317,7 @@ class ProductControllerTest extends TestCase
         ])->create();
 
         $this
-            ->json('PUT', '/api/product/'.$product->id, [
+            ->json('PUT', route('product.update', ['product' => $product->id]), [
                 'name'   => 'test',
                 'slug'   => 'test',
                 'status' => 1,

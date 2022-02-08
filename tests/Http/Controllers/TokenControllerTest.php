@@ -13,7 +13,7 @@ class TokenControllerTest extends TestCase
             'password' => Hash::make('testing'),
         ])->create();
 
-        $this->post('/api/token', [
+        $this->post(route('token.store'), [
             'email'    => $user->email,
             'password' => 'testing',
         ])

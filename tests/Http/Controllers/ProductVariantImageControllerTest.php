@@ -40,7 +40,7 @@ class ProductVariantImageControllerTest extends TestCase
             'product_id' => $product->id,
         ])->create();
 
-        $this->json('POST', '/api/product/'.$product->id.'/variant/'.$variant->id.'/image', [
+        $this->json('POST', route('product.variant.image.store', ['product' => $product->id, 'variant' => $variant->id]), [
             'image' => $image,
         ])
         ->assertStatus(201);
@@ -70,12 +70,13 @@ class ProductVariantImageControllerTest extends TestCase
             'product_id' => $product->id,
         ])->create();
 
-        $this->json('POST', '/api/product/'.$product->id.'/variant/'.$variant->id.'/image', [
-            'image' => $image,
-        ])
-        ->assertStatus(201);
+        $this->json('POST', route('product.variant.image.store', [
+                'product' => $product->id,
+                'variant' => $variant->id
+        ]), ['image' => $image])->assertStatus(201);
 
-        $this->json('DELETE', '/api/product/'.$product->id.'/variant/'.$variant->id.'/image/1')
-            ->assertStatus(202);
+        $this->json('DELETE', route('product.variant.image.destroy', [
+            'product' => $product->id, 'variant' => $variant->id, 'image' => 1
+        ]))->assertStatus(202);
     }
 }
