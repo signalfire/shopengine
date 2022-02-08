@@ -41,7 +41,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        return $user->isAdmin() || ($user->isCustomer() && $order->user_id === $user->id);
+        return $user->isAdmin();
     }
 
     /**
@@ -54,6 +54,6 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order)
     {
-        return $user->isAdmin() || ($user->isCustomer() && $order->user_id === $user->id);
+        return $user->isAdmin();
     }
 }

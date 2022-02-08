@@ -4,7 +4,7 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-//use Signalfire\Shopengine\Models\Factories\OrderFactory;
+use Signalfire\Shopengine\Models\Factories\PaymentFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
 class Payment extends Model
@@ -24,8 +24,8 @@ class Payment extends Model
         return $this->where('id', $value)->firstOrFail();
     }
 
-    // protected static function newFactory()
-    // {
-    //     return OrderFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return PaymentFactory::new();
+    }
 }

@@ -88,6 +88,9 @@ Route::middleware(['api'])
             Route::middleware(['auth:sanctum'])->group(function () {
                 Route::get('/{order}', [OrderController::class, 'show'])
                     ->name('order.show');
+                Route::put('/{order}/status', [OrderController::class, 'status'])
+                    ->name('order.status.update')
+                    ->can('update', 'order');
                 Route::get('/{order}/invoice', [OrderInvoiceController::class, 'show'])
                     ->name('order.invoice.show');
             });

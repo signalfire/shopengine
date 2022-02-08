@@ -12,7 +12,7 @@ class Order extends Model
     use Uuid;
     use HasFactory;
 
-    protected $fillable = ['user_id', 'total', 'status'];
+    protected $fillable = ['user_id', 'total', 'status', 'dispatched_at'];
 
     protected $casts = [
         'dispatched_at' => 'datetime',
