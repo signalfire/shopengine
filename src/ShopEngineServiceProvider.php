@@ -25,12 +25,11 @@ use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
+use Signalfire\Shopengine\Policies\PaymentPolicy;
 use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
-use Signalfire\Shopengine\Policies\PaymentPolicy;
-
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -43,7 +42,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         Order::class           => OrderPolicy::class,
         OrderItem::class       => OrderItemPolicy::class,
         User::class            => UserPolicy::class,
-        Payment::class         => PaymentPolicy::class
+        Payment::class         => PaymentPolicy::class,
     ];
 
     public function boot()
