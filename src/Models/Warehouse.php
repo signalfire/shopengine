@@ -4,9 +4,8 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Signalfire\Shopengine\Models\Traits\Uuid;
-use Signalfire\Shopengine\Models\WarehouseLocation;
 use Signalfire\Shopengine\Factories\WarehouseFactory;
+use Signalfire\Shopengine\Models\Traits\Uuid;
 
 class Warehouse extends Model
 {
@@ -14,7 +13,7 @@ class Warehouse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'notes'
+        'name', 'notes',
     ];
 
     public function locations()
