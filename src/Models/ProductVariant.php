@@ -4,11 +4,13 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Signalfire\Shopengine\Models\Factories\ProductVariantFactory;
-use Signalfire\Shopengine\Models\Traits\Uuid;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+use Signalfire\Shopengine\Models\Factories\ProductVariantFactory;
+use Signalfire\Shopengine\Models\Traits\Uuid;
+use Signalfire\Shopengine\Models\WarehouseLocation;
 
 class ProductVariant extends Model implements HasMedia
 {
@@ -25,6 +27,11 @@ class ProductVariant extends Model implements HasMedia
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(WarehouseLocation::class);
     }
 
     public function scopeAvailable($query)

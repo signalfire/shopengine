@@ -15,10 +15,11 @@ class CreateProductWarehouseLocationsTable extends Migration
     {
         Schema::create('product_warehouse_locations', function (Blueprint $table) {
             $table->uuid('warehouse_location_id');
-            $table->uuid('product_id');
-
+            $table->uuid('product_variant_id');
+            $table->unsignedBigInteger('stock');
+            
             $table->foreign('warehouse_location_id')->references('id')->on('warehouse_locations');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_variant_id')->references('id')->on('product_variants');
         });
     }
 
