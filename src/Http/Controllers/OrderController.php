@@ -2,8 +2,8 @@
 
 namespace Signalfire\Shopengine\Http\Controllers;
 
-use Signalfire\Shopengine\Http\Resources\OrderResource;
 use Signalfire\Shopengine\Http\Requests\UpdateOrderStatusRequest;
+use Signalfire\Shopengine\Http\Resources\OrderResource;
 use Signalfire\Shopengine\Models\Order;
 
 class OrderController extends Controller
@@ -25,7 +25,7 @@ class OrderController extends Controller
     /**
      * Updates existing order status.
      *
-     * @param UpdateOrderStatusRequest $request
+     * @param UpdateOrderStatusRequest           $request
      * @param Signalfire\Shopengine\Models\Order $order
      *
      * @return string JSON
@@ -43,5 +43,5 @@ class OrderController extends Controller
         return (new OrderResource($order))
             ->response()
             ->setStatusCode(204);
-    }    
+    }
 }

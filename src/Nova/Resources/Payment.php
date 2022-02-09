@@ -4,9 +4,9 @@ namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\DateTime;
 use Signalfire\Shopengine\Models\Payment as Model;
 
 class Payment extends Resource
@@ -38,7 +38,7 @@ class Payment extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'reference', 'gateway','total'
+        'id', 'reference', 'gateway', 'total',
     ];
 
     /**
@@ -53,14 +53,14 @@ class Payment extends Resource
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
-            Text::make(__('Gateway'), 'gateway')   
+            Text::make(__('Gateway'), 'gateway')
                 ->sortable(),
             Text::make(__('Reference'), 'reference')
                 ->sortable(),
             Currency::make(__('Total'), 'total')
                 ->sortable(),
             DateTime::make(__('Created at'), 'created_at')
-                ->sortable()
+                ->sortable(),
         ];
     }
 

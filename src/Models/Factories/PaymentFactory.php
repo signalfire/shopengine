@@ -12,10 +12,10 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            'id'       => $this->faker->uuid(),
-            'gateway' => $this->faker->randomElement(['paypal', 'stripe', 'square']),
+            'id'        => $this->faker->uuid(),
+            'gateway'   => $this->faker->randomElement(['paypal', 'stripe', 'square']),
             'reference' => $this->faker->lexify('txn???????????'),
-            'total' => $this->faker->randomFloat(2, 5, 1000)
+            'total'     => $this->faker->randomFloat(2, 5, 1000),
         ];
     }
 }

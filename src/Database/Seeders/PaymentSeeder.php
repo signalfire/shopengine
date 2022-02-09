@@ -17,10 +17,10 @@ class PaymentSeeder extends Seeder
     {
         $orders = Order::all();
 
-        foreach($orders as $order) {
+        foreach ($orders as $order) {
             Payment::factory()->state([
                 'order_id' => $order->id,
-                'total' => $order->total
+                'total'    => $order->total,
             ])->create();
         }
     }
