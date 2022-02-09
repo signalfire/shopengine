@@ -34,11 +34,6 @@ class Product extends Model implements HasMedia
         return $this->hasMany(ProductVariant::class);
     }
 
-    public function locations()
-    {
-        return $this->belongsToMany(WarehouseLocation::class);
-    }
-
     public function scopeAvailable($query)
     {
         return $query->where('status', (int) config('shopengine.product.status.AVAILABLE'));
