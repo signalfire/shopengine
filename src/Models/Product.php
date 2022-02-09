@@ -11,6 +11,8 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+use Signalfire\Shopengine\Models\WarehouseLocation;
+
 class Product extends Model implements HasMedia
 {
     use Uuid;
@@ -32,6 +34,11 @@ class Product extends Model implements HasMedia
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function locations()
+    {
+        return $this->belongsToMany(WarehouseLocation::class);
     }
 
     public function scopeAvailable($query)
