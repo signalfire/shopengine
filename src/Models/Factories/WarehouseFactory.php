@@ -12,9 +12,9 @@ class WarehouseFactory extends Factory
     public function definition()
     {
         return [
-            'id' => $this->faker->uuid(),
-            'name' => $this->faker->word(),
-            'notes' => $this->faker->randomElement($this->faker->sentence(),null),
+            'id'    => $this->faker->uuid(),
+            'name'  => $this->faker->word(),
+            'notes' => $this->faker->randomElement($this->faker->sentence(), null),
         ];
     }
 }
