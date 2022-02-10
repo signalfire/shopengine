@@ -3,12 +3,11 @@
 namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\BelongsToMany;
-
 use Signalfire\Shopengine\Models\WarehouseLocation as Model;
 
 class WarehouseLocation extends Resource
@@ -39,8 +38,9 @@ class WarehouseLocation extends Resource
      *
      * @var string
      */
-    public function title(){
-        return $this->name . ' (' . $this->warehouse->name . ')';
+    public function title()
+    {
+        return $this->name.' ('.$this->warehouse->name.')';
     }
 
     /**
@@ -70,7 +70,7 @@ class WarehouseLocation extends Resource
             Textarea::make(__('Notes'), 'notes')
                 ->nullable()
                 ->rules('nullable', 'max:4000'),
-            BelongsToMany::make('Variants')
+            BelongsToMany::make('Variants'),
         ];
     }
 

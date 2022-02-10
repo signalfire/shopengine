@@ -2,8 +2,8 @@
 
 namespace Signalfire\Shopengine\Policies;
 
-use Signalfire\Shopengine\Models\WarehouseLocation;
 use Signalfire\Shopengine\Models\User;
+use Signalfire\Shopengine\Models\WarehouseLocation;
 
 class WarehouseLocationPolicy
 {
@@ -34,7 +34,7 @@ class WarehouseLocationPolicy
     /**
      * Determine if the given location can be updated by the user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User              $user
      * @param Signalfire\Shopengine\Models\WarehouseLocation $location
      *
      * @return bool
@@ -47,7 +47,7 @@ class WarehouseLocationPolicy
     /**
      * Determine if a location can be deleted by user.
      *
-     * @param Signalfire\Shopengine\Models\User     $user
+     * @param Signalfire\Shopengine\Models\User              $user
      * @param Signalfire\Shopengine\Models\WarehouseLocation $location
      *
      * @return bool
