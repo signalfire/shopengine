@@ -22,6 +22,9 @@ use Signalfire\Shopengine\Nova\Resources\Product as ProductResource;
 use Signalfire\Shopengine\Nova\Resources\Role as RoleResource;
 use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
+use Signalfire\Shopengine\Nova\Resources\Warehouse as WarehouseResource;
+use Signalfire\Shopengine\Nova\Resources\WarehouseLocation as WarehouseLocationResource;
+
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
@@ -30,6 +33,8 @@ use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
+use Signalfire\Shopengine\Policies\WarehousePolicy;
+use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -43,6 +48,8 @@ class ShopEngineServiceProvider extends ServiceProvider
         OrderItem::class       => OrderItemPolicy::class,
         User::class            => UserPolicy::class,
         Payment::class         => PaymentPolicy::class,
+        Warehouse::class       => WarehousePolicy::class,
+        WarehouseLocation::class => WarehouseLocationPolicy::class,
     ];
 
     public function boot()
@@ -93,6 +100,8 @@ class ShopEngineServiceProvider extends ServiceProvider
             OrderResource::class,
             OrderItemResource::class,
             PaymentResource::class,
+            WarehouseResource::class,
+            WarehouseLocationResource::class,
         ]);
     }
 

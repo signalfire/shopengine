@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\BelongsToMany;
 use Signalfire\Shopengine\Nova\Actions\ChangePricesByPercentage;
 use Signalfire\Shopengine\Nova\Actions\ChangePricesToSameAmount;
 use Signalfire\Shopengine\Nova\Actions\ChangeVariantQuantity;
@@ -109,6 +110,7 @@ class Variant extends Resource
             })
             ->displayUsingLabels()
             ->rules('required'),
+            BelongsToMany::make(_('Warehouse Location'), 'locations', 'Signalfire\Shopengine\Nova\Resources\WarehouseLocation'),
 
         ];
     }

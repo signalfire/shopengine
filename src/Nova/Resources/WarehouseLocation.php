@@ -2,19 +2,16 @@
 
 namespace Signalfire\Shopengine\Nova\Resources;
 
-use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Signalfire\Shopengine\Models\Product as Model;
-use Signalfire\Shopengine\Nova\Actions\ChangeProductStatus;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 
-class Product extends Resource
+use Signalfire\Shopengine\Models\WarehouseLocation as Model;
+
+class WarehouseLocation extends Resource
 {
     /**
      * The model the resource corresponds to.
@@ -22,6 +19,13 @@ class Product extends Resource
      * @var string
      */
     public static $model = Model::class;
+
+    /**
+     * Hide in navigation.
+     *
+     * @var string
+     */
+    public static $displayInNavigation = false;
 
     /**
      * The resource group.
@@ -35,9 +39,8 @@ class Product extends Resource
      *
      * @var string
      */
-    public function title()
-    {
-        return ucfirst($this->name);
+    public function title(){
+        return $this->name . ' (' . $this->warehouse->name . ')';
     }
 
     /**
@@ -46,7 +49,7 @@ class Product extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'slug', 'description',
+        'id', 'name', 'notes',
     ];
 
     /**
@@ -61,31 +64,13 @@ class Product extends Resource
         return [
             ID::make(__('ID'), 'id')
                 ->hideFromIndex(),
-            Images::make('Images', 'images')
-                ->conversionOnIndexView('thumb'),
+            BelongsTo::make('Warehouse'),
             Text::make(__('Name'), 'name')
-                ->rules('required', 'max:200')
-                ->sortable(),
-            Slug::make(__('Slug'), 'slug')
-                ->sortable()
-                ->creationRules('required', 'max:200', 'unique:products,slug')
-                ->updateRules('required', 'max:200', 'unique:products,slug,{{resourceId}}'),
-            Textarea::make(__('Description'), 'description')
-                ->rules('nullable', 'max:4000')
+                ->rules('required', 'max:100'),
+            Textarea::make(__('Notes'), 'notes')
                 ->nullable()
-                ->onlyOnForms(),
-            Select::make('Status')->options(function () {
-                $statuses = [];
-                foreach (config('shopengine.product.status') as $key => $value) {
-                    $statuses[$value] = ucfirst(strtolower($key));
-                }
-
-                return $statuses;
-            })
-            ->displayUsingLabels()
-            ->rules('required'),
-            BelongsToMany::make('Categories'),
-            HasMany::make('Variants'),
+                ->rules('nullable', 'max:4000'),
+            BelongsToMany::make('Variants')
         ];
     }
 
@@ -134,8 +119,6 @@ class Product extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new ChangeProductStatus(),
-        ];
+        return [];
     }
 }

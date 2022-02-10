@@ -14,7 +14,7 @@ class WarehouseFactory extends Factory
         return [
             'id'    => $this->faker->uuid(),
             'name'  => $this->faker->word(),
-            'notes' => $this->faker->randomElement($this->faker->sentence(), null),
+            'notes' => $this->faker->randomElement([$this->faker->sentence(), null]),
         ];
     }
 }

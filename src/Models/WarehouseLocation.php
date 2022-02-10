@@ -4,7 +4,7 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Signalfire\Shopengine\Factories\WarehouseLocationFactory;
+use Signalfire\Shopengine\Models\Factories\WarehouseLocationFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
 class WarehouseLocation extends Model
@@ -16,9 +16,9 @@ class WarehouseLocation extends Model
         'name', 'notes',
     ];
 
-    public function products()
+    public function variants()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(ProductVariant::class);
     }
 
     public function warehouse()

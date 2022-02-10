@@ -4,7 +4,7 @@ namespace Signalfire\Shopengine\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Signalfire\Shopengine\Factories\WarehouseFactory;
+use Signalfire\Shopengine\Models\Factories\WarehouseFactory;
 use Signalfire\Shopengine\Models\Traits\Uuid;
 
 class Warehouse extends Model
