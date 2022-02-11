@@ -2,8 +2,8 @@
 
 namespace Signalfire\Shopengine\Http\Controllers\API;
 
-use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Http\Resources\BasketResource;
+use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Models\Basket;
 
 class BasketController extends Controller

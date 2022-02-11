@@ -2,10 +2,10 @@
 
 namespace Signalfire\Shopengine\Http\Controllers\API;
 
-use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Http\Requests\StoreCategoryRequest;
 use Signalfire\Shopengine\Http\Requests\UpdateCategoryRequest;
 use Signalfire\Shopengine\Http\Resources\CategoryResource;
+use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Models\Category;
 
 class CategoryController extends Controller
@@ -65,14 +65,12 @@ class CategoryController extends Controller
      * Updates existing category.
      *
      * @param UpdateCategoryRequest $request
-     * 
-     * @param Category $category
-     * 
+     * @param Category              $category
+     *
      * @return string JSON
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-
         $category = $this->categoryRepository->updateCategory($category, $request->validated());
 
         return (new CategoryResource($category))
