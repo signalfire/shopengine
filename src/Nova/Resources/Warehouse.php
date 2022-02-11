@@ -3,11 +3,10 @@
 namespace Signalfire\Shopengine\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Fields\HasMany;
-
 use Signalfire\Shopengine\Models\Warehouse as Model;
 
 class Warehouse extends Resource

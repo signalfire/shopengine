@@ -24,7 +24,6 @@ use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
 use Signalfire\Shopengine\Nova\Resources\Warehouse as WarehouseResource;
 use Signalfire\Shopengine\Nova\Resources\WarehouseLocation as WarehouseLocationResource;
-
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
@@ -33,22 +32,22 @@ use Signalfire\Shopengine\Policies\ProductPolicy;
 use Signalfire\Shopengine\Policies\ProductVariantPolicy;
 use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
-use Signalfire\Shopengine\Policies\WarehousePolicy;
 use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
+use Signalfire\Shopengine\Policies\WarehousePolicy;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        Category::class        => CategoryPolicy::class,
-        Product::class         => ProductPolicy::class,
-        ProductVariant::class  => ProductVariantPolicy::class,
-        Role::class            => RolePolicy::class,
-        Address::class         => AddressPolicy::class,
-        Order::class           => OrderPolicy::class,
-        OrderItem::class       => OrderItemPolicy::class,
-        User::class            => UserPolicy::class,
-        Payment::class         => PaymentPolicy::class,
-        Warehouse::class       => WarehousePolicy::class,
+        Category::class          => CategoryPolicy::class,
+        Product::class           => ProductPolicy::class,
+        ProductVariant::class    => ProductVariantPolicy::class,
+        Role::class              => RolePolicy::class,
+        Address::class           => AddressPolicy::class,
+        Order::class             => OrderPolicy::class,
+        OrderItem::class         => OrderItemPolicy::class,
+        User::class              => UserPolicy::class,
+        Payment::class           => PaymentPolicy::class,
+        Warehouse::class         => WarehousePolicy::class,
         WarehouseLocation::class => WarehouseLocationPolicy::class,
     ];
 
