@@ -19,6 +19,6 @@
     <env name="APP_DEBUG" value="1"/>
     <env name="APP_ENV" value="testing"/>
     <env name="DB_CONNECTION" value="testbench"/>
-    <env name="FAKER_LOCALE" value="en_GB"/>
+    <env name="MAIL_MAILER" value="log"/>
   </php>
 </phpunit>

@@ -8,9 +8,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Fields\Select;
+use Illuminate\Support\Facades\Mail;
+use Signalfire\Shopengine\Mail\SendInvoice;
 
-class SendTemplateEmailToCustomer extends Action implements ShouldQueue
+class SendInvoiceEmail extends Action implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -26,6 +27,8 @@ class SendTemplateEmailToCustomer extends Action implements ShouldQueue
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
+            Mail::to($model->user->email)
+                ->send(new SendInvoice($model));
         }
     }
 
@@ -36,16 +39,6 @@ class SendTemplateEmailToCustomer extends Action implements ShouldQueue
      */
     public function fields()
     {
-        return [
-            Select::make('Template')->options(function () {
-                $statuses = [];
-                foreach (config('shopengine.order.emails.canned') as $key => $value) {
-                    $statuses[$value] = ucfirst(strtolower($key));
-                }
-
-                return $statuses;
-            })
-            ->rules('required'),
-        ];
+        return [];
     }
 }

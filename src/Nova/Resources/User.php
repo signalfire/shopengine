@@ -26,7 +26,7 @@ class User extends Resource
      */
     public function title()
     {
-        return ucfirst($this->name);
+        return ucfirst($this->forename) . ' ' . ucfirst($this->surname);
     }
 
     /**

@@ -10,8 +10,10 @@ use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Illuminate\Support\Facades\Mail;
+use Signalfire\Shopengine\Mail\SendMessage;
 
-class SendEmailToCustomer extends Action implements ShouldQueue
+class SendEmail extends Action implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -27,6 +29,9 @@ class SendEmailToCustomer extends Action implements ShouldQueue
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
+            Mail::to($model->user->email)
+                ->send(new SendMessage($model, $fields->message));
+
         }
     }
 
