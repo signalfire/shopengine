@@ -1,6 +1,6 @@
 <?php
 
-namespace Signalfire\Shopengine\Http\Controllers;
+namespace Signalfire\Shopengine\Http\Controllers\API;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Signalfire\Shopengine\Models\Order;

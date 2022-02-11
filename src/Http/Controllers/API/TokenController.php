@@ -1,6 +1,6 @@
 <?php
 
-namespace Signalfire\Shopengine\Http\Controllers;
+namespace Signalfire\Shopengine\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

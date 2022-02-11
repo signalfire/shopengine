@@ -24,6 +24,7 @@ use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
 use Signalfire\Shopengine\Nova\Resources\Warehouse as WarehouseResource;
 use Signalfire\Shopengine\Nova\Resources\WarehouseLocation as WarehouseLocationResource;
+
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
@@ -34,6 +35,13 @@ use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
 use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
 use Signalfire\Shopengine\Policies\WarehousePolicy;
+
+use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
+use Signalfire\Shopengine\Repositories\BasketRepository;
+use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
+use Signalfire\Shopengine\Repositories\AddressRepository;
+use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
+use Signalfire\Shopengine\Repositories\CategoryRepository;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -115,5 +123,10 @@ class ShopEngineServiceProvider extends ServiceProvider
         $this->app->bind('shopengine', function () {
             return new ShopEngine();
         });
+
+        $this->app->bind(BasketRepositoryInterface::class, BasketRepository::class);
+        $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+
     }
 }

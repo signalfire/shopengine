@@ -1,7 +1,8 @@
 <?php
 
-namespace Signalfire\Shopengine\Http\Controllers;
+namespace Signalfire\Shopengine\Http\Controllers\API;
 
+use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Http\Requests\StoreCategoryRequest;
 use Signalfire\Shopengine\Http\Requests\UpdateCategoryRequest;
 use Signalfire\Shopengine\Http\Resources\CategoryResource;
@@ -9,6 +10,13 @@ use Signalfire\Shopengine\Models\Category;
 
 class CategoryController extends Controller
 {
+    private CategoryRepositoryInterface $categoryRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * Gets all categories.
      *
@@ -16,7 +24,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::available()->get();
+        $categories = $this->categoryRepository->getCategories();
 
         return (CategoryResource::collection($categories))
             ->response()
@@ -46,9 +54,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $validated = $request->validated();
-
-        $category = Category::create($validated);
+        $category = $this->categoryRepository->createCategory($request->validated());
 
         return (new CategoryResource($category))
             ->response()
@@ -59,16 +65,15 @@ class CategoryController extends Controller
      * Updates existing category.
      *
      * @param UpdateCategoryRequest $request
-     *
+     * 
+     * @param Category $category
+     * 
      * @return string JSON
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validated = $request->validated();
 
-        $category->update($validated);
-
-        $category->refresh();
+        $category = $this->categoryRepository->updateCategory($category, $request->validated());
 
         return (new CategoryResource($category))
             ->response()

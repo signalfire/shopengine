@@ -1,6 +1,6 @@
 <?php
 
-namespace Signalfire\Shopengine\Http\Controllers;
+namespace Signalfire\Shopengine\Http\Controllers\API;
 
 use Signalfire\Shopengine\Http\Requests\StoreProductVariantRequest;
 use Signalfire\Shopengine\Http\Requests\UpdateProductVariantRequest;

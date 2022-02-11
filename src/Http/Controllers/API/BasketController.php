@@ -1,12 +1,20 @@
 <?php
 
-namespace Signalfire\Shopengine\Http\Controllers;
+namespace Signalfire\Shopengine\Http\Controllers\API;
 
+use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Http\Resources\BasketResource;
 use Signalfire\Shopengine\Models\Basket;
 
 class BasketController extends Controller
 {
+    private BasketRepositoryInterface $basketRepository;
+
+    public function __construct(BasketRepositoryInterface $basketRepository)
+    {
+        $this->basketRepository = $basketRepository;
+    }
+
     /**
      * Creates a new basket.
      *
@@ -14,9 +22,7 @@ class BasketController extends Controller
      */
     public function store()
     {
-        $basket = new Basket();
-
-        $basket->save();
+        $basket = $this->basketRepository->createBasket();
 
         return (new BasketResource($basket))
             ->response()
@@ -46,8 +52,7 @@ class BasketController extends Controller
      */
     public function destroy(Basket $basket)
     {
-        $basket->items()->delete();
-        $basket->delete();
+        $basket = $this->basketRepository->deleteBasket($basket);
 
         return (new BasketResource($basket))
             ->response()
