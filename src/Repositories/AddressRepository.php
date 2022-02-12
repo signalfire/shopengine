@@ -12,12 +12,14 @@ class AddressRepository implements AddressRepositoryInterface
     public function getAddresses(User $user): Collection
     {
         $addresses = $user->addresses()->get();
+
         return $addresses;
     }
 
     public function createAddress(User $user, Array $validated): Address
     {
         $address = $user->addresses()->create($validated);
+
         return $address;
     }
 

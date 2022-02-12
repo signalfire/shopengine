@@ -13,7 +13,6 @@ use Signalfire\Shopengine\Models\OrderItem;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
 use Signalfire\Shopengine\Models\Role;
-
 use Signalfire\Shopengine\Nova\Resources\Address as AddressResource;
 use Signalfire\Shopengine\Nova\Resources\Category as CategoryResource;
 use Signalfire\Shopengine\Nova\Resources\Item as OrderItemResource;
@@ -25,6 +24,7 @@ use Signalfire\Shopengine\Nova\Resources\User as UserResource;
 use Signalfire\Shopengine\Nova\Resources\Variant as VariantResource;
 use Signalfire\Shopengine\Nova\Resources\Warehouse as WarehouseResource;
 use Signalfire\Shopengine\Nova\Resources\WarehouseLocation as WarehouseLocationResource;
+use Signalfire\Shopengine\Policies\AddressPolicy;
 use Signalfire\Shopengine\Policies\CategoryPolicy;
 use Signalfire\Shopengine\Policies\OrderItemPolicy;
 use Signalfire\Shopengine\Policies\OrderPolicy;
@@ -35,12 +35,10 @@ use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
 use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
 use Signalfire\Shopengine\Policies\WarehousePolicy;
-use Signalfire\Shopengine\Policies\AddressPolicy;
-
-use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
-use Signalfire\Shopengine\Repositories\BasketRepository;
 use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
 use Signalfire\Shopengine\Repositories\AddressRepository;
+use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
+use Signalfire\Shopengine\Repositories\BasketRepository;
 use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Repositories\CategoryRepository;
 
@@ -58,7 +56,7 @@ class ShopEngineServiceProvider extends ServiceProvider
         Payment::class           => PaymentPolicy::class,
         Warehouse::class         => WarehousePolicy::class,
         WarehouseLocation::class => WarehouseLocationPolicy::class,
-        Address::class           => AddressPolicy::class
+        Address::class           => AddressPolicy::class,
     ];
 
     public function boot()
