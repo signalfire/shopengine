@@ -52,27 +52,26 @@ class AddressController extends Controller
      * Creates a new address.
      *
      * @param StoreAddressRequest $request
-     * 
+     *
      * @return string JSON
      */
     public function store(StoreAddressRequest $request)
     {
         $address = $this->addressRepository->createAddress(
-            $request->user(), $request->validated()
+            $request->user(),
+            $request->validated()
         );
 
         return (new AddressResource($address))
             ->response()
             ->setStatusCode(201);
-
     }
 
     /**
      * Updates existing address.
      *
      * @param UpdateAddressRequest $request
-     * 
-     * @param Address $address
+     * @param Address              $address
      *
      * @return string JSON
      */
@@ -83,5 +82,5 @@ class AddressController extends Controller
         return (new AddressResource($address))
             ->response()
             ->setStatusCode(204);
-    }    
+    }
 }

@@ -3,7 +3,6 @@
 namespace Signalfire\Shopengine\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-
 use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
 use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\User;
@@ -20,14 +19,18 @@ class AddressRepository implements AddressRepositoryInterface
         return $address;
     }
 
-    public function updateAddress(Address $address, Array $validated): Address {
+    public function updateAddress(Address $address, array $validated): Address
+    {
         $address->update($validated);
         $address->refresh();
+
         return $address;
     }
 
-    public function deleteAddress(Address $address): Address {
+    public function deleteAddress(Address $address): Address
+    {
         $address->delete();
+
         return $address;
     }
 }

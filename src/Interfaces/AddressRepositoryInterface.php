@@ -3,9 +3,8 @@
 namespace Signalfire\Shopengine\Interfaces;
 
 use Illuminate\Database\Eloquent\Collection;
-
-use Signalfire\Shopengine\Models\User;
 use Signalfire\Shopengine\Models\Address;
+use Signalfire\Shopengine\Models\User;
 
 interface AddressRepositoryInterface
 {
