@@ -16,7 +16,7 @@ class AddressRepository implements AddressRepositoryInterface
         return $addresses;
     }
 
-    public function createAddress(User $user, Array $validated): Address
+    public function createAddress(User $user, array $validated): Address
     {
         $address = $user->addresses()->create($validated);
 
