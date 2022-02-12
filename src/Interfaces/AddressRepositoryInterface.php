@@ -9,7 +9,10 @@ use Signalfire\Shopengine\Models\User;
 interface AddressRepositoryInterface
 {
     public function getAddresses(User $user): Collection;
-    public function createAddress(User $user, Array $validated): Address;
-    public function updateAddress(Address $address, Array $validated): Address;
+
+    public function createAddress(User $user, array $validated): Address;
+
+    public function updateAddress(Address $address, array $validated): Address;
+
     public function deleteAddress(Address $address): Address;
 }

@@ -3,10 +3,9 @@
 namespace Signalfire\Shopengine\Tests;
 
 use Laravel\Sanctum\Sanctum;
-
-use Signalfire\Shopengine\Models\User;
-use Signalfire\Shopengine\Models\Role;
 use Signalfire\Shopengine\Models\Address;
+use Signalfire\Shopengine\Models\Role;
+use Signalfire\Shopengine\Models\User;
 
 class AddressControllerTest extends TestCase
 {
@@ -25,7 +24,7 @@ class AddressControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $addresses = Address::factory()->state([
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ])->count(2)->create();
 
         $this
@@ -44,14 +43,14 @@ class AddressControllerTest extends TestCase
 
         $this
             ->post(route('address.store'), [
-                'title' => $address->title,
-                'forename' => $address->forename,
-                'surname' => $address->surname,
-                'address1' => $address->address1,
-                'towncity' => $address->towncity,
-                'county' => $address->county,
+                'title'      => $address->title,
+                'forename'   => $address->forename,
+                'surname'    => $address->surname,
+                'address1'   => $address->address1,
+                'towncity'   => $address->towncity,
+                'county'     => $address->county,
                 'postalcode' => $address->postalcode,
-                'country' => $address->country
+                'country'    => $address->country,
             ])
             ->assertStatus(201);
     }
@@ -61,24 +60,24 @@ class AddressControllerTest extends TestCase
         Sanctum::actingAs($this->user);
 
         $address1 = Address::factory()->state([
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ])->create();
 
         $address2 = Address::factory()->state([
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ])->make();
 
         $this
             ->put(route('address.update', ['address' => $address1->id]), [
-                'title' => $address2->title,
-                'forename' => $address2->forename,
-                'surname' => $address2->surname,
-                'address1' => $address2->address1,
-                'towncity' => $address2->towncity,
-                'county' => $address2->county,
+                'title'      => $address2->title,
+                'forename'   => $address2->forename,
+                'surname'    => $address2->surname,
+                'address1'   => $address2->address1,
+                'towncity'   => $address2->towncity,
+                'county'     => $address2->county,
                 'postalcode' => $address2->postalcode,
-                'country' => $address2->country
+                'country'    => $address2->country,
             ])
             ->assertStatus(204);
-    }    
+    }
 }

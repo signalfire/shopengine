@@ -14,10 +14,10 @@ use Signalfire\Shopengine\Http\Controllers\API\ProductVariantController;
 use Signalfire\Shopengine\Http\Controllers\API\ProductVariantImageController;
 use Signalfire\Shopengine\Http\Controllers\API\ProductVariantsController;
 use Signalfire\Shopengine\Http\Controllers\API\TokenController;
+use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
-use Signalfire\Shopengine\Models\Address;
 
 Route::middleware(['api'])
     ->prefix('api')
@@ -72,7 +72,6 @@ Route::middleware(['api'])
                 Route::get('/', [AddressController::class, 'index'])
                     ->name('addresses.index');
             });
-
 
         Route::prefix('product')->group(function () {
             Route::get('/{product}', [ProductController::class, 'show'])
