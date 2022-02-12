@@ -1,6 +1,7 @@
 <?php
 
-use Signalfire\Shopengine\Http\Controllers\OrderInvoiceController;
+use Signalfire\Shopengine\Http\Controllers\Web\HomeController;
+use Signalfire\Shopengine\Http\Controllers\Web\OrderInvoiceController;
 
 // @TODO - Change to permanent URL
 Route::middleware('web')
@@ -10,3 +11,5 @@ Route::middleware('web')
             ->name('account.invoice.show');
         //->can('view', 'order');
     });
+
+Route::get('/', HomeController::class);

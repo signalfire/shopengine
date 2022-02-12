@@ -11,12 +11,12 @@ use Signalfire\Shopengine\Models\User;
 class AddressRepository implements AddressRepositoryInterface
 {
     public function getAddresses(User $user): Collection {
-        $addresses = User::addresses()->all();
+        $addresses = $user->addresses()->get();
         return $addresses;
     }
 
     public function createAddress(User $user, Array $validated): Address {
-        $address = User::addresses()->create($validated);
+        $address = $user->addresses()->create($validated);
         return $address;
     }
 

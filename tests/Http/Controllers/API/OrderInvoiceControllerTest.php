@@ -48,7 +48,7 @@ class OrderInvoiceControllerTest extends TestCase
             'product_variant_id' => $variant->id,
         ])->create();
         $this
-            ->get(route('order.invoice.show', ['order' => $order]))
+            ->get(route('account.invoice.show', ['order' => $order]))
             ->assertHeader('Content-Type', 'application/pdf');
     }
 }

@@ -2,7 +2,13 @@
 
 namespace Signalfire\Shopengine\Http\Controllers\API;
 
+use Illuminate\Http\Request;
+
 use Signalfire\Shopengine\Http\Resources\AddressResource;
+use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
+use Signalfire\Shopengine\Http\Requests\StoreAddressRequest;
+use Signalfire\Shopengine\Http\Requests\UpdateAddressRequest;
+
 use Signalfire\Shopengine\Models\Address;
 
 class AddressController extends Controller
@@ -19,7 +25,7 @@ class AddressController extends Controller
      *
      * @return string JSON
      */
-    public function index()
+    public function index(Request $request)
     {
         $addresses = $this->addressRepository->getAddresses($request->user());
 

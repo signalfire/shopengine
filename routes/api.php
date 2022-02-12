@@ -1,5 +1,6 @@
 <?php
 
+use Signalfire\Shopengine\Http\Controllers\API\AddressController;
 use Signalfire\Shopengine\Http\Controllers\API\BasketController;
 use Signalfire\Shopengine\Http\Controllers\API\BasketItemController;
 use Signalfire\Shopengine\Http\Controllers\API\CategoryController;
@@ -16,6 +17,7 @@ use Signalfire\Shopengine\Http\Controllers\API\TokenController;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
+use Signalfire\Shopengine\Models\Address;
 
 Route::middleware(['api'])
     ->prefix('api')
@@ -50,6 +52,28 @@ Route::middleware(['api'])
                     ->can('update', 'category');
             });
         });
+        Route::middleware(['auth:sanctum'])
+            ->prefix('address')
+            ->group(function () {
+                Route::post('/', [AddressController::class, 'store'])
+                    ->name('address.store')
+                    ->can('create', Address::class);
+                Route::put('/{address}', [AddressController::class, 'update'])
+                    ->name('address.update')
+                    ->can('update', 'address');
+                Route::delete('/{address}', [AddressController::class, 'destroy'])
+                    ->name('address.destroy')
+                    ->can('destroy', 'address');
+            });
+
+        Route::middleware(['auth:sanctum'])
+            ->prefix('addresses')
+            ->group(function () {
+                Route::get('/', [AddressController::class, 'index'])
+                    ->name('addresses.index');
+            });
+
+
         Route::prefix('product')->group(function () {
             Route::get('/{product}', [ProductController::class, 'show'])
                 ->name('product.show');

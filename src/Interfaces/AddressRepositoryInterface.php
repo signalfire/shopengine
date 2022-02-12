@@ -12,5 +12,5 @@ interface AddressRepositoryInterface
     public function getAddresses(User $user): Collection;
     public function createAddress(User $user, Array $validated): Address;
     public function updateAddress(Address $address, Array $validated): Address;
-    public function deleteAddress(Array $validated): Address;
+    public function deleteAddress(Address $address): Address;
 }
