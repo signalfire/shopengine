@@ -2,12 +2,11 @@
 
 namespace Signalfire\Shopengine\Http\Controllers\API;
 
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
 use Signalfire\Shopengine\Http\Requests\StoreProductVariantImageRequest;
 use Signalfire\Shopengine\Http\Resources\ProductVariantResource;
 use Signalfire\Shopengine\Models\Product;
 use Signalfire\Shopengine\Models\ProductVariant;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ProductVariantImageController extends Controller
 {
