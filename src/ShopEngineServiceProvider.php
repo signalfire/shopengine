@@ -41,7 +41,7 @@ use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Repositories\BasketRepository;
 use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
 use Signalfire\Shopengine\Repositories\AddressRepository;
-use Signalfire\Shopengine\Repositories\CategoryRepositoryInterface;
+use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Repositories\CategoryRepository;
 
 class ShopEngineServiceProvider extends ServiceProvider

@@ -80,5 +80,5 @@ class AddressControllerTest extends TestCase
                 'country' => $address2->country
             ])
             ->assertStatus(204);
-    }    
+    }
 }
