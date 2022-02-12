@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
+use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
+use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
+use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Models\Address;
 use Signalfire\Shopengine\Models\Category;
 use Signalfire\Shopengine\Models\Order;
@@ -35,11 +38,8 @@ use Signalfire\Shopengine\Policies\RolePolicy;
 use Signalfire\Shopengine\Policies\UserPolicy;
 use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
 use Signalfire\Shopengine\Policies\WarehousePolicy;
-use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
 use Signalfire\Shopengine\Repositories\AddressRepository;
-use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Repositories\BasketRepository;
-use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Repositories\CategoryRepository;
 
 class ShopEngineServiceProvider extends ServiceProvider
