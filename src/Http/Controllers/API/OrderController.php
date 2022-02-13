@@ -4,8 +4,8 @@ namespace Signalfire\Shopengine\Http\Controllers\API;
 
 use Signalfire\Shopengine\Http\Requests\UpdateOrderStatusRequest;
 use Signalfire\Shopengine\Http\Resources\OrderResource;
-use Signalfire\Shopengine\Models\Order;
 use Signalfire\Shopengine\Interfaces\OrderRepositoryInterface;
+use Signalfire\Shopengine\Models\Order;
 
 class OrderController extends Controller
 {

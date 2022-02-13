@@ -9,5 +9,6 @@ use Signalfire\Shopengine\Models\User;
 interface OrderRepositoryInterface
 {
     public function getUserOrders(User $user): Collection;
-    public function updateOrderStatus(Order $order, Array $validated): Order;
+
+    public function updateOrderStatus(Order $order, array $validated): Order;
 }
