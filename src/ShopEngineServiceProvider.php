@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Nova;
 use Signalfire\Shopengine\Interfaces\AddressRepositoryInterface;
 use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
+use Signalfire\Shopengine\Interfaces\CategoryProductRepositoryInterface;
 use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Interfaces\OrderRepositoryInterface;
 use Signalfire\Shopengine\Models\Address;
@@ -41,10 +42,9 @@ use Signalfire\Shopengine\Policies\WarehouseLocationPolicy;
 use Signalfire\Shopengine\Policies\WarehousePolicy;
 use Signalfire\Shopengine\Repositories\AddressRepository;
 use Signalfire\Shopengine\Repositories\BasketRepository;
+use Signalfire\Shopengine\Repositories\CategoryProductRepository;
 use Signalfire\Shopengine\Repositories\CategoryRepository;
 use Signalfire\Shopengine\Repositories\OrderRepository;
-use Signalfire\Shopengine\Interfaces\CategoryProductRepositoryInterface;
-use Signalfire\Shopengine\Repositories\CategoryProductRepository;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -133,6 +133,5 @@ class ShopEngineServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(CategoryProductRepositoryInterface::class, CategoryProductRepository::class);
-
     }
 }
