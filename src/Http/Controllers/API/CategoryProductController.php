@@ -39,6 +39,6 @@ class CategoryProductController extends Controller
                     'total' => $total,
                     'pages' => ceil($total / $size),
                 ],
-            ]);    
+            ]);
     }
 }

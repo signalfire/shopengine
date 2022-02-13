@@ -4,9 +4,7 @@ namespace Signalfire\Shopengine\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Signalfire\Shopengine\Interfaces\CategoryProductRepositoryInterface;
-use Signalfire\Shopengine\Http\Requests\GetCategoryProductsRequest;
 use Signalfire\Shopengine\Models\Category;
-use Signalfire\Shopengine\Models\Product;
 
 class CategoryProductRepository implements CategoryProductRepositoryInterface
 {
