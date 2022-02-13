@@ -24,8 +24,8 @@ class UpdateOrderStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|integer',
-            'dispatched_at' => 'nullable|date'
+            'status'        => 'required|integer',
+            'dispatched_at' => 'nullable|date',
         ];
     }
 }

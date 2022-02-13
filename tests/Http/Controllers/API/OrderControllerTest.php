@@ -78,10 +78,9 @@ class OrderControllerTest extends TestCase
         ])->create();
         $this
             ->put(route('order.status.update', ['order' => $order->id]), [
-                'status' => config('shopengine.order.status.DISPATCHED'),
+                'status'        => config('shopengine.order.status.DISPATCHED'),
                 'dispatched_at' => now(),
             ])
             ->assertStatus(204);
-
     }
 }
