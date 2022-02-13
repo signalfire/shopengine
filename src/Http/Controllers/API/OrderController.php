@@ -5,9 +5,17 @@ namespace Signalfire\Shopengine\Http\Controllers\API;
 use Signalfire\Shopengine\Http\Requests\UpdateOrderStatusRequest;
 use Signalfire\Shopengine\Http\Resources\OrderResource;
 use Signalfire\Shopengine\Models\Order;
+use Signalfire\Shopengine\Interfaces\OrderRepositoryInterface;
 
 class OrderController extends Controller
 {
+    private OrderRepositoryInterface $orderRepository;
+
+    public function __construct(OrderRepositoryInterface $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     /**
      * Gets order.
      *
@@ -32,13 +40,7 @@ class OrderController extends Controller
      */
     public function status(UpdateOrderStatusRequest $request, Order $order)
     {
-        $validated = $request->validated();
-
-        $validated['dispatched_at'] = now();
-
-        $order->update($validated);
-
-        $order->refresh();
+        $order = $this->orderRepository->updateOrderStatus($order, $request->validated());
 
         return (new OrderResource($order))
             ->response()

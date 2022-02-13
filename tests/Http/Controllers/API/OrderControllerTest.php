@@ -51,4 +51,37 @@ class OrderControllerTest extends TestCase
             ->get(route('order.show', ['order' => $order->id]))
             ->assertStatus(200);
     }
+
+    public function testUpdateOrderStatus()
+    {
+        Sanctum::actingAs($this->user);
+
+        $customer = User::factory()->create();
+        $cardholder = Address::factory()->state([
+            'user_id' => $customer->id,
+        ])->create();
+        $delivery = Address::factory()->state([
+            'user_id' => $customer->id,
+        ])->create();
+        $product = Product::factory()->create();
+        $variant = ProductVariant::factory()->state([
+            'product_id' => $product->id,
+        ])->create();
+        $order = Order::factory()->state([
+            'user_id'               => $customer->id,
+            'cardholder_address_id' => $cardholder->id,
+            'delivery_address_id'   => $delivery->id,
+        ])->create();
+        $item = OrderItem::factory()->state([
+            'order_id'           => $order->id,
+            'product_variant_id' => $variant->id,
+        ])->create();
+        $this
+            ->put(route('order.status.update', ['order' => $order->id]), [
+                'status' => config('shopengine.order.status.DISPATCHED'),
+                'dispatched_at' => now(),
+            ])
+            ->assertStatus(204);
+
+    }
 }

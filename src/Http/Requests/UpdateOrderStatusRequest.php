@@ -25,6 +25,7 @@ class UpdateOrderStatusRequest extends FormRequest
     {
         return [
             'status' => 'required|integer',
+            'dispatched_at' => 'nullable|date'
         ];
     }
 }

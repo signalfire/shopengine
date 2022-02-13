@@ -41,6 +41,8 @@ use Signalfire\Shopengine\Interfaces\BasketRepositoryInterface;
 use Signalfire\Shopengine\Repositories\BasketRepository;
 use Signalfire\Shopengine\Interfaces\CategoryRepositoryInterface;
 use Signalfire\Shopengine\Repositories\CategoryRepository;
+use Signalfire\Shopengine\Interfaces\OrderRepositoryInterface;
+use Signalfire\Shopengine\Repositories\OrderRepository;
 
 class ShopEngineServiceProvider extends ServiceProvider
 {
@@ -127,5 +129,6 @@ class ShopEngineServiceProvider extends ServiceProvider
         $this->app->bind(BasketRepositoryInterface::class, BasketRepository::class);
         $this->app->bind(AddressRepositoryInterface::class, AddressRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
     }
 }
